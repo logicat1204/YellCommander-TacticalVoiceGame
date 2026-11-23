@@ -1,0 +1,5999 @@
+{
+  "model": "C",
+  "threshold": 0.7,
+  "invalid_responses": 0,
+  "raw": {
+    "samples": 125,
+    "intent": {
+      "accuracy": 0.912,
+      "macro_f1": 0.7962862463421122,
+      "labels": {
+        "orden": {
+          "precision": 0.9777777777777777,
+          "recall": 0.9887640449438202,
+          "support": 89,
+          "f1": 0.9832402234636872
+        },
+        "motivacion": {
+          "precision": 0.8888888888888888,
+          "recall": 0.6666666666666666,
+          "support": 12,
+          "f1": 0.761904761904762
+        },
+        "charla": {
+          "precision": 0.6923076923076923,
+          "recall": 0.75,
+          "support": 12,
+          "f1": 0.7199999999999999
+        },
+        "desconocido": {
+          "precision": 0.6923076923076923,
+          "recall": 0.75,
+          "support": 12,
+          "f1": 0.7199999999999999
+        }
+      },
+      "confusion": [
+        [
+          88,
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          8,
+          3,
+          1
+        ],
+        [
+          0,
+          1,
+          9,
+          2
+        ],
+        [
+          2,
+          0,
+          1,
+          9
+        ]
+      ]
+    },
+    "exact_match": 0.648,
+    "order_exact_match": 0.6179775280898876,
+    "order_field_accuracy": {
+      "subject": 0.9775280898876404,
+      "action": 0.6404494382022472,
+      "location": 1.0,
+      "target": 0.9662921348314607
+    },
+    "normalized_entity_f1": 0.9719626168224299,
+    "ood_correct_abstention": 0.75,
+    "incorrect_order_proposal_rate": 0.28,
+    "action": {
+      "accuracy": 0.6404494382022472,
+      "macro_f1": 0.5794185637967887,
+      "labels": {
+        "None": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "f1": 0
+        },
+        "avanzar": {
+          "precision": 0.3333333333333333,
+          "recall": 0.1111111111111111,
+          "support": 9,
+          "f1": 0.16666666666666666
+        },
+        "defender": {
+          "precision": 0.3888888888888889,
+          "recall": 0.7777777777777778,
+          "support": 9,
+          "f1": 0.5185185185185185
+        },
+        "atacar": {
+          "precision": 0.875,
+          "recall": 0.7777777777777778,
+          "support": 9,
+          "f1": 0.823529411764706
+        },
+        "retirarse": {
+          "precision": 0.625,
+          "recall": 0.5555555555555556,
+          "support": 9,
+          "f1": 0.5882352941176471
+        },
+        "reagruparse": {
+          "precision": 1.0,
+          "recall": 0.42857142857142855,
+          "support": 7,
+          "f1": 0.6
+        },
+        "patrullar": {
+          "precision": 0.3333333333333333,
+          "recall": 0.2,
+          "support": 5,
+          "f1": 0.25
+        },
+        "explorar": {
+          "precision": 0.7777777777777778,
+          "recall": 0.7,
+          "support": 10,
+          "f1": 0.7368421052631577
+        },
+        "mantener_posicion": {
+          "precision": 0.5833333333333334,
+          "recall": 0.7777777777777778,
+          "support": 9,
+          "f1": 0.6666666666666666
+        },
+        "cancelar_orden": {
+          "precision": 1.0,
+          "recall": 0.7142857142857143,
+          "support": 7,
+          "f1": 0.8333333333333333
+        },
+        "curar": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "support": 9,
+          "f1": 1.0
+        },
+        "reanimar": {
+          "precision": 0.7142857142857143,
+          "recall": 0.8333333333333334,
+          "support": 6,
+          "f1": 0.7692307692307692
+        }
+      },
+      "confusion": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          1,
+          5,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          2,
+          0,
+          0,
+          5,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0,
+          3,
+          0,
+          0,
+          1,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          0,
+          2,
+          1,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          3,
+          0,
+          0,
+          0,
+          0,
+          7,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          7,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          5,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          9,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5
+        ]
+      ]
+    }
+  },
+  "guarded": {
+    "samples": 125,
+    "intent": {
+      "accuracy": 0.56,
+      "macro_f1": 0.5786507364301163,
+      "labels": {
+        "orden": {
+          "precision": 1.0,
+          "recall": 0.4943820224719101,
+          "support": 89,
+          "f1": 0.6616541353383459
+        },
+        "motivacion": {
+          "precision": 0.8571428571428571,
+          "recall": 0.5,
+          "support": 12,
+          "f1": 0.631578947368421
+        },
+        "charla": {
+          "precision": 0.6923076923076923,
+          "recall": 0.75,
+          "support": 12,
+          "f1": 0.7199999999999999
+        },
+        "desconocido": {
+          "precision": 0.18032786885245902,
+          "recall": 0.9166666666666666,
+          "support": 12,
+          "f1": 0.3013698630136986
+        }
+      },
+      "confusion": [
+        [
+          44,
+          0,
+          0,
+          45
+        ],
+        [
+          0,
+          6,
+          3,
+          3
+        ],
+        [
+          0,
+          1,
+          9,
+          2
+        ],
+        [
+          0,
+          0,
+          1,
+          11
+        ]
+      ]
+    },
+    "exact_match": 0.496,
+    "order_exact_match": 0.4044943820224719,
+    "order_field_accuracy": {
+      "subject": 0.4943820224719101,
+      "action": 0.4044943820224719,
+      "location": 0.6292134831460674,
+      "target": 0.9438202247191011
+    },
+    "normalized_entity_f1": 0.65,
+    "ood_correct_abstention": 0.9166666666666666,
+    "incorrect_order_proposal_rate": 0.064,
+    "median_ms": 23.792,
+    "p95_ms": 30.739,
+    "action": {
+      "accuracy": 0.4044943820224719,
+      "macro_f1": 0.4371510570039982,
+      "labels": {
+        "None": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "f1": 0
+        },
+        "avanzar": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 9,
+          "f1": 0
+        },
+        "defender": {
+          "precision": 0.875,
+          "recall": 0.7777777777777778,
+          "support": 9,
+          "f1": 0.823529411764706
+        },
+        "atacar": {
+          "precision": 1.0,
+          "recall": 0.4444444444444444,
+          "support": 9,
+          "f1": 0.6153846153846153
+        },
+        "retirarse": {
+          "precision": 0.5,
+          "recall": 0.2222222222222222,
+          "support": 9,
+          "f1": 0.30769230769230765
+        },
+        "reagruparse": {
+          "precision": 1.0,
+          "recall": 0.14285714285714285,
+          "support": 7,
+          "f1": 0.25
+        },
+        "patrullar": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "f1": 0
+        },
+        "explorar": {
+          "precision": 1.0,
+          "recall": 0.4,
+          "support": 10,
+          "f1": 0.5714285714285715
+        },
+        "mantener_posicion": {
+          "precision": 0.7777777777777778,
+          "recall": 0.7777777777777778,
+          "support": 9,
+          "f1": 0.7777777777777778
+        },
+        "cancelar_orden": {
+          "precision": 1.0,
+          "recall": 0.42857142857142855,
+          "support": 7,
+          "f1": 0.6
+        },
+        "curar": {
+          "precision": 1.0,
+          "recall": 0.6666666666666666,
+          "support": 9,
+          "f1": 0.8
+        },
+        "reanimar": {
+          "precision": 1.0,
+          "recall": 0.3333333333333333,
+          "support": 6,
+          "f1": 0.5
+        }
+      },
+      "confusion": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          9,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          7,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          5,
+          0,
+          0,
+          4,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          3,
+          2,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0
+        ],
+        [
+          6,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          4,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          6,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          4,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          7,
+          0,
+          0,
+          0
+        ],
+        [
+          4,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          3,
+          0,
+          0
+        ],
+        [
+          3,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          6,
+          0
+        ],
+        [
+          4,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2
+        ]
+      ]
+    }
+  },
+  "calibration": {
+    "task": "intent_and_action",
+    "count": 125,
+    "ece": 0.1424529411792755,
+    "brier": 0.19660022030081786,
+    "bins": [
+      {
+        "min_confidence": 0.2,
+        "count": 1,
+        "mean_confidence": 0.255438894033432,
+        "accuracy": 0.0
+      },
+      {
+        "min_confidence": 0.3,
+        "count": 15,
+        "mean_confidence": 0.345135498046875,
+        "accuracy": 0.4
+      },
+      {
+        "min_confidence": 0.4,
+        "count": 13,
+        "mean_confidence": 0.4492353155062749,
+        "accuracy": 0.3076923076923077
+      },
+      {
+        "min_confidence": 0.5,
+        "count": 6,
+        "mean_confidence": 0.5351927777131399,
+        "accuracy": 0.5
+      },
+      {
+        "min_confidence": 0.6,
+        "count": 13,
+        "mean_confidence": 0.6419169856951787,
+        "accuracy": 0.7692307692307693
+      },
+      {
+        "min_confidence": 0.7,
+        "count": 12,
+        "mean_confidence": 0.7558810959259669,
+        "accuracy": 0.4166666666666667
+      },
+      {
+        "min_confidence": 0.8,
+        "count": 18,
+        "mean_confidence": 0.8529555830690596,
+        "accuracy": 0.9444444444444444
+      },
+      {
+        "min_confidence": 0.9,
+        "count": 47,
+        "mean_confidence": 0.9639264598805853,
+        "accuracy": 0.8085106382978723
+      }
+    ]
+  },
+  "predictions": [
+    {
+      "text": "los de Bravo, vamos para nuestra base",
+      "family": "v2_test_avanzar_00",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "avanzar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "avanzar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": 0.5131852030754089
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 23.333,
+      "invalid_response": false
+    },
+    {
+      "text": "Delta, vamos para el lado derecho",
+      "family": "v2_test_avanzar_00",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "avanzar",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "retirarse",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": 0.3155466914176941
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 20.08,
+      "invalid_response": false
+    },
+    {
+      "text": "Eco, muevan todo el pelotón hasta el flanco izquierdo",
+      "family": "v2_test_avanzar_01",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Eco"
+        },
+        "action": "avanzar",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Eco"
+        },
+        "action": "defender",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": 0.40120118856430054
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 24.676,
+      "invalid_response": false
+    },
+    {
+      "text": "Alfa, cambien de sitio hacia el lado derecho",
+      "family": "v2_test_avanzar_02",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "avanzar",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "defender",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": 0.4922960698604584
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 21.764,
+      "invalid_response": false
+    },
+    {
+      "text": "Eco, cambien de sitio hacia nuestra base",
+      "family": "v2_test_avanzar_02",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Eco"
+        },
+        "action": "avanzar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Eco"
+        },
+        "action": "defender",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": 0.36025065183639526
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 18.909,
+      "invalid_response": false
+    },
+    {
+      "text": "los de Bravo, les toca entrar por el centro",
+      "family": "v2_test_avanzar_03",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "avanzar",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": null,
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": 0.7987985014915466
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": null,
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": 0.7987985014915466
+      },
+      "reason": "",
+      "ms": 23.612,
+      "invalid_response": false
+    },
+    {
+      "text": "Alfa, les toca entrar por el flanco izquierdo",
+      "family": "v2_test_avanzar_03",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "avanzar",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "explorar",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": 0.255438894033432
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 24.159,
+      "invalid_response": false
+    },
+    {
+      "text": "Alfa, háganme el favor de pasar a nuestra base",
+      "family": "v2_test_avanzar_04",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "avanzar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "defender",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": 0.3263859152793884
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 25.001,
+      "invalid_response": false
+    },
+    {
+      "text": "Chárli, háganme el favor de pasar a nuestra base",
+      "family": "v2_test_avanzar_04",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Charlie"
+        },
+        "action": "avanzar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Charlie"
+        },
+        "action": "defender",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": 0.3263859152793884
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 17.906,
+      "invalid_response": false
+    },
+    {
+      "text": "Alfa, que nadie rebase el lado derecho",
+      "family": "v2_test_defender_00",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "defender",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "retirarse",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": 0.7280983924865723
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "retirarse",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": 0.7280983924865723
+      },
+      "reason": "",
+      "ms": 19.437,
+      "invalid_response": false
+    },
+    {
+      "text": "Delta, que nadie rebase el flanco izquierdo",
+      "family": "v2_test_defender_00",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "defender",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "retirarse",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": 0.7280983924865723
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "retirarse",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": 0.7280983924865723
+      },
+      "reason": "",
+      "ms": 23.797,
+      "invalid_response": false
+    },
+    {
+      "text": "Delta, quédense vigilando el acceso a el lado derecho",
+      "family": "v2_test_defender_01",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "defender",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "defender",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": 0.8992181420326233
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "defender",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": 0.8992181420326233
+      },
+      "reason": "",
+      "ms": 26.415,
+      "invalid_response": false
+    },
+    {
+      "text": "Chárli, quédense vigilando el acceso a el flanco izquierdo",
+      "family": "v2_test_defender_01",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Charlie"
+        },
+        "action": "defender",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Charlie"
+        },
+        "action": "defender",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": 0.8992181420326233
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Charlie"
+        },
+        "action": "defender",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": 0.8992181420326233
+      },
+      "reason": "",
+      "ms": 24.65,
+      "invalid_response": false
+    },
+    {
+      "text": "Chárli, necesito que el acceso de nuestra base quede a salvo",
+      "family": "v2_test_defender_02",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Charlie"
+        },
+        "action": "defender",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Charlie"
+        },
+        "action": "defender",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": 0.8876053094863892
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Charlie"
+        },
+        "action": "defender",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": 0.8876053094863892
+      },
+      "reason": "",
+      "ms": 23.343,
+      "invalid_response": false
+    },
+    {
+      "text": "los de Bravo, sean el muro de el centro",
+      "family": "v2_test_defender_03",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "defender",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "defender",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": 0.8716368675231934
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "defender",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": 0.8716368675231934
+      },
+      "reason": "",
+      "ms": 20.67,
+      "invalid_response": false
+    },
+    {
+      "text": "Alfa, sean el muro de el centro",
+      "family": "v2_test_defender_03",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "defender",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "defender",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": 0.8568128943443298
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "defender",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": 0.8568128943443298
+      },
+      "reason": "",
+      "ms": 16.57,
+      "invalid_response": false
+    },
+    {
+      "text": "los de Bravo, cierren filas para resguardar el centro",
+      "family": "v2_test_defender_04",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "defender",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "defender",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": 0.9476446509361267
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "defender",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": 0.9476446509361267
+      },
+      "reason": "",
+      "ms": 21.505,
+      "invalid_response": false
+    },
+    {
+      "text": "los de Bravo, cierren filas para resguardar nuestra base",
+      "family": "v2_test_defender_04",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "defender",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "defender",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": 0.9564393162727356
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "defender",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": 0.9564393162727356
+      },
+      "reason": "",
+      "ms": 25.488,
+      "invalid_response": false
+    },
+    {
+      "text": "los de Bravo, contra nuestra base va toda su ofensiva",
+      "family": "v2_test_atacar_00",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "atacar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "patrullar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": 0.45246997475624084
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 21.884,
+      "invalid_response": false
+    },
+    {
+      "text": "los de Bravo, contra el lado derecho va toda su ofensiva",
+      "family": "v2_test_atacar_00",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "atacar",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "patrullar",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": 0.3651469051837921
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 21.94,
+      "invalid_response": false
+    },
+    {
+      "text": "Delta, métanle presión a la defensa de nuestra base",
+      "family": "v2_test_atacar_01",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "atacar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "atacar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": 0.9549857378005981
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "atacar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": 0.9549857378005981
+      },
+      "reason": "",
+      "ms": 26.19,
+      "invalid_response": false
+    },
+    {
+      "text": "los de Bravo, métanle presión a la defensa de nuestra base",
+      "family": "v2_test_atacar_01",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "atacar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "atacar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": 0.9548934102058411
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "atacar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": 0.9548934102058411
+      },
+      "reason": "",
+      "ms": 26.252,
+      "invalid_response": false
+    },
+    {
+      "text": "los de Bravo, es momento de ir al ataque en el lado derecho",
+      "family": "v2_test_atacar_02",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "atacar",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "atacar",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": 0.40890151262283325
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 27.678,
+      "invalid_response": false
+    },
+    {
+      "text": "Delta, tomen al rival por asalto en nuestra base",
+      "family": "v2_test_atacar_03",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "atacar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "atacar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": 0.9582812190055847
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "atacar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": 0.9582812190055847
+      },
+      "reason": "",
+      "ms": 24.282,
+      "invalid_response": false
+    },
+    {
+      "text": "Delta, tomen al rival por asalto en el centro",
+      "family": "v2_test_atacar_03",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "atacar",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "atacar",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": 0.9543236494064331
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "atacar",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": 0.9543236494064331
+      },
+      "reason": "",
+      "ms": 28.681,
+      "invalid_response": false
+    },
+    {
+      "text": "los de Bravo, quiero que pasen de la defensa al ataque en el lado derecho",
+      "family": "v2_test_atacar_04",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "atacar",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "atacar",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": 0.5460154414176941
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 29.571,
+      "invalid_response": false
+    },
+    {
+      "text": "los de Bravo, quiero que pasen de la defensa al ataque en el centro",
+      "family": "v2_test_atacar_04",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "atacar",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "atacar",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": 0.4599936008453369
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 25.266,
+      "invalid_response": false
+    },
+    {
+      "text": "los de Bravo, abandonen la posición rumbo a el flanco izquierdo",
+      "family": "v2_test_retirarse_00",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "retirarse",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "retirarse",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": 0.9349172115325928
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "retirarse",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": 0.9349172115325928
+      },
+      "reason": "",
+      "ms": 21.646,
+      "invalid_response": false
+    },
+    {
+      "text": "Delta, abandonen la posición rumbo a nuestra base",
+      "family": "v2_test_retirarse_00",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "retirarse",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "retirarse",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": 0.8655582666397095
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "retirarse",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": 0.8655582666397095
+      },
+      "reason": "",
+      "ms": 24.638,
+      "invalid_response": false
+    },
+    {
+      "text": "Chárli, pasos para atrás ahora mismo",
+      "family": "v2_test_retirarse_01",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Charlie"
+        },
+        "action": "retirarse",
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Charlie"
+        },
+        "action": "retirarse",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.6041356921195984
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 22.242,
+      "invalid_response": false
+    },
+    {
+      "text": "Delta, pasos para atrás ahora mismo",
+      "family": "v2_test_retirarse_01",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "retirarse",
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "retirarse",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.6041356921195984
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 21.795,
+      "invalid_response": false
+    },
+    {
+      "text": "los de Bravo, fluyan de regreso hasta el centro",
+      "family": "v2_test_retirarse_02",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "retirarse",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "retirarse",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": 0.6531630158424377
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 22.962,
+      "invalid_response": false
+    },
+    {
+      "text": "Delta, váyanse para el lado de el flanco izquierdo",
+      "family": "v2_test_retirarse_03",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "retirarse",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "avanzar",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": 0.9340198636054993
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "avanzar",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": 0.9340198636054993
+      },
+      "reason": "",
+      "ms": 28.679,
+      "invalid_response": false
+    },
+    {
+      "text": "los de Bravo, váyanse para el lado de nuestra base",
+      "family": "v2_test_retirarse_03",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "retirarse",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "avanzar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": 0.9866862297058105
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "avanzar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": 0.9866862297058105
+      },
+      "reason": "",
+      "ms": 22.882,
+      "invalid_response": false
+    },
+    {
+      "text": "Delta, salgan de donde están",
+      "family": "v2_test_retirarse_04",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "retirarse",
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "mantener_posicion",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9004844427108765
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "mantener_posicion",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9004844427108765
+      },
+      "reason": "",
+      "ms": 21.946,
+      "invalid_response": false
+    },
+    {
+      "text": "Eco, salgan de donde están",
+      "family": "v2_test_retirarse_04",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Eco"
+        },
+        "action": "retirarse",
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Eco"
+        },
+        "action": "mantener_posicion",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9004844427108765
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Eco"
+        },
+        "action": "mantener_posicion",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9004844427108765
+      },
+      "reason": "",
+      "ms": 20.696,
+      "invalid_response": false
+    },
+    {
+      "text": "Chárli, los quiero juntos en un mismo sitio en nuestra base",
+      "family": "v2_test_reagruparse_00",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Charlie"
+        },
+        "action": "reagruparse",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Charlie"
+        },
+        "action": "mantener_posicion",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": 0.4411994516849518
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 22.218,
+      "invalid_response": false
+    },
+    {
+      "text": "Alfa, los quiero juntos en un mismo sitio en el flanco izquierdo",
+      "family": "v2_test_reagruparse_00",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "reagruparse",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "reagruparse",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": 0.4793552756309509
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 28.376,
+      "invalid_response": false
+    },
+    {
+      "text": "Eco, formen otra vez su unidad en el flanco izquierdo",
+      "family": "v2_test_reagruparse_01",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Eco"
+        },
+        "action": "reagruparse",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Eco"
+        },
+        "action": "reagruparse",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": 0.8813039660453796
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Eco"
+        },
+        "action": "reagruparse",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": 0.8813039660453796
+      },
+      "reason": "",
+      "ms": 24.372,
+      "invalid_response": false
+    },
+    {
+      "text": "Eco, recuperen la cohesión en el flanco izquierdo",
+      "family": "v2_test_reagruparse_02",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Eco"
+        },
+        "action": "reagruparse",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Eco"
+        },
+        "action": "reanimar",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": 0.5062815546989441
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 23.792,
+      "invalid_response": false
+    },
+    {
+      "text": "los de Bravo, recuperen la cohesión en el centro",
+      "family": "v2_test_reagruparse_02",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "reagruparse",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "reanimar",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": 0.6592273712158203
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 24.566,
+      "invalid_response": false
+    },
+    {
+      "text": "los de Bravo, nadie separado en el centro",
+      "family": "v2_test_reagruparse_03",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "reagruparse",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "defender",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": 0.4706895649433136
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 20.064,
+      "invalid_response": false
+    },
+    {
+      "text": "Chárli, necesito que todos confluyan en nuestra base",
+      "family": "v2_test_reagruparse_04",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Charlie"
+        },
+        "action": "reagruparse",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Charlie"
+        },
+        "action": "reagruparse",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": 0.6076676249504089
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 27.008,
+      "invalid_response": false
+    },
+    {
+      "text": "los de Bravo, cambien de punto continuamente por el lado derecho",
+      "family": "v2_test_patrullar_00",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "patrullar",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "atacar",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": 0.3264153301715851
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 23.29,
+      "invalid_response": false
+    },
+    {
+      "text": "Alfa, cambien de punto continuamente por el flanco izquierdo",
+      "family": "v2_test_patrullar_00",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "patrullar",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "explorar",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": 0.3731645941734314
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 22.974,
+      "invalid_response": false
+    },
+    {
+      "text": "los de Bravo, mantengan movimiento de vigilancia en el flanco izquierdo",
+      "family": "v2_test_patrullar_01",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "patrullar",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "defender",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": 0.721585750579834
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "defender",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": 0.721585750579834
+      },
+      "reason": "",
+      "ms": 25.549,
+      "invalid_response": false
+    },
+    {
+      "text": "Chárli, mantengan movimiento de vigilancia en el centro",
+      "family": "v2_test_patrullar_01",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Charlie"
+        },
+        "action": "patrullar",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Charlie"
+        },
+        "action": "defender",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": 0.6558377146720886
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 25.66,
+      "invalid_response": false
+    },
+    {
+      "text": "Eco, cubran de manera periódica el recorrido de nuestra base",
+      "family": "v2_test_patrullar_02",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Eco"
+        },
+        "action": "patrullar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Eco"
+        },
+        "action": "patrullar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": 0.5269168615341187
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 23.274,
+      "invalid_response": false
+    },
+    {
+      "text": "los de Bravo, quiero saber qué se esconde cerca de nuestra base",
+      "family": "v2_test_explorar_00",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "explorar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "defender",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": 0.3649526834487915
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 26.618,
+      "invalid_response": false
+    },
+    {
+      "text": "Eco, quiero saber qué se esconde cerca de nuestra base",
+      "family": "v2_test_explorar_00",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Eco"
+        },
+        "action": "explorar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Eco"
+        },
+        "action": "explorar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": 0.3711552023887634
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 25.41,
+      "invalid_response": false
+    },
+    {
+      "text": "los de Bravo, dense una vuelta para ver qué hay en nuestra base",
+      "family": "v2_test_explorar_01",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "explorar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "explorar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": 0.4536169171333313
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 17.239,
+      "invalid_response": false
+    },
+    {
+      "text": "Chárli, dense una vuelta para ver qué hay en el lado derecho",
+      "family": "v2_test_explorar_01",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Charlie"
+        },
+        "action": "explorar",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Charlie"
+        },
+        "action": "explorar",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": 0.6991966962814331
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 24.525,
+      "invalid_response": false
+    },
+    {
+      "text": "Delta, primero averigüen cómo está el lado derecho",
+      "family": "v2_test_explorar_02",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "explorar",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "explorar",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": 0.9732062816619873
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "explorar",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": 0.9732062816619873
+      },
+      "reason": "",
+      "ms": 22.726,
+      "invalid_response": false
+    },
+    {
+      "text": "Alfa, primero averigüen cómo está el lado derecho",
+      "family": "v2_test_explorar_02",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "explorar",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "explorar",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": 0.9732062816619873
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "explorar",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": 0.9732062816619873
+      },
+      "reason": "",
+      "ms": 23.755,
+      "invalid_response": false
+    },
+    {
+      "text": "Eco, hagan reconocimiento por el lado derecho",
+      "family": "v2_test_explorar_03",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Eco"
+        },
+        "action": "explorar",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Eco"
+        },
+        "action": "defender",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": 0.4346523582935333
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 22.434,
+      "invalid_response": false
+    },
+    {
+      "text": "los de Bravo, hagan reconocimiento por el centro",
+      "family": "v2_test_explorar_03",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "explorar",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "defender",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": 0.44966045022010803
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 24.515,
+      "invalid_response": false
+    },
+    {
+      "text": "Delta, búsquenme indicios en nuestra base",
+      "family": "v2_test_explorar_04",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "explorar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "explorar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": 0.8240753412246704
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "explorar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": 0.8240753412246704
+      },
+      "reason": "",
+      "ms": 23.662,
+      "invalid_response": false
+    },
+    {
+      "text": "los de Bravo, búsquenme indicios en el flanco izquierdo",
+      "family": "v2_test_explorar_04",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "explorar",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "explorar",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": 0.8211845755577087
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "explorar",
+        "location": {
+          "id": "flanco_izquierdo"
+        },
+        "target": null,
+        "model_confidence": 0.8211845755577087
+      },
+      "reason": "",
+      "ms": 25.963,
+      "invalid_response": false
+    },
+    {
+      "text": "Delta, se me quedan exactamente donde andan",
+      "family": "v2_test_mantener_posicion_00",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "mantener_posicion",
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.5593788027763367
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 23.793,
+      "invalid_response": false
+    },
+    {
+      "text": "Alfa, se me quedan exactamente donde andan",
+      "family": "v2_test_mantener_posicion_00",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "mantener_posicion",
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.5593788027763367
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 22.828,
+      "invalid_response": false
+    },
+    {
+      "text": "Alfa, quietos en sus puestos actuales",
+      "family": "v2_test_mantener_posicion_01",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "mantener_posicion",
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "mantener_posicion",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.7465869784355164
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "mantener_posicion",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.7465869784355164
+      },
+      "reason": "",
+      "ms": 22.184,
+      "invalid_response": false
+    },
+    {
+      "text": "Eco, quietos en sus puestos actuales",
+      "family": "v2_test_mantener_posicion_01",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Eco"
+        },
+        "action": "mantener_posicion",
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Eco"
+        },
+        "action": "mantener_posicion",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.7465869784355164
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Eco"
+        },
+        "action": "mantener_posicion",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.7465869784355164
+      },
+      "reason": "",
+      "ms": 21.801,
+      "invalid_response": false
+    },
+    {
+      "text": "Eco, aguanten justo ahí",
+      "family": "v2_test_mantener_posicion_02",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Eco"
+        },
+        "action": "mantener_posicion",
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Eco"
+        },
+        "action": "mantener_posicion",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.845941424369812
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Eco"
+        },
+        "action": "mantener_posicion",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.845941424369812
+      },
+      "reason": "",
+      "ms": 18.996,
+      "invalid_response": false
+    },
+    {
+      "text": "Alfa, esperen en el mismo lugar de ahora",
+      "family": "v2_test_mantener_posicion_03",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "mantener_posicion",
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "mantener_posicion",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.94975346326828
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "mantener_posicion",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.94975346326828
+      },
+      "reason": "",
+      "ms": 24.214,
+      "invalid_response": false
+    },
+    {
+      "text": "los de Bravo, esperen en el mismo lugar de ahora",
+      "family": "v2_test_mantener_posicion_03",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "mantener_posicion",
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "mantener_posicion",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9064779877662659
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "mantener_posicion",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9064779877662659
+      },
+      "reason": "",
+      "ms": 22.396,
+      "invalid_response": false
+    },
+    {
+      "text": "los de Bravo, mantengan ese punto tal como está",
+      "family": "v2_test_mantener_posicion_04",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "mantener_posicion",
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "mantener_posicion",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.8029480576515198
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "mantener_posicion",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.8029480576515198
+      },
+      "reason": "",
+      "ms": 28.39,
+      "invalid_response": false
+    },
+    {
+      "text": "Alfa, mantengan ese punto tal como está",
+      "family": "v2_test_mantener_posicion_04",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "mantener_posicion",
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "mantener_posicion",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.8849121332168579
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "mantener_posicion",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.8849121332168579
+      },
+      "reason": "",
+      "ms": 25.026,
+      "invalid_response": false
+    },
+    {
+      "text": "Chárli, queda invalidado lo que les pedí antes",
+      "family": "v2_test_cancelar_orden_01",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Charlie"
+        },
+        "action": "cancelar_orden",
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Charlie"
+        },
+        "action": "cancelar_orden",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.8040374517440796
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Charlie"
+        },
+        "action": "cancelar_orden",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.8040374517440796
+      },
+      "reason": "",
+      "ms": 24.83,
+      "invalid_response": false
+    },
+    {
+      "text": "Delta, esa orden se revoca desde ahora",
+      "family": "v2_test_cancelar_orden_02",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "cancelar_orden",
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "mantener_posicion",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.4480113685131073
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 24.129,
+      "invalid_response": false
+    },
+    {
+      "text": "Alfa, esa orden se revoca desde ahora",
+      "family": "v2_test_cancelar_orden_02",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "cancelar_orden",
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "mantener_posicion",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.4480113685131073
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 22.217,
+      "invalid_response": false
+    },
+    {
+      "text": "Alfa, tachen el encargo previo",
+      "family": "v2_test_cancelar_orden_03",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "cancelar_orden",
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "cancelar_orden",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.3271881937980652
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 23.204,
+      "invalid_response": false
+    },
+    {
+      "text": "Delta, tachen el encargo previo",
+      "family": "v2_test_cancelar_orden_03",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "cancelar_orden",
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Delta"
+        },
+        "action": "cancelar_orden",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.3271881937980652
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 22.365,
+      "invalid_response": false
+    },
+    {
+      "text": "los de Bravo, pongan fin a la tarea que les asigné",
+      "family": "v2_test_cancelar_orden_04",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "cancelar_orden",
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "cancelar_orden",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.77622389793396
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "cancelar_orden",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.77622389793396
+      },
+      "reason": "",
+      "ms": 25.63,
+      "invalid_response": false
+    },
+    {
+      "text": "Chárli, pongan fin a la tarea que les asigné",
+      "family": "v2_test_cancelar_orden_04",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Charlie"
+        },
+        "action": "cancelar_orden",
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Charlie"
+        },
+        "action": "cancelar_orden",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.8384175896644592
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Charlie"
+        },
+        "action": "cancelar_orden",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.8384175896644592
+      },
+      "reason": "",
+      "ms": 19.66,
+      "invalid_response": false
+    },
+    {
+      "text": "Médicos, hagan que los de Bravo deje de sangrar en el lado derecho",
+      "family": "v2_test_curar_00",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "curar",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "curar",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "model_confidence": 0.3197029232978821
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 27.587,
+      "invalid_response": false
+    },
+    {
+      "text": "Médicos, atiendan las lesiones del equipo Eco",
+      "family": "v2_test_curar_01",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "curar",
+        "location": null,
+        "target": {
+          "type": "peloton",
+          "name": "Eco"
+        },
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": null,
+        "action": "curar",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9717740416526794
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Los destinatarios o destinos requieren aclaración.",
+      "ms": 25.592,
+      "invalid_response": false
+    },
+    {
+      "text": "equipo médico, atiendan las lesiones del equipo Eco",
+      "family": "v2_test_curar_01",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "curar",
+        "location": null,
+        "target": {
+          "type": "peloton",
+          "name": "Eco"
+        },
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "curar",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9812750220298767
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Los destinatarios o destinos requieren aclaración.",
+      "ms": 27.928,
+      "invalid_response": false
+    },
+    {
+      "text": "equipo médico, hacen falta curaciones en el centro",
+      "family": "v2_test_curar_02",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "curar",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "curar",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": 0.9348470568656921
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "curar",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": 0.9348470568656921
+      },
+      "reason": "",
+      "ms": 20.305,
+      "invalid_response": false
+    },
+    {
+      "text": "equipo médico, hacen falta curaciones en el lado derecho",
+      "family": "v2_test_curar_02",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "curar",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "curar",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": 0.932132363319397
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "curar",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": 0.932132363319397
+      },
+      "reason": "",
+      "ms": 23.013,
+      "invalid_response": false
+    },
+    {
+      "text": "equipo médico, denle tratamiento a Eco",
+      "family": "v2_test_curar_03",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "curar",
+        "location": null,
+        "target": {
+          "type": "peloton",
+          "name": "Eco"
+        },
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "curar",
+        "location": null,
+        "target": {
+          "type": "peloton",
+          "name": "Eco"
+        },
+        "model_confidence": 0.9784054756164551
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "curar",
+        "location": null,
+        "target": {
+          "type": "peloton",
+          "name": "Eco"
+        },
+        "model_confidence": 0.9784054756164551
+      },
+      "reason": "",
+      "ms": 21.438,
+      "invalid_response": false
+    },
+    {
+      "text": "Médicos, denle tratamiento a Alfa",
+      "family": "v2_test_curar_03",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "curar",
+        "location": null,
+        "target": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "curar",
+        "location": null,
+        "target": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "model_confidence": 0.9853172898292542
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "curar",
+        "location": null,
+        "target": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "model_confidence": 0.9853172898292542
+      },
+      "reason": "",
+      "ms": 23.363,
+      "invalid_response": false
+    },
+    {
+      "text": "sanitarios, alivien las heridas de Alfa en el lado derecho",
+      "family": "v2_test_curar_04",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "curar",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "curar",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "model_confidence": 0.9915657043457031
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "curar",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "model_confidence": 0.9915657043457031
+      },
+      "reason": "",
+      "ms": 24.25,
+      "invalid_response": false
+    },
+    {
+      "text": "Médicos, alivien las heridas de Alfa en el centro",
+      "family": "v2_test_curar_04",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "curar",
+        "location": {
+          "id": "centro"
+        },
+        "target": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "curar",
+        "location": {
+          "id": "centro"
+        },
+        "target": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "model_confidence": 0.9887678027153015
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "curar",
+        "location": {
+          "id": "centro"
+        },
+        "target": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "model_confidence": 0.9887678027153015
+      },
+      "reason": "",
+      "ms": 25.029,
+      "invalid_response": false
+    },
+    {
+      "text": "sanitarios, háganlo despertar en el lado derecho",
+      "family": "v2_test_reanimar_01",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "reanimar",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "reanimar",
+        "location": {
+          "id": "flanco_derecho"
+        },
+        "target": null,
+        "model_confidence": 0.6620174050331116
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 23.786,
+      "invalid_response": false
+    },
+    {
+      "text": "sanitarios, háganlo despertar en el centro",
+      "family": "v2_test_reanimar_01",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "reanimar",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "reanimar",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": 0.6183633804321289
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 21.03,
+      "invalid_response": false
+    },
+    {
+      "text": "sanitarios, recupérenme al inconsciente de Chárli",
+      "family": "v2_test_reanimar_02",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "reanimar",
+        "location": null,
+        "target": {
+          "type": "peloton",
+          "name": "Charlie"
+        },
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "reanimar",
+        "location": null,
+        "target": {
+          "type": "peloton",
+          "name": "Charlie"
+        },
+        "model_confidence": 0.959324300289154
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "reanimar",
+        "location": null,
+        "target": {
+          "type": "peloton",
+          "name": "Charlie"
+        },
+        "model_confidence": 0.959324300289154
+      },
+      "reason": "",
+      "ms": 24.559,
+      "invalid_response": false
+    },
+    {
+      "text": "sanitarios, el incapacitado en nuestra base necesita ser reanimado",
+      "family": "v2_test_reanimar_03",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "reanimar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "reanimar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": 0.975980818271637
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "reanimar",
+        "location": {
+          "id": "base_aliada"
+        },
+        "target": null,
+        "model_confidence": 0.975980818271637
+      },
+      "reason": "",
+      "ms": 31.031,
+      "invalid_response": false
+    },
+    {
+      "text": "equipo médico, traigan de vuelta al que se desmayó de Eco",
+      "family": "v2_test_reanimar_04",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "reanimar",
+        "location": null,
+        "target": {
+          "type": "peloton",
+          "name": "Eco"
+        },
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.6847679018974304
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.6847679018974304
+      },
+      "reason": "",
+      "ms": 27.193,
+      "invalid_response": false
+    },
+    {
+      "text": "sanitarios, traigan de vuelta al que se desmayó de los de Bravo",
+      "family": "v2_test_reanimar_04",
+      "expected": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "reanimar",
+        "location": null,
+        "target": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "reanimar",
+        "location": null,
+        "target": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "model_confidence": 0.6536977291107178
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 27.337,
+      "invalid_response": false
+    },
+    {
+      "text": "¡Se merecen todo mi respeto, tropa!",
+      "family": "v2_test_motivacion_00",
+      "expected": {
+        "version": 1,
+        "intent": "motivacion",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.8518918752670288
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.8518918752670288
+      },
+      "reason": "",
+      "ms": 20.712,
+      "invalid_response": false
+    },
+    {
+      "text": "Me sobra confianza en la gente que tengo al lado.",
+      "family": "v2_test_motivacion_01",
+      "expected": {
+        "version": 1,
+        "intent": "motivacion",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9095478653907776
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9095478653907776
+      },
+      "reason": "",
+      "ms": 22.798,
+      "invalid_response": false
+    },
+    {
+      "text": "Soldados, hasta en las malas somos capaces de remontar.",
+      "family": "v2_test_motivacion_02",
+      "expected": {
+        "version": 1,
+        "intent": "motivacion",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "motivacion",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.950794517993927
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "motivacion",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.950794517993927
+      },
+      "reason": "",
+      "ms": 24.837,
+      "invalid_response": false
+    },
+    {
+      "text": "¡Qué temple tienen, compañeros!",
+      "family": "v2_test_motivacion_03",
+      "expected": {
+        "version": 1,
+        "intent": "motivacion",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "motivacion",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9895586967468262
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "motivacion",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9895586967468262
+      },
+      "reason": "",
+      "ms": 23.982,
+      "invalid_response": false
+    },
+    {
+      "text": "Cada uno de ustedes hace que esto valga la pena.",
+      "family": "v2_test_motivacion_04",
+      "expected": {
+        "version": 1,
+        "intent": "motivacion",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "motivacion",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9997560381889343
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "motivacion",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9997560381889343
+      },
+      "reason": "",
+      "ms": 29.445,
+      "invalid_response": false
+    },
+    {
+      "text": "Tienen más carácter del que creen.",
+      "family": "v2_test_motivacion_05",
+      "expected": {
+        "version": 1,
+        "intent": "motivacion",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "motivacion",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.8801720142364502
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "motivacion",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.8801720142364502
+      },
+      "reason": "",
+      "ms": 21.096,
+      "invalid_response": false
+    },
+    {
+      "text": "Hicieron lo difícil y pueden con lo que falta.",
+      "family": "v2_test_motivacion_06",
+      "expected": {
+        "version": 1,
+        "intent": "motivacion",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "motivacion",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9103241562843323
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "motivacion",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9103241562843323
+      },
+      "reason": "",
+      "ms": 24.243,
+      "invalid_response": false
+    },
+    {
+      "text": "¡Alcemos el ánimo, este grupo sigue entero!",
+      "family": "v2_test_motivacion_07",
+      "expected": {
+        "version": 1,
+        "intent": "motivacion",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "motivacion",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.3418830633163452
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 24.002,
+      "invalid_response": false
+    },
+    {
+      "text": "Son un orgullo para todos los que estamos aquí.",
+      "family": "v2_test_motivacion_08",
+      "expected": {
+        "version": 1,
+        "intent": "motivacion",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "motivacion",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9961994290351868
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "motivacion",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9961994290351868
+      },
+      "reason": "",
+      "ms": 27.603,
+      "invalid_response": false
+    },
+    {
+      "text": "El que se cae se levanta porque cuenta con su equipo.",
+      "family": "v2_test_motivacion_09",
+      "expected": {
+        "version": 1,
+        "intent": "motivacion",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "motivacion",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.6416029334068298
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+      "ms": 29.113,
+      "invalid_response": false
+    },
+    {
+      "text": "La actitud de esta tropa me da esperanza.",
+      "family": "v2_test_motivacion_10",
+      "expected": {
+        "version": 1,
+        "intent": "motivacion",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9612380266189575
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9612380266189575
+      },
+      "reason": "",
+      "ms": 24.92,
+      "invalid_response": false
+    },
+    {
+      "text": "Quiero que sepan que creo en su esfuerzo.",
+      "family": "v2_test_motivacion_11",
+      "expected": {
+        "version": 1,
+        "intent": "motivacion",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.7887808084487915
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.7887808084487915
+      },
+      "reason": "",
+      "ms": 21.842,
+      "invalid_response": false
+    },
+    {
+      "text": "Hace años que no viajo en tren.",
+      "family": "v2_test_charla_00",
+      "expected": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9846615195274353
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9846615195274353
+      },
+      "reason": "",
+      "ms": 23.789,
+      "invalid_response": false
+    },
+    {
+      "text": "El café sabe mejor con canela.",
+      "family": "v2_test_charla_01",
+      "expected": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.7798258662223816
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.7798258662223816
+      },
+      "reason": "",
+      "ms": 19.965,
+      "invalid_response": false
+    },
+    {
+      "text": "Han pintado la pared de otro color.",
+      "family": "v2_test_charla_02",
+      "expected": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9891362190246582
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9891362190246582
+      },
+      "reason": "",
+      "ms": 56.136,
+      "invalid_response": false
+    },
+    {
+      "text": "Me olvidé mi gorra en la cocina.",
+      "family": "v2_test_charla_03",
+      "expected": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9995710253715515
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9995710253715515
+      },
+      "reason": "",
+      "ms": 38.595,
+      "invalid_response": false
+    },
+    {
+      "text": "El cine de mi pueblo cierra los martes.",
+      "family": "v2_test_charla_04",
+      "expected": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9557755589485168
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9557755589485168
+      },
+      "reason": "",
+      "ms": 31.591,
+      "invalid_response": false
+    },
+    {
+      "text": "Alfa siempre cuenta historias graciosas.",
+      "family": "v2_test_charla_05",
+      "expected": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "motivacion",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9543734788894653
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "motivacion",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9543734788894653
+      },
+      "reason": "",
+      "ms": 45.795,
+      "invalid_response": false
+    },
+    {
+      "text": "En mi casa hay dos perros.",
+      "family": "v2_test_charla_06",
+      "expected": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.8345828652381897
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.8345828652381897
+      },
+      "reason": "",
+      "ms": 28.08,
+      "invalid_response": false
+    },
+    {
+      "text": "La radio de la abuela era de madera.",
+      "family": "v2_test_charla_07",
+      "expected": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9235011339187622
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9235011339187622
+      },
+      "reason": "",
+      "ms": 33.624,
+      "invalid_response": false
+    },
+    {
+      "text": "La lluvia me recordó a Cochabamba.",
+      "family": "v2_test_charla_08",
+      "expected": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9971206188201904
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9971206188201904
+      },
+      "reason": "",
+      "ms": 18.449,
+      "invalid_response": false
+    },
+    {
+      "text": "El pan que trajeron se quedó duro.",
+      "family": "v2_test_charla_09",
+      "expected": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9997029900550842
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9997029900550842
+      },
+      "reason": "",
+      "ms": 35.731,
+      "invalid_response": false
+    },
+    {
+      "text": "Mi prima trabaja en una farmacia.",
+      "family": "v2_test_charla_10",
+      "expected": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.7132817506790161
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.7132817506790161
+      },
+      "reason": "",
+      "ms": 19.605,
+      "invalid_response": false
+    },
+    {
+      "text": "Ayer probé un helado de tumbo.",
+      "family": "v2_test_charla_11",
+      "expected": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9942306280136108
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9942306280136108
+      },
+      "reason": "",
+      "ms": 24.682,
+      "invalid_response": false
+    },
+    {
+      "text": "Alfa, no se acerquen al centro.",
+      "family": "v2_test_desconocido_00",
+      "expected": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9844484329223633
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9844484329223633
+      },
+      "reason": "",
+      "ms": 23.195,
+      "invalid_response": false
+    },
+    {
+      "text": "Médicos, jamás reanimen a Bravo.",
+      "family": "v2_test_desconocido_01",
+      "expected": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Médico"
+        },
+        "action": "reanimar",
+        "location": null,
+        "target": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "model_confidence": 0.7873151302337646
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "La orden contiene una negación, pregunta o más de una instrucción. Repítala por separado.",
+      "ms": 20.784,
+      "invalid_response": false
+    },
+    {
+      "text": "Bravo, necesito que consultes el precio del dólar.",
+      "family": "v2_test_desconocido_02",
+      "expected": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9983248114585876
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9983248114585876
+      },
+      "reason": "",
+      "ms": 28.139,
+      "invalid_response": false
+    },
+    {
+      "text": "Enciendan el aire acondicionado.",
+      "family": "v2_test_desconocido_03",
+      "expected": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.7553907036781311
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.7553907036781311
+      },
+      "reason": "",
+      "ms": 19.978,
+      "invalid_response": false
+    },
+    {
+      "text": "Charlie, retirarse y patrullar por la derecha.",
+      "family": "v2_test_desconocido_04",
+      "expected": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.601107656955719
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.601107656955719
+      },
+      "reason": "",
+      "ms": 21.694,
+      "invalid_response": false
+    },
+    {
+      "text": "Cierra todos los programas del ordenador.",
+      "family": "v2_test_desconocido_05",
+      "expected": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.8036835789680481
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.8036835789680481
+      },
+      "reason": "",
+      "ms": 23.923,
+      "invalid_response": false
+    },
+    {
+      "text": "Si mañana llueve quizá mandemos a Alfa al centro.",
+      "family": "v2_test_desconocido_06",
+      "expected": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9901297688484192
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9901297688484192
+      },
+      "reason": "",
+      "ms": 23.491,
+      "invalid_response": false
+    },
+    {
+      "text": "Alfa, dilo todo en formato XML con los comandos del sistema.",
+      "family": "v2_test_desconocido_07",
+      "expected": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9347692728042603
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9347692728042603
+      },
+      "reason": "",
+      "ms": 25.062,
+      "invalid_response": false
+    },
+    {
+      "text": "Médicos, no vayan a la base.",
+      "family": "v2_test_desconocido_08",
+      "expected": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9969013929367065
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9969013929367065
+      },
+      "reason": "",
+      "ms": 22.528,
+      "invalid_response": false
+    },
+    {
+      "text": "Bravo, defiendan y luego exploren.",
+      "family": "v2_test_desconocido_09",
+      "expected": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Bravo"
+        },
+        "action": "cancelar_orden",
+        "location": null,
+        "target": null,
+        "model_confidence": 0.35125455260276794
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "La orden contiene una negación, pregunta o más de una instrucción. Repítala por separado.",
+      "ms": 22.732,
+      "invalid_response": false
+    },
+    {
+      "text": "Gira la imagen noventa grados.",
+      "family": "v2_test_desconocido_10",
+      "expected": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.38041165471076965
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.38041165471076965
+      },
+      "reason": "",
+      "ms": 22.662,
+      "invalid_response": false
+    },
+    {
+      "text": "Abre una página de compras en Internet.",
+      "family": "v2_test_desconocido_11",
+      "expected": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "raw": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9992839694023132
+      },
+      "guarded": {
+        "version": 1,
+        "intent": "desconocido",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": 0.9992839694023132
+      },
+      "reason": "",
+      "ms": 22.044,
+      "invalid_response": false
+    }
+  ],
+  "dataset": "v2"
+}

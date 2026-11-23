@@ -1,0 +1,816 @@
+[
+  {
+    "reference": "Alfa, avancen por el centro",
+    "input": "voz",
+    "correct": true,
+    "request_id": "1daaa003-9901-4392-84eb-923d872cc079",
+    "model": "A",
+    "transcript": "Alpha, avancem por el centro",
+    "prediction": {
+      "version": 1,
+      "intent": "orden",
+      "subject": {
+        "type": "peloton",
+        "name": "Alfa"
+      },
+      "action": "avanzar",
+      "location": {
+        "id": "centro"
+      },
+      "target": null,
+      "model_confidence": null
+    },
+    "command": {
+      "version": 1,
+      "intent": "orden",
+      "subject": {
+        "type": "peloton",
+        "name": "Alfa"
+      },
+      "action": "avanzar",
+      "location": {
+        "id": "centro"
+      },
+      "target": null,
+      "model_confidence": null
+    },
+    "reason": "",
+    "speech": {
+      "status": "voz",
+      "audio_ms": 2330.125,
+      "speech_ms": 2330.1,
+      "peak_dbfs": -2.7,
+      "preprocess_ms": 2.906,
+      "min_logprob": -0.6187,
+      "retried": false,
+      "first_transcript": "Alpha, avancem por el centro",
+      "used_retry": false
+    },
+    "nlp_route": "gramatica",
+    "verified_by": null,
+    "stt_ms": 816.298,
+    "nlp_ms": 0.245,
+    "total_ms": 816.558
+  },
+  {
+    "reference": "Alfa, avancen por el centro",
+    "input": "voz",
+    "correct": true,
+    "request_id": "cc2a5b1b-9333-4c30-9276-2e2d7a6a1c68",
+    "model": "B",
+    "transcript": "Alpha, avancem por el centro",
+    "prediction": {
+      "version": 1,
+      "intent": "orden",
+      "subject": {
+        "type": "peloton",
+        "name": "Alfa"
+      },
+      "action": "avanzar",
+      "location": {
+        "id": "centro"
+      },
+      "target": null,
+      "model_confidence": null
+    },
+    "command": {
+      "version": 1,
+      "intent": "orden",
+      "subject": {
+        "type": "peloton",
+        "name": "Alfa"
+      },
+      "action": "avanzar",
+      "location": {
+        "id": "centro"
+      },
+      "target": null,
+      "model_confidence": null
+    },
+    "reason": "",
+    "speech": {
+      "status": "voz",
+      "audio_ms": 2330.125,
+      "speech_ms": 2330.1,
+      "peak_dbfs": -2.7,
+      "preprocess_ms": 3.128,
+      "min_logprob": -0.6187,
+      "retried": false,
+      "first_transcript": "Alpha, avancem por el centro",
+      "used_retry": false
+    },
+    "nlp_route": "gramatica",
+    "verified_by": null,
+    "stt_ms": 783.907,
+    "nlp_ms": 0.148,
+    "total_ms": 784.065
+  },
+  {
+    "reference": "Bravo, defiendan nuestra base",
+    "input": "voz",
+    "correct": true,
+    "request_id": "0598fa86-5d2b-43bf-a2d0-cd0bfa77d2bc",
+    "model": "A",
+    "transcript": "Bravo, defiendan nuestra base.",
+    "prediction": {
+      "version": 1,
+      "intent": "orden",
+      "subject": {
+        "type": "peloton",
+        "name": "Bravo"
+      },
+      "action": "defender",
+      "location": {
+        "id": "base_aliada"
+      },
+      "target": null,
+      "model_confidence": null
+    },
+    "command": {
+      "version": 1,
+      "intent": "orden",
+      "subject": {
+        "type": "peloton",
+        "name": "Bravo"
+      },
+      "action": "defender",
+      "location": {
+        "id": "base_aliada"
+      },
+      "target": null,
+      "model_confidence": null
+    },
+    "reason": "",
+    "speech": {
+      "status": "voz",
+      "audio_ms": 2324.3125,
+      "speech_ms": 2324.3,
+      "peak_dbfs": -3.6,
+      "preprocess_ms": 4.429,
+      "min_logprob": -0.4007,
+      "retried": true,
+      "first_transcript": "La voz de fiendas muestra va a ser...",
+      "used_retry": true
+    },
+    "nlp_route": "gramatica",
+    "verified_by": null,
+    "stt_ms": 2761.44,
+    "nlp_ms": 0.276,
+    "total_ms": 2761.729
+  },
+  {
+    "reference": "Bravo, defiendan nuestra base",
+    "input": "voz",
+    "correct": true,
+    "request_id": "9b8bd3dc-526f-455c-9a59-a3f0b8e9bb37",
+    "model": "B",
+    "transcript": "Bravo, defiendan nuestra base.",
+    "prediction": {
+      "version": 1,
+      "intent": "orden",
+      "subject": {
+        "type": "peloton",
+        "name": "Bravo"
+      },
+      "action": "defender",
+      "location": {
+        "id": "base_aliada"
+      },
+      "target": null,
+      "model_confidence": null
+    },
+    "command": {
+      "version": 1,
+      "intent": "orden",
+      "subject": {
+        "type": "peloton",
+        "name": "Bravo"
+      },
+      "action": "defender",
+      "location": {
+        "id": "base_aliada"
+      },
+      "target": null,
+      "model_confidence": null
+    },
+    "reason": "",
+    "speech": {
+      "status": "voz",
+      "audio_ms": 2324.3125,
+      "speech_ms": 2324.3,
+      "peak_dbfs": -3.6,
+      "preprocess_ms": 2.615,
+      "min_logprob": -0.4007,
+      "retried": true,
+      "first_transcript": "La voz de fiendas muestra va a ser...",
+      "used_retry": true
+    },
+    "nlp_route": "gramatica",
+    "verified_by": null,
+    "stt_ms": 2790.786,
+    "nlp_ms": 0.198,
+    "total_ms": 2790.994
+  },
+  {
+    "reference": "Alfa, ataquen la base enemiga",
+    "input": "voz",
+    "correct": true,
+    "request_id": "73b6fa30-73f8-4272-b54c-7fa7692c31fa",
+    "model": "A",
+    "transcript": "¡Alfa! ¡Ataque en la base enemiga!",
+    "prediction": {
+      "version": 1,
+      "intent": "orden",
+      "subject": {
+        "type": "peloton",
+        "name": "Alfa"
+      },
+      "action": "atacar",
+      "location": {
+        "id": "base_enemiga"
+      },
+      "target": null,
+      "model_confidence": null
+    },
+    "command": {
+      "version": 1,
+      "intent": "orden",
+      "subject": {
+        "type": "peloton",
+        "name": "Alfa"
+      },
+      "action": "atacar",
+      "location": {
+        "id": "base_enemiga"
+      },
+      "target": null,
+      "model_confidence": null
+    },
+    "reason": "",
+    "speech": {
+      "status": "voz",
+      "audio_ms": 2462.0,
+      "speech_ms": 2462.0,
+      "peak_dbfs": -3.8,
+      "preprocess_ms": 2.86,
+      "min_logprob": -0.61,
+      "retried": true,
+      "first_transcript": "",
+      "used_retry": true
+    },
+    "nlp_route": "gramatica",
+    "verified_by": null,
+    "stt_ms": 2792.683,
+    "nlp_ms": 0.232,
+    "total_ms": 2792.925
+  },
+  {
+    "reference": "Alfa, ataquen la base enemiga",
+    "input": "voz",
+    "correct": true,
+    "request_id": "0c2dfd60-0f04-4580-8975-40c2cdc1d440",
+    "model": "B",
+    "transcript": "¡Alfa! ¡Ataque en la base enemiga!",
+    "prediction": {
+      "version": 1,
+      "intent": "orden",
+      "subject": {
+        "type": "peloton",
+        "name": "Alfa"
+      },
+      "action": "atacar",
+      "location": {
+        "id": "base_enemiga"
+      },
+      "target": null,
+      "model_confidence": null
+    },
+    "command": {
+      "version": 1,
+      "intent": "orden",
+      "subject": {
+        "type": "peloton",
+        "name": "Alfa"
+      },
+      "action": "atacar",
+      "location": {
+        "id": "base_enemiga"
+      },
+      "target": null,
+      "model_confidence": null
+    },
+    "reason": "",
+    "speech": {
+      "status": "voz",
+      "audio_ms": 2462.0,
+      "speech_ms": 2462.0,
+      "peak_dbfs": -3.8,
+      "preprocess_ms": 3.962,
+      "min_logprob": -0.61,
+      "retried": true,
+      "first_transcript": "",
+      "used_retry": true
+    },
+    "nlp_route": "gramatica",
+    "verified_by": null,
+    "stt_ms": 2636.136,
+    "nlp_ms": 0.315,
+    "total_ms": 2636.467
+  },
+  {
+    "reference": "Médicos, vayan al centro",
+    "input": "voz",
+    "correct": true,
+    "request_id": "46654e95-2ca8-4e05-84dd-92c45b577cdb",
+    "model": "A",
+    "transcript": "¡Médicos, vaya al centro!",
+    "prediction": {
+      "version": 1,
+      "intent": "orden",
+      "subject": {
+        "type": "peloton",
+        "name": "Médico"
+      },
+      "action": "avanzar",
+      "location": {
+        "id": "centro"
+      },
+      "target": null,
+      "model_confidence": null
+    },
+    "command": {
+      "version": 1,
+      "intent": "orden",
+      "subject": {
+        "type": "peloton",
+        "name": "Médico"
+      },
+      "action": "avanzar",
+      "location": {
+        "id": "centro"
+      },
+      "target": null,
+      "model_confidence": null
+    },
+    "reason": "",
+    "speech": {
+      "status": "voz",
+      "audio_ms": 2236.5625,
+      "speech_ms": 2236.6,
+      "peak_dbfs": -2.9,
+      "preprocess_ms": 3.622,
+      "min_logprob": -0.3678,
+      "retried": true,
+      "first_transcript": "Melicos, maya al centro.",
+      "used_retry": true
+    },
+    "nlp_route": "gramatica",
+    "verified_by": null,
+    "stt_ms": 2806.747,
+    "nlp_ms": 0.293,
+    "total_ms": 2807.053
+  },
+  {
+    "reference": "Médicos, vayan al centro",
+    "input": "voz",
+    "correct": true,
+    "request_id": "07878dc4-ec14-46ea-bc4b-d1d0f5f0e070",
+    "model": "B",
+    "transcript": "¡Médicos, vaya al centro!",
+    "prediction": {
+      "version": 1,
+      "intent": "orden",
+      "subject": {
+        "type": "peloton",
+        "name": "Médico"
+      },
+      "action": "avanzar",
+      "location": {
+        "id": "centro"
+      },
+      "target": null,
+      "model_confidence": null
+    },
+    "command": {
+      "version": 1,
+      "intent": "orden",
+      "subject": {
+        "type": "peloton",
+        "name": "Médico"
+      },
+      "action": "avanzar",
+      "location": {
+        "id": "centro"
+      },
+      "target": null,
+      "model_confidence": null
+    },
+    "reason": "",
+    "speech": {
+      "status": "voz",
+      "audio_ms": 2236.5625,
+      "speech_ms": 2236.6,
+      "peak_dbfs": -2.9,
+      "preprocess_ms": 4.681,
+      "min_logprob": -0.3678,
+      "retried": true,
+      "first_transcript": "Melicos, maya al centro.",
+      "used_retry": true
+    },
+    "nlp_route": "gramatica",
+    "verified_by": null,
+    "stt_ms": 2925.376,
+    "nlp_ms": 0.151,
+    "total_ms": 2925.535
+  },
+  {
+    "reference": "Alfa, no ataquen la base enemiga",
+    "input": "voz",
+    "correct": true,
+    "request_id": "e3aee0e2-6381-4c4d-86c6-0e2dc30899f6",
+    "model": "A",
+    "transcript": "Alfa, no paken la base de Miga.",
+    "prediction": {
+      "version": 1,
+      "intent": "orden",
+      "subject": null,
+      "action": "explorar",
+      "location": null,
+      "target": null,
+      "model_confidence": 0.44849
+    },
+    "command": {
+      "version": 1,
+      "intent": "desconocido",
+      "subject": null,
+      "action": null,
+      "location": null,
+      "target": null,
+      "model_confidence": null
+    },
+    "reason": "La orden contiene una negación, pregunta o más de una instrucción. Repítala por separado.",
+    "speech": {
+      "status": "voz",
+      "audio_ms": 2619.9375,
+      "speech_ms": 2619.9,
+      "peak_dbfs": 0.0,
+      "preprocess_ms": 3.024,
+      "min_logprob": -0.7504,
+      "retried": true,
+      "first_transcript": "Alfa, no paken la base de Miga.",
+      "used_retry": false
+    },
+    "nlp_route": "modelo",
+    "verified_by": null,
+    "stt_ms": 3038.169,
+    "nlp_ms": 9.853,
+    "total_ms": 3048.04
+  },
+  {
+    "reference": "Alfa, no ataquen la base enemiga",
+    "input": "voz",
+    "correct": true,
+    "request_id": "462c1394-4309-4e9b-99ca-f39e86cbb615",
+    "model": "B",
+    "transcript": "Alfa, no paken la base de Miga.",
+    "prediction": {
+      "version": 1,
+      "intent": "desconocido",
+      "subject": null,
+      "action": null,
+      "location": null,
+      "target": null,
+      "model_confidence": null
+    },
+    "command": {
+      "version": 1,
+      "intent": "desconocido",
+      "subject": null,
+      "action": null,
+      "location": null,
+      "target": null,
+      "model_confidence": null
+    },
+    "reason": "",
+    "speech": {
+      "status": "voz",
+      "audio_ms": 2619.9375,
+      "speech_ms": 2619.9,
+      "peak_dbfs": 0.0,
+      "preprocess_ms": 3.939,
+      "min_logprob": -0.7504,
+      "retried": true,
+      "first_transcript": "Alfa, no paken la base de Miga.",
+      "used_retry": false
+    },
+    "nlp_route": "modelo",
+    "verified_by": null,
+    "stt_ms": 2858.066,
+    "nlp_ms": 7399.104,
+    "total_ms": 10257.181
+  },
+  {
+    "reference": "Me gusta el clima de hoy",
+    "input": "voz",
+    "correct": true,
+    "request_id": "a4767419-7f13-451b-bb7e-620b3fcd82e6",
+    "model": "A",
+    "transcript": "Me gusta el clima de hoy.",
+    "prediction": {
+      "version": 1,
+      "intent": "charla",
+      "subject": null,
+      "action": null,
+      "location": null,
+      "target": null,
+      "model_confidence": 0.90524
+    },
+    "command": {
+      "version": 1,
+      "intent": "charla",
+      "subject": null,
+      "action": null,
+      "location": null,
+      "target": null,
+      "model_confidence": 0.90524
+    },
+    "reason": "",
+    "speech": {
+      "status": "voz",
+      "audio_ms": 1877.0,
+      "speech_ms": 1877.0,
+      "peak_dbfs": -1.1,
+      "preprocess_ms": 5.019,
+      "min_logprob": -0.3726,
+      "retried": true,
+      "first_transcript": "Me gusta el clima hoy.",
+      "used_retry": true
+    },
+    "nlp_route": "modelo",
+    "verified_by": null,
+    "stt_ms": 3373.796,
+    "nlp_ms": 4.178,
+    "total_ms": 3377.986
+  },
+  {
+    "reference": "Me gusta el clima de hoy",
+    "input": "voz",
+    "correct": true,
+    "request_id": "f20dd4f7-8a49-4a7f-ad75-031203aedcd9",
+    "model": "B",
+    "transcript": "Me gusta el clima de hoy.",
+    "prediction": {
+      "version": 1,
+      "intent": "charla",
+      "subject": null,
+      "action": null,
+      "location": null,
+      "target": null,
+      "model_confidence": null
+    },
+    "command": {
+      "version": 1,
+      "intent": "charla",
+      "subject": null,
+      "action": null,
+      "location": null,
+      "target": null,
+      "model_confidence": null
+    },
+    "reason": "",
+    "speech": {
+      "status": "voz",
+      "audio_ms": 1877.0,
+      "speech_ms": 1877.0,
+      "peak_dbfs": -1.1,
+      "preprocess_ms": 3.14,
+      "min_logprob": -0.3726,
+      "retried": true,
+      "first_transcript": "Me gusta el clima hoy.",
+      "used_retry": true
+    },
+    "nlp_route": "modelo",
+    "verified_by": null,
+    "stt_ms": 3032.291,
+    "nlp_ms": 1571.252,
+    "total_ms": 4603.552
+  },
+  {
+    "reference": "Bravo defiendan",
+    "input": "texto",
+    "correct": true,
+    "request_id": "b8e61c1a-787a-4648-b40f-0f1d81d8e01f",
+    "model": "A",
+    "transcript": "Bravo defiendan",
+    "prediction": {
+      "version": 1,
+      "intent": "desconocido",
+      "subject": null,
+      "action": null,
+      "location": null,
+      "target": null,
+      "model_confidence": null
+    },
+    "command": {
+      "version": 1,
+      "intent": "desconocido",
+      "subject": null,
+      "action": null,
+      "location": null,
+      "target": null,
+      "model_confidence": null
+    },
+    "reason": "¿Qué lugar debe defender Bravo? Por ejemplo, «Bravo, defiendan nuestra base».",
+    "speech": null,
+    "nlp_route": "aclaracion",
+    "verified_by": null,
+    "stt_ms": 0.0,
+    "nlp_ms": 0.091,
+    "total_ms": 0.102
+  },
+  {
+    "reference": "Bravo defiendan",
+    "input": "texto",
+    "correct": true,
+    "request_id": "f9f7bf3d-2393-46d6-96a3-70a8596e3fa2",
+    "model": "B",
+    "transcript": "Bravo defiendan",
+    "prediction": {
+      "version": 1,
+      "intent": "desconocido",
+      "subject": null,
+      "action": null,
+      "location": null,
+      "target": null,
+      "model_confidence": null
+    },
+    "command": {
+      "version": 1,
+      "intent": "desconocido",
+      "subject": null,
+      "action": null,
+      "location": null,
+      "target": null,
+      "model_confidence": null
+    },
+    "reason": "¿Qué lugar debe defender Bravo? Por ejemplo, «Bravo, defiendan nuestra base».",
+    "speech": null,
+    "nlp_route": "aclaracion",
+    "verified_by": null,
+    "stt_ms": 0.0,
+    "nlp_ms": 0.048,
+    "total_ms": 0.056
+  },
+  {
+    "reference": "Alfa, exploren el flanco del medio",
+    "input": "texto",
+    "correct": true,
+    "request_id": "87bffe1f-3e10-4906-b499-2e7158e14497",
+    "model": "A",
+    "transcript": "Alfa, exploren el flanco del medio",
+    "prediction": {
+      "version": 1,
+      "intent": "orden",
+      "subject": {
+        "type": "peloton",
+        "name": "Alfa"
+      },
+      "action": "explorar",
+      "location": {
+        "id": "centro"
+      },
+      "target": null,
+      "model_confidence": null
+    },
+    "command": {
+      "version": 1,
+      "intent": "orden",
+      "subject": {
+        "type": "peloton",
+        "name": "Alfa"
+      },
+      "action": "explorar",
+      "location": {
+        "id": "centro"
+      },
+      "target": null,
+      "model_confidence": null
+    },
+    "reason": "",
+    "speech": null,
+    "nlp_route": "gramatica",
+    "verified_by": null,
+    "stt_ms": 0.0,
+    "nlp_ms": 0.208,
+    "total_ms": 0.216
+  },
+  {
+    "reference": "Alfa, exploren el flanco del medio",
+    "input": "texto",
+    "correct": true,
+    "request_id": "7beeb058-4488-42e4-b4fe-17a41348c3a6",
+    "model": "B",
+    "transcript": "Alfa, exploren el flanco del medio",
+    "prediction": {
+      "version": 1,
+      "intent": "orden",
+      "subject": {
+        "type": "peloton",
+        "name": "Alfa"
+      },
+      "action": "explorar",
+      "location": {
+        "id": "centro"
+      },
+      "target": null,
+      "model_confidence": null
+    },
+    "command": {
+      "version": 1,
+      "intent": "orden",
+      "subject": {
+        "type": "peloton",
+        "name": "Alfa"
+      },
+      "action": "explorar",
+      "location": {
+        "id": "centro"
+      },
+      "target": null,
+      "model_confidence": null
+    },
+    "reason": "",
+    "speech": null,
+    "nlp_route": "gramatica",
+    "verified_by": null,
+    "stt_ms": 0.0,
+    "nlp_ms": 0.218,
+    "total_ms": 0.227
+  },
+  {
+    "reference": "Muchachos vamos a ganar, ustedes pueden",
+    "input": "texto",
+    "correct": true,
+    "request_id": "605e6cd3-3664-4647-bd7d-7ef5e673e52a",
+    "model": "A",
+    "transcript": "Muchachos vamos a ganar, ustedes pueden",
+    "prediction": {
+      "version": 1,
+      "intent": "motivacion",
+      "subject": null,
+      "action": null,
+      "location": null,
+      "target": null,
+      "model_confidence": 0.97857
+    },
+    "command": {
+      "version": 1,
+      "intent": "motivacion",
+      "subject": null,
+      "action": null,
+      "location": null,
+      "target": null,
+      "model_confidence": 0.97857
+    },
+    "reason": "",
+    "speech": null,
+    "nlp_route": "modelo",
+    "verified_by": null,
+    "stt_ms": 0.0,
+    "nlp_ms": 2.813,
+    "total_ms": 2.824
+  },
+  {
+    "reference": "Muchachos vamos a ganar, ustedes pueden",
+    "input": "texto",
+    "correct": true,
+    "request_id": "76523646-ee16-4d5e-830b-064f6dd29ac5",
+    "model": "B",
+    "transcript": "Muchachos vamos a ganar, ustedes pueden",
+    "prediction": {
+      "version": 1,
+      "intent": "motivacion",
+      "subject": null,
+      "action": null,
+      "location": null,
+      "target": null,
+      "model_confidence": null
+    },
+    "command": {
+      "version": 1,
+      "intent": "motivacion",
+      "subject": null,
+      "action": null,
+      "location": null,
+      "target": null,
+      "model_confidence": null
+    },
+    "reason": "",
+    "speech": null,
+    "nlp_route": "modelo",
+    "verified_by": "A",
+    "stt_ms": 0.0,
+    "nlp_ms": 1941.058,
+    "total_ms": 1941.067
+  }
+]

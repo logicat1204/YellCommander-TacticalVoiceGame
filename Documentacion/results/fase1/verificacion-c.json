@@ -1,0 +1,46 @@
+{
+  "device": "cpu",
+  "artifact_bytes": 252807452,
+  "resident_before_load_mib": 304.42578125,
+  "resident_after_inference_mib": 569.9453125,
+  "max_abs_delta_frozen_layer0_q": 0.0,
+  "max_abs_delta_finetuned_layer5_q": 0.011905521154403687,
+  "example": {
+    "prediction": {
+      "version": 1,
+      "intent": "orden",
+      "subject": {
+        "type": "peloton",
+        "name": "Médico"
+      },
+      "action": "curar",
+      "location": {
+        "id": "centro"
+      },
+      "target": {
+        "type": "peloton",
+        "name": "Bravo"
+      },
+      "model_confidence": 0.9903258681297302
+    },
+    "command": {
+      "version": 1,
+      "intent": "orden",
+      "subject": {
+        "type": "peloton",
+        "name": "Médico"
+      },
+      "action": "curar",
+      "location": {
+        "id": "centro"
+      },
+      "target": {
+        "type": "peloton",
+        "name": "Bravo"
+      },
+      "model_confidence": 0.9903258681297302
+    },
+    "reason": "",
+    "nlp_ms": 36.646
+  }
+}

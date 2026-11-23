@@ -1,0 +1,242 @@
+{
+  "A_alfa": {
+    "request_id": "ad900f0b-e47f-48e9-ba93-135d9555f8a7",
+    "model": "A",
+    "transcript": "Alpha, avancem por el centro.",
+    "prediction": {
+      "version": 1,
+      "intent": "orden",
+      "subject": {
+        "type": "peloton",
+        "name": "Alfa"
+      },
+      "action": "avanzar",
+      "location": {
+        "id": "centro"
+      },
+      "target": null,
+      "model_confidence": 0.84429
+    },
+    "command": {
+      "version": 1,
+      "intent": "orden",
+      "subject": {
+        "type": "peloton",
+        "name": "Alfa"
+      },
+      "action": "avanzar",
+      "location": {
+        "id": "centro"
+      },
+      "target": null,
+      "model_confidence": 0.84429
+    },
+    "reason": "",
+    "speech": {
+      "status": "voz",
+      "audio_ms": 2330.125,
+      "speech_ms": 2330.1,
+      "peak_dbfs": -2.7,
+      "preprocess_ms": 3.566,
+      "min_logprob": -0.6256
+    },
+    "stt_ms": 590.327,
+    "nlp_ms": 1.521,
+    "total_ms": 591.858
+  },
+  "B_alfa": {
+    "request_id": "2442fba0-1d2c-4579-8fbe-c1623710c97e",
+    "model": "B",
+    "transcript": "Alpha, avancem por el centro.",
+    "prediction": {
+      "version": 1,
+      "intent": "orden",
+      "subject": {
+        "type": "peloton",
+        "name": "Alfa"
+      },
+      "action": "avanzar",
+      "location": {
+        "id": "centro"
+      },
+      "target": null,
+      "model_confidence": null
+    },
+    "command": {
+      "version": 1,
+      "intent": "orden",
+      "subject": {
+        "type": "peloton",
+        "name": "Alfa"
+      },
+      "action": "avanzar",
+      "location": {
+        "id": "centro"
+      },
+      "target": null,
+      "model_confidence": null
+    },
+    "reason": "",
+    "speech": {
+      "status": "voz",
+      "audio_ms": 2330.125,
+      "speech_ms": 2330.1,
+      "peak_dbfs": -2.7,
+      "preprocess_ms": 3.39,
+      "min_logprob": -0.6256
+    },
+    "stt_ms": 611.665,
+    "nlp_ms": 6662.02,
+    "total_ms": 7273.714
+  },
+  "C_alfa": {
+    "request_id": "be813412-7dd2-4977-beba-a0519a85f302",
+    "model": "C",
+    "transcript": "Alpha, avancem por el centro.",
+    "prediction": {
+      "version": 1,
+      "intent": "orden",
+      "subject": {
+        "type": "peloton",
+        "name": "Alfa"
+      },
+      "action": "avanzar",
+      "location": {
+        "id": "centro"
+      },
+      "target": null,
+      "model_confidence": 0.9536305069923401
+    },
+    "command": {
+      "version": 1,
+      "intent": "orden",
+      "subject": {
+        "type": "peloton",
+        "name": "Alfa"
+      },
+      "action": "avanzar",
+      "location": {
+        "id": "centro"
+      },
+      "target": null,
+      "model_confidence": 0.9536305069923401
+    },
+    "reason": "",
+    "speech": {
+      "status": "voz",
+      "audio_ms": 2330.125,
+      "speech_ms": 2330.1,
+      "peak_dbfs": -2.7,
+      "preprocess_ms": 3.47,
+      "min_logprob": -0.6256
+    },
+    "stt_ms": 659.389,
+    "nlp_ms": 16.557,
+    "total_ms": 675.968
+  },
+  "C_alfa_negada": {
+    "request_id": "6edaff94-f650-4837-96b2-f4c1b0360554",
+    "model": "C",
+    "transcript": "Alpha, no avancem por el centro.",
+    "prediction": {
+      "version": 1,
+      "intent": "desconocido",
+      "subject": null,
+      "action": null,
+      "location": null,
+      "target": null,
+      "model_confidence": 0.9889013767242432
+    },
+    "command": {
+      "version": 1,
+      "intent": "desconocido",
+      "subject": null,
+      "action": null,
+      "location": null,
+      "target": null,
+      "model_confidence": 0.9889013767242432
+    },
+    "reason": "",
+    "speech": {
+      "status": "voz",
+      "audio_ms": 2495.8125,
+      "speech_ms": 2495.8,
+      "peak_dbfs": 0.0,
+      "preprocess_ms": 5.367,
+      "min_logprob": -0.6407
+    },
+    "stt_ms": 641.399,
+    "nlp_ms": 15.834,
+    "total_ms": 657.252
+  },
+  "C_ruido": {
+    "request_id": "2cad2df9-20ad-4b44-8e36-ec5aa063c990",
+    "model": "C",
+    "transcript": "",
+    "prediction": {
+      "version": 1,
+      "intent": "desconocido",
+      "subject": null,
+      "action": null,
+      "location": null,
+      "target": null,
+      "model_confidence": null
+    },
+    "command": {
+      "version": 1,
+      "intent": "desconocido",
+      "subject": null,
+      "action": null,
+      "location": null,
+      "target": null,
+      "model_confidence": null
+    },
+    "reason": "No se detectó voz. Habla mientras mantienes V.",
+    "speech": {
+      "status": "sin_voz",
+      "audio_ms": 2000.0,
+      "speech_ms": 0.0,
+      "peak_dbfs": -21.0,
+      "preprocess_ms": 3.205,
+      "min_logprob": null
+    },
+    "stt_ms": 7.027,
+    "nlp_ms": 0.0,
+    "total_ms": 7.038
+  },
+  "C_silencio": {
+    "request_id": "6b06e8f4-e589-48ee-a84d-5048abaca0df",
+    "model": "C",
+    "transcript": "",
+    "prediction": {
+      "version": 1,
+      "intent": "desconocido",
+      "subject": null,
+      "action": null,
+      "location": null,
+      "target": null,
+      "model_confidence": null
+    },
+    "command": {
+      "version": 1,
+      "intent": "desconocido",
+      "subject": null,
+      "action": null,
+      "location": null,
+      "target": null,
+      "model_confidence": null
+    },
+    "reason": "Whisper recibió un tramo sin señal. Revisa el nivel del micrófono.",
+    "speech": {
+      "status": "sin_senal",
+      "audio_ms": 1000.0,
+      "speech_ms": 0.0,
+      "peak_dbfs": -96.0,
+      "preprocess_ms": 2.437,
+      "min_logprob": null
+    },
+    "stt_ms": 2.459,
+    "nlp_ms": 0.0,
+    "total_ms": 2.473
+  }
+}

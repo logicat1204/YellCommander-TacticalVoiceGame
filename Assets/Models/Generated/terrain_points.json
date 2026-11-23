@@ -1,0 +1,104 @@
+{
+  "base_camera": {
+    "x": -3000.0,
+    "y": 0.0,
+    "z": -12.0,
+    "inside_arena": true
+  },
+  "center_camera": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": -12.0,
+    "inside_arena": true
+  },
+  "flank_camera": {
+    "x": 0.0,
+    "y": -1440.0,
+    "z": -12.0,
+    "inside_arena": true
+  },
+  "trench_a": {
+    "x": -4750.0,
+    "y": -1440.0,
+    "z": 69.86,
+    "inside_arena": false
+  },
+  "trench_b": {
+    "x": -4750.0,
+    "y": -1000.0,
+    "z": -195.76,
+    "inside_arena": false
+  },
+  "trench_c": {
+    "x": -4750.0,
+    "y": -1880.0,
+    "z": 54.46,
+    "inside_arena": false
+  },
+  "north_gate_center": {
+    "x": 4800.0,
+    "y": 0.0,
+    "z": -338.06,
+    "inside_arena": false
+  },
+  "north_rock_left": {
+    "x": 5050.0,
+    "y": -1150.0,
+    "z": 76.98,
+    "inside_arena": false
+  },
+  "north_rock_right": {
+    "x": 5050.0,
+    "y": 1150.0,
+    "z": -153.4,
+    "inside_arena": false
+  },
+  "north_rock_wall": {
+    "x": 5350.0,
+    "y": 0.0,
+    "z": -287.05,
+    "inside_arena": false
+  },
+  "bunker_intact": {
+    "x": 5350.0,
+    "y": -1800.0,
+    "z": 69.55,
+    "inside_arena": false
+  },
+  "bunker_damaged": {
+    "x": 5350.0,
+    "y": 0.0,
+    "z": -287.05,
+    "inside_arena": false
+  },
+  "bunker_destroyed": {
+    "x": 5350.0,
+    "y": 1800.0,
+    "z": 121.1,
+    "inside_arena": false
+  },
+  "soldier_showcase": {
+    "x": -5350.0,
+    "y": 1800.0,
+    "z": -134.33,
+    "inside_arena": false
+  },
+  "hud_showcase": {
+    "x": -5350.0,
+    "y": -1800.0,
+    "z": -52.61,
+    "inside_arena": false
+  },
+  "sandbag_line_a": {
+    "x": -3500.0,
+    "y": -1700.0,
+    "z": -12.0,
+    "inside_arena": true
+  },
+  "sandbag_line_b": {
+    "x": -3500.0,
+    "y": -1180.0,
+    "z": -12.0,
+    "inside_arena": true
+  }
+}

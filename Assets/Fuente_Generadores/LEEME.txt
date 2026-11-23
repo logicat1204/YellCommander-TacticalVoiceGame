@@ -1,0 +1,5 @@
+Scripts que generan todo el paquete.
+Requisitos: Python 3.11, pip install bpy==5.0.1 numpy scipy pillow
+Orden: gen_tex.py <salida> ; gen_models.py <salida> <carpeta_previews> ; gen_data.py <salida> ; gen_docs.py <salida>
+Variable NOPREV=1 en gen_models.py omite los renders de verificacion.
+Unidades: 1 unidad Blender = 1 m. Paletas y zonas del mapa estan en common.py.

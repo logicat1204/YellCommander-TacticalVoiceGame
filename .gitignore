@@ -1,0 +1,11 @@
+.venv/
+.venv-decision/
+.yell-cache/
+__pycache__/
+*.pyc
+AI NLP/models/
+WarCommanderDemo/Binaries/
+WarCommanderDemo/DerivedDataCache/
+WarCommanderDemo/Intermediate/
+WarCommanderDemo/Saved/
+WarCommanderDemo/.vs/

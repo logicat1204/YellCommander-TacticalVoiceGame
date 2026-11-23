@@ -1,0 +1,108 @@
+{
+  "baseline": {
+    "capture": "YellFinal.csv",
+    "warmup_frames_excluded": 120,
+    "frames": 2380,
+    "elapsed_window_s": null,
+    "fps_from_median": 131.40086461768917,
+    "timings": {
+      "FrameTime": {
+        "median_ms": 7.6103000000000005,
+        "p95_ms": 10.170235
+      },
+      "GameThreadTime": {
+        "median_ms": 3.696,
+        "p95_ms": 5.243775
+      },
+      "RenderThreadTime": {
+        "median_ms": 7.61645,
+        "p95_ms": 10.0844
+      },
+      "RHIThreadTime": {
+        "median_ms": 3.77055,
+        "p95_ms": 4.864185
+      }
+    }
+  },
+  "b_entire": {
+    "capture": "YellModelB.csv",
+    "warmup_frames_excluded": 120,
+    "frames": 6380,
+    "elapsed_window_s": null,
+    "fps_from_median": 151.55074297751744,
+    "timings": {
+      "FrameTime": {
+        "median_ms": 6.59845,
+        "p95_ms": 8.842464999999999
+      },
+      "GameThreadTime": {
+        "median_ms": 3.16385,
+        "p95_ms": 4.43552
+      },
+      "RenderThreadTime": {
+        "median_ms": 6.586600000000001,
+        "p95_ms": 8.840050000000002
+      },
+      "RHIThreadTime": {
+        "median_ms": 3.3097000000000003,
+        "p95_ms": 4.4596
+      }
+    }
+  },
+  "b_before": {
+    "capture": "YellModelB.csv",
+    "warmup_frames_excluded": 120,
+    "frames": 1249,
+    "elapsed_window_s": [
+      2.0,
+      10.0
+    ],
+    "fps_from_median": 158.59422082659307,
+    "timings": {
+      "FrameTime": {
+        "median_ms": 6.3054,
+        "p95_ms": 7.93434
+      },
+      "GameThreadTime": {
+        "median_ms": 3.0634,
+        "p95_ms": 4.13798
+      },
+      "RenderThreadTime": {
+        "median_ms": 6.2926,
+        "p95_ms": 7.9052
+      },
+      "RHIThreadTime": {
+        "median_ms": 3.1596,
+        "p95_ms": 3.9881
+      }
+    }
+  },
+  "b_inference": {
+    "capture": "YellModelB.csv",
+    "warmup_frames_excluded": 120,
+    "frames": 335,
+    "elapsed_window_s": [
+      11.8,
+      14.8
+    ],
+    "fps_from_median": 114.45969301910331,
+    "timings": {
+      "FrameTime": {
+        "median_ms": 8.7367,
+        "p95_ms": 10.793669999999999
+      },
+      "GameThreadTime": {
+        "median_ms": 4.4228,
+        "p95_ms": 5.45234
+      },
+      "RenderThreadTime": {
+        "median_ms": 8.735,
+        "p95_ms": 10.75528
+      },
+      "RHIThreadTime": {
+        "median_ms": 4.379,
+        "p95_ms": 5.15384
+      }
+    }
+  }
+}

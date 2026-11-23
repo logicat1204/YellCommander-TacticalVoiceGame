@@ -1,0 +1,415 @@
+{
+  "whisper-tiny": {
+    "load_ms": 496.51,
+    "stats": {
+      "clean": {
+        "samples": 5,
+        "wer": 0.782608695652174,
+        "stt_median_ms": 404.8181000034674
+      },
+      "noisy": {
+        "samples": 5,
+        "wer": 0.6956521739130435,
+        "stt_median_ms": 346.99929999624146
+      }
+    },
+    "examples": [
+      {
+        "text": "Alfa, avancen por el centro.",
+        "snr_db": null,
+        "transcript": "Alfa, alhanzen por el centro.",
+        "stt_ms": 345.34459999849787,
+        "nlp_ms": 6.762,
+        "semantic_command": {
+          "version": 1,
+          "intent": "desconocido",
+          "subject": null,
+          "action": null,
+          "location": null,
+          "target": null,
+          "model_confidence": null
+        },
+        "reason": "Confianza de interpretación insuficiente. Repita la frase."
+      },
+      {
+        "text": "Alfa, avancen por el centro.",
+        "snr_db": 12,
+        "transcript": "Alz, alz, alz, alz, alz.",
+        "stt_ms": 4324.8239000022295,
+        "nlp_ms": 1.734,
+        "semantic_command": {
+          "version": 1,
+          "intent": "desconocido",
+          "subject": null,
+          "action": null,
+          "location": null,
+          "target": null,
+          "model_confidence": null
+        },
+        "reason": "Confianza de interpretación insuficiente. Repita la frase."
+      },
+      {
+        "text": "Bravo, defiendan nuestra base.",
+        "snr_db": null,
+        "transcript": "",
+        "stt_ms": 1361.7832000018097,
+        "nlp_ms": 0.023,
+        "semantic_command": {
+          "version": 1,
+          "intent": "desconocido",
+          "subject": null,
+          "action": null,
+          "location": null,
+          "target": null,
+          "model_confidence": null
+        },
+        "reason": "No se detectó voz fiable. Repita la orden."
+      },
+      {
+        "text": "Bravo, defiendan nuestra base.",
+        "snr_db": 12,
+        "transcript": "Bravo, metiendo en nuestra base.",
+        "stt_ms": 315.1579999976093,
+        "nlp_ms": 1.789,
+        "semantic_command": {
+          "version": 1,
+          "intent": "desconocido",
+          "subject": null,
+          "action": null,
+          "location": null,
+          "target": null,
+          "model_confidence": null
+        },
+        "reason": "Confianza de interpretación insuficiente. Repita la frase."
+      },
+      {
+        "text": "Bravo, cancelen la orden anterior.",
+        "snr_db": null,
+        "transcript": "",
+        "stt_ms": 1447.0183000012184,
+        "nlp_ms": 0.016,
+        "semantic_command": {
+          "version": 1,
+          "intent": "desconocido",
+          "subject": null,
+          "action": null,
+          "location": null,
+          "target": null,
+          "model_confidence": null
+        },
+        "reason": "No se detectó voz fiable. Repita la orden."
+      },
+      {
+        "text": "Bravo, cancelen la orden anterior.",
+        "snr_db": 12,
+        "transcript": "Bravo, cancelen la ordenante de hoy.",
+        "stt_ms": 330.9764000005089,
+        "nlp_ms": 1.845,
+        "semantic_command": {
+          "version": 1,
+          "intent": "desconocido",
+          "subject": null,
+          "action": null,
+          "location": null,
+          "target": null,
+          "model_confidence": null
+        },
+        "reason": "Confianza de interpretación insuficiente. Repita la frase."
+      },
+      {
+        "text": "Charlie, retrocedan inmediatamente.",
+        "snr_db": null,
+        "transcript": "Carlie, retrofe, manil, mellar, mellar, mellar, mellar.",
+        "stt_ms": 404.8181000034674,
+        "nlp_ms": 1.661,
+        "semantic_command": {
+          "version": 1,
+          "intent": "motivacion",
+          "subject": null,
+          "action": null,
+          "location": null,
+          "target": null,
+          "model_confidence": 0.78639
+        },
+        "reason": ""
+      },
+      {
+        "text": "Charlie, retrocedan inmediatamente.",
+        "snr_db": 12,
+        "transcript": "Carrier, retrofen animediatamente.",
+        "stt_ms": 350.388999999268,
+        "nlp_ms": 1.738,
+        "semantic_command": {
+          "version": 1,
+          "intent": "motivacion",
+          "subject": null,
+          "action": null,
+          "location": null,
+          "target": null,
+          "model_confidence": 0.71985
+        },
+        "reason": ""
+      },
+      {
+        "text": "Alfa, no avancen por el centro.",
+        "snr_db": null,
+        "transcript": "Alfa, no avancem por el centro.",
+        "stt_ms": 334.13860000291606,
+        "nlp_ms": 1.769,
+        "semantic_command": {
+          "version": 1,
+          "intent": "desconocido",
+          "subject": null,
+          "action": null,
+          "location": null,
+          "target": null,
+          "model_confidence": 0.93669
+        },
+        "reason": ""
+      },
+      {
+        "text": "Alfa, no avancen por el centro.",
+        "snr_db": 12,
+        "transcript": "¡Alpa! ¡No ha lanzado el centro!",
+        "stt_ms": 346.99929999624146,
+        "nlp_ms": 2.225,
+        "semantic_command": {
+          "version": 1,
+          "intent": "desconocido",
+          "subject": null,
+          "action": null,
+          "location": null,
+          "target": null,
+          "model_confidence": null
+        },
+        "reason": "Confianza de interpretación insuficiente. Repita la frase."
+      },
+      {
+        "text": "",
+        "snr_db": null,
+        "transcript": "",
+        "stt_ms": 8.044299996981863,
+        "nlp_ms": 0.01,
+        "semantic_command": {
+          "version": 1,
+          "intent": "desconocido",
+          "subject": null,
+          "action": null,
+          "location": null,
+          "target": null,
+          "model_confidence": null
+        },
+        "reason": "No se detectó voz fiable. Repita la orden."
+      }
+    ]
+  },
+  "whisper-base": {
+    "load_ms": 1802.16,
+    "stats": {
+      "clean": {
+        "samples": 5,
+        "wer": 0.6956521739130435,
+        "stt_median_ms": 736.6095000033965
+      },
+      "noisy": {
+        "samples": 5,
+        "wer": 0.5217391304347826,
+        "stt_median_ms": 637.8275000024587
+      }
+    },
+    "examples": [
+      {
+        "text": "Alfa, avancen por el centro.",
+        "snr_db": null,
+        "transcript": "Alpha, avancem por el centro",
+        "stt_ms": 632.9382999974769,
+        "nlp_ms": 1.842,
+        "semantic_command": {
+          "version": 1,
+          "intent": "orden",
+          "subject": {
+            "type": "peloton",
+            "name": "Alfa"
+          },
+          "action": "avanzar",
+          "location": {
+            "id": "centro"
+          },
+          "target": null,
+          "model_confidence": 0.84429
+        },
+        "reason": ""
+      },
+      {
+        "text": "Alfa, avancen por el centro.",
+        "snr_db": 12,
+        "transcript": "Alta, vamos en por el centro.",
+        "stt_ms": 637.8275000024587,
+        "nlp_ms": 1.411,
+        "semantic_command": {
+          "version": 1,
+          "intent": "desconocido",
+          "subject": null,
+          "action": null,
+          "location": null,
+          "target": null,
+          "model_confidence": null
+        },
+        "reason": "Confianza de interpretación insuficiente. Repita la frase."
+      },
+      {
+        "text": "Bravo, defiendan nuestra base.",
+        "snr_db": null,
+        "transcript": "",
+        "stt_ms": 736.6095000033965,
+        "nlp_ms": 0.014,
+        "semantic_command": {
+          "version": 1,
+          "intent": "desconocido",
+          "subject": null,
+          "action": null,
+          "location": null,
+          "target": null,
+          "model_confidence": null
+        },
+        "reason": "No se detectó voz fiable. Repita la orden."
+      },
+      {
+        "text": "Bravo, defiendan nuestra base.",
+        "snr_db": 12,
+        "transcript": "Bravo, le tiendan nuestra base.",
+        "stt_ms": 759.1890999974567,
+        "nlp_ms": 2.219,
+        "semantic_command": {
+          "version": 1,
+          "intent": "desconocido",
+          "subject": null,
+          "action": null,
+          "location": null,
+          "target": null,
+          "model_confidence": null
+        },
+        "reason": "Confianza de interpretación insuficiente. Repita la frase."
+      },
+      {
+        "text": "Bravo, cancelen la orden anterior.",
+        "snr_db": null,
+        "transcript": "",
+        "stt_ms": 2209.1944999992847,
+        "nlp_ms": 0.027,
+        "semantic_command": {
+          "version": 1,
+          "intent": "desconocido",
+          "subject": null,
+          "action": null,
+          "location": null,
+          "target": null,
+          "model_confidence": null
+        },
+        "reason": "No se detectó voz fiable. Repita la orden."
+      },
+      {
+        "text": "Bravo, cancelen la orden anterior.",
+        "snr_db": 12,
+        "transcript": "Ramo, cancelen la orden de anterior.",
+        "stt_ms": 613.7711000046693,
+        "nlp_ms": 1.694,
+        "semantic_command": {
+          "version": 1,
+          "intent": "charla",
+          "subject": null,
+          "action": null,
+          "location": null,
+          "target": null,
+          "model_confidence": 0.35205
+        },
+        "reason": ""
+      },
+      {
+        "text": "Charlie, retrocedan inmediatamente.",
+        "snr_db": null,
+        "transcript": "",
+        "stt_ms": 2148.680099999183,
+        "nlp_ms": 0.034,
+        "semantic_command": {
+          "version": 1,
+          "intent": "desconocido",
+          "subject": null,
+          "action": null,
+          "location": null,
+          "target": null,
+          "model_confidence": null
+        },
+        "reason": "No se detectó voz fiable. Repita la orden."
+      },
+      {
+        "text": "Charlie, retrocedan inmediatamente.",
+        "snr_db": 12,
+        "transcript": "carrié, retoce al inmediatamente.",
+        "stt_ms": 726.4538000017637,
+        "nlp_ms": 3.691,
+        "semantic_command": {
+          "version": 1,
+          "intent": "desconocido",
+          "subject": null,
+          "action": null,
+          "location": null,
+          "target": null,
+          "model_confidence": null
+        },
+        "reason": "Confianza de interpretación insuficiente. Repita la frase."
+      },
+      {
+        "text": "Alfa, no avancen por el centro.",
+        "snr_db": null,
+        "transcript": "Alpha, no avancem por el centro.",
+        "stt_ms": 660.2749000012409,
+        "nlp_ms": 2.714,
+        "semantic_command": {
+          "version": 1,
+          "intent": "desconocido",
+          "subject": null,
+          "action": null,
+          "location": null,
+          "target": null,
+          "model_confidence": 0.93669
+        },
+        "reason": ""
+      },
+      {
+        "text": "Alfa, no avancen por el centro.",
+        "snr_db": 12,
+        "transcript": "Alpha, no avancem por el centro.",
+        "stt_ms": 601.8402000045171,
+        "nlp_ms": 1.453,
+        "semantic_command": {
+          "version": 1,
+          "intent": "desconocido",
+          "subject": null,
+          "action": null,
+          "location": null,
+          "target": null,
+          "model_confidence": 0.93669
+        },
+        "reason": ""
+      },
+      {
+        "text": "",
+        "snr_db": null,
+        "transcript": "",
+        "stt_ms": 4.637300000467803,
+        "nlp_ms": 0.01,
+        "semantic_command": {
+          "version": 1,
+          "intent": "desconocido",
+          "subject": null,
+          "action": null,
+          "location": null,
+          "target": null,
+          "model_confidence": null
+        },
+        "reason": "No se detectó voz fiable. Repita la orden."
+      }
+    ]
+  }
+}

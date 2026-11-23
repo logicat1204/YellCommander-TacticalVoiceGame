@@ -1,0 +1,43 @@
+{
+  "opset": 17,
+  "batch_size": 1,
+  "runtime_version": "1.32.0",
+  "examples": [
+    {
+      "text": "Alfa, avancen por el centro",
+      "max_absolute_logit_errors": {
+        "intent": 4.76837158203125e-07,
+        "action": 9.5367431640625e-07,
+        "subject": 4.76837158203125e-07,
+        "bio": 2.86102294921875e-06
+      }
+    },
+    {
+      "text": "Médicos, atiendan a Bravo en el centro",
+      "max_absolute_logit_errors": {
+        "intent": 4.76837158203125e-07,
+        "action": 9.5367431640625e-07,
+        "subject": 9.5367431640625e-07,
+        "bio": 1.9073486328125e-06
+      }
+    },
+    {
+      "text": "Buenas tardes",
+      "max_absolute_logit_errors": {
+        "intent": 3.5762786865234375e-07,
+        "action": 4.172325134277344e-07,
+        "subject": 4.76837158203125e-07,
+        "bio": 7.152557373046875e-07
+      }
+    },
+    {
+      "text": "Alfa, no avancen por la izquierda",
+      "max_absolute_logit_errors": {
+        "intent": 5.960464477539062e-07,
+        "action": 3.5762786865234375e-07,
+        "subject": 2.384185791015625e-07,
+        "bio": 1.9073486328125e-06
+      }
+    }
+  ]
+}

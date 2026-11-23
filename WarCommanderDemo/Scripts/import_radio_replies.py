@@ -1,0 +1,24 @@
+"""Import the generated Spanish radio cues into the Unreal project."""
+
+import os
+from pathlib import Path
+
+import unreal
+
+
+source = Path(os.environ["YELL_REPLY_SOURCE"])
+tasks = []
+for cue in ("RadioCopiado", "RadioAclarar", "RadioMoral"):
+    task = unreal.AssetImportTask()
+    task.filename = str(source / f"{cue}.wav")
+    task.destination_path = "/Game/Yell/Audio"
+    task.destination_name = cue
+    task.automated = True
+    task.replace_existing = True
+    task.save = True
+    tasks.append(task)
+unreal.AssetToolsHelpers.get_asset_tools().import_asset_tasks(tasks)
+for task in tasks:
+    if not task.imported_object_paths:
+        raise RuntimeError(f"Audio import failed: {task.filename}")
+    unreal.log(f"Yell radio cue ready: {task.imported_object_paths[0]}")

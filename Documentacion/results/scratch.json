@@ -1,0 +1,341 @@
+{
+  "config": {
+    "epochs": 40,
+    "patience": 9,
+    "lr": 0.002,
+    "dropout": 0.24,
+    "seed": 421,
+    "threads": 3,
+    "device": "cpu",
+    "checkpoint": "C:\\Users\\aaran\\Documents\\Semestre 2-26\\SIS421\\SIS421_02-2026\\NLP\\Proyecto final\\AI NLP\\models\\scratch.pt",
+    "report": "C:\\Users\\aaran\\Documents\\Semestre 2-26\\SIS421\\SIS421_02-2026\\NLP\\Proyecto final\\Documentacion\\results\\scratch.json"
+  },
+  "pytorch": "2.10.0+cpu",
+  "corpus": {
+    "train": 1434,
+    "val": 117,
+    "test": 172
+  },
+  "sources": {
+    "train": {
+      "familia_v1": 962,
+      "autor_v1": 170,
+      "brief": 43,
+      "semilla": 259
+    },
+    "val": {
+      "familia_v1": 107,
+      "autor_v1": 10
+    },
+    "test": {
+      "familia_v1": 159,
+      "autor_v1": 13
+    }
+  },
+  "legacy_audit": {
+    "train": {
+      "rows": 1053,
+      "intents": {
+        "FORMAR": 105,
+        "REPORTAR": 100,
+        "VIGILAR": 94,
+        "CURAR": 95,
+        "SEGUIR": 104,
+        "CESAR_FUEGO": 80,
+        "DEFENDER": 101,
+        "ATACAR": 98,
+        "FUERA_DOMINIO": 98,
+        "MOVER_A": 98,
+        "CANCELAR": 80
+      },
+      "statuses": {
+        "OK": 876,
+        "ACLARAR": 79,
+        "ACCION_INVALIDA": 98
+      },
+      "compound": 143,
+      "bio_length_errors": 93,
+      "exact_duplicates": 0,
+      "slots": {
+        "UNIDAD": 828,
+        "FORMACION": 107,
+        "OBJETIVO": 424,
+        "UNIDAD_DESTINO": 211,
+        "MODO": 57,
+        "POSTURA": 37,
+        "REACCION": 73,
+        "CONDICION": 73
+      }
+    },
+    "val": {
+      "rows": 226,
+      "intents": {
+        "FORMAR": 22,
+        "REPORTAR": 22,
+        "VIGILAR": 20,
+        "CURAR": 21,
+        "SEGUIR": 22,
+        "CESAR_FUEGO": 17,
+        "DEFENDER": 22,
+        "ATACAR": 21,
+        "FUERA_DOMINIO": 21,
+        "MOVER_A": 21,
+        "CANCELAR": 17
+      },
+      "statuses": {
+        "OK": 184,
+        "ACLARAR": 21,
+        "ACCION_INVALIDA": 21
+      },
+      "compound": 31,
+      "bio_length_errors": 19,
+      "exact_duplicates": 0,
+      "slots": {
+        "UNIDAD": 169,
+        "FORMACION": 25,
+        "UNIDAD_DESTINO": 45,
+        "OBJETIVO": 84,
+        "MODO": 18,
+        "REACCION": 15,
+        "CONDICION": 15,
+        "POSTURA": 12
+      }
+    },
+    "test": {
+      "rows": 231,
+      "intents": {
+        "FORMAR": 23,
+        "REPORTAR": 22,
+        "VIGILAR": 21,
+        "CURAR": 21,
+        "SEGUIR": 23,
+        "CESAR_FUEGO": 18,
+        "DEFENDER": 22,
+        "ATACAR": 21,
+        "FUERA_DOMINIO": 21,
+        "MOVER_A": 21,
+        "CANCELAR": 18
+      },
+      "statuses": {
+        "OK": 190,
+        "ACLARAR": 20,
+        "ACCION_INVALIDA": 21
+      },
+      "compound": 46,
+      "bio_length_errors": 30,
+      "exact_duplicates": 0,
+      "slots": {
+        "FORMACION": 27,
+        "UNIDAD": 189,
+        "OBJETIVO": 94,
+        "MODO": 8,
+        "UNIDAD_DESTINO": 51,
+        "REACCION": 17,
+        "CONDICION": 17,
+        "POSTURA": 6
+      }
+    },
+    "train_val_shared_normalized": 0,
+    "train_test_shared_normalized": 0,
+    "val_test_shared_normalized": 0
+  },
+  "vocabulary": 1138,
+  "parameters": 93161,
+  "best_epoch": 6,
+  "temperatures": [
+    0.7408182206817179,
+    1.2214027581601699
+  ],
+  "history": [
+    {
+      "epoch": 1,
+      "lr": 0.002,
+      "train_loss": 5.868369710329021,
+      "validation_loss": 4.788563630519769,
+      "validation_exact_match": 0.1111111111111111,
+      "validation_intent_macro_f1": 0.3563936063936064
+    },
+    {
+      "epoch": 2,
+      "lr": 0.002,
+      "train_loss": 3.9831053269624377,
+      "validation_loss": 4.018423789586777,
+      "validation_exact_match": 0.23931623931623933,
+      "validation_intent_macro_f1": 0.23469267139479905
+    },
+    {
+      "epoch": 3,
+      "lr": 0.002,
+      "train_loss": 2.9754545199821183,
+      "validation_loss": 3.6419090715229,
+      "validation_exact_match": 0.3504273504273504,
+      "validation_intent_macro_f1": 0.3963541666666667
+    },
+    {
+      "epoch": 4,
+      "lr": 0.002,
+      "train_loss": 2.1290551462266567,
+      "validation_loss": 3.6401915611364903,
+      "validation_exact_match": 0.3247863247863248,
+      "validation_intent_macro_f1": 0.33616366832092637
+    },
+    {
+      "epoch": 5,
+      "lr": 0.002,
+      "train_loss": 1.446997410416437,
+      "validation_loss": 3.565588533368885,
+      "validation_exact_match": 0.358974358974359,
+      "validation_intent_macro_f1": 0.3824652777777778
+    },
+    {
+      "epoch": 6,
+      "lr": 0.002,
+      "train_loss": 1.0910511926294537,
+      "validation_loss": 3.6646790015391812,
+      "validation_exact_match": 0.46153846153846156,
+      "validation_intent_macro_f1": 0.3519299199927472
+    },
+    {
+      "epoch": 7,
+      "lr": 0.002,
+      "train_loss": 0.9817800476960058,
+      "validation_loss": 3.8019221929403453,
+      "validation_exact_match": 0.36752136752136755,
+      "validation_intent_macro_f1": 0.3801776960784314
+    },
+    {
+      "epoch": 8,
+      "lr": 0.002,
+      "train_loss": 0.9144225701627372,
+      "validation_loss": 3.8900941702035756,
+      "validation_exact_match": 0.36752136752136755,
+      "validation_intent_macro_f1": 0.3801776960784314
+    },
+    {
+      "epoch": 9,
+      "lr": 0.002,
+      "train_loss": 0.8760928749373103,
+      "validation_loss": 3.813036401047666,
+      "validation_exact_match": 0.4444444444444444,
+      "validation_intent_macro_f1": 0.3588972431077694
+    },
+    {
+      "epoch": 10,
+      "lr": 0.002,
+      "train_loss": 0.8624512973855896,
+      "validation_loss": 3.8490639853681254,
+      "validation_exact_match": 0.42735042735042733,
+      "validation_intent_macro_f1": 0.3801776960784314
+    },
+    {
+      "epoch": 11,
+      "lr": 0.0011,
+      "train_loss": 0.8440224823426336,
+      "validation_loss": 3.8867115933670955,
+      "validation_exact_match": 0.42735042735042733,
+      "validation_intent_macro_f1": 0.36205215070321317
+    },
+    {
+      "epoch": 12,
+      "lr": 0.0011,
+      "train_loss": 0.8421832939072134,
+      "validation_loss": 3.933326662096203,
+      "validation_exact_match": 0.39316239316239315,
+      "validation_intent_macro_f1": 0.36205215070321317
+    },
+    {
+      "epoch": 13,
+      "lr": 0.0011,
+      "train_loss": 0.8290837304861476,
+      "validation_loss": 3.9424978443700023,
+      "validation_exact_match": 0.4358974358974359,
+      "validation_intent_macro_f1": 0.37703814510097233
+    },
+    {
+      "epoch": 14,
+      "lr": 0.0011,
+      "train_loss": 0.8254099560581989,
+      "validation_loss": 3.955585569398016,
+      "validation_exact_match": 0.41025641025641024,
+      "validation_intent_macro_f1": 0.3588972431077694
+    },
+    {
+      "epoch": 15,
+      "lr": 0.0006050000000000001,
+      "train_loss": 0.8228618962329136,
+      "validation_loss": 3.925739339274219,
+      "validation_exact_match": 0.41025641025641024,
+      "validation_intent_macro_f1": 0.3588972431077694
+    }
+  ],
+  "held_out_guarded": {
+    "samples": 172,
+    "intent": {
+      "accuracy": 0.7790697674418605,
+      "macro_f1": 0.41776598330767356,
+      "labels": {
+        "orden": {
+          "precision": 0.9921875,
+          "recall": 0.7987421383647799,
+          "support": 159,
+          "f1": 0.8850174216027874
+        },
+        "motivacion": {
+          "precision": 0.5,
+          "recall": 0.75,
+          "support": 4,
+          "f1": 0.6
+        },
+        "charla": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "f1": 0
+        },
+        "desconocido": {
+          "precision": 0.10526315789473684,
+          "recall": 0.8,
+          "support": 5,
+          "f1": 0.18604651162790697
+        }
+      },
+      "confusion": [
+        [
+          127,
+          3,
+          0,
+          29
+        ],
+        [
+          0,
+          3,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          4
+        ],
+        [
+          1,
+          0,
+          0,
+          4
+        ]
+      ]
+    },
+    "exact_match": 0.31976744186046513,
+    "order_exact_match": 0.3018867924528302,
+    "order_field_accuracy": {
+      "subject": 0.8176100628930818,
+      "action": 0.3018867924528302,
+      "location": 0.8176100628930818,
+      "target": 0.9685534591194969
+    },
+    "normalized_entity_f1": 0.8801498127340824,
+    "ood_correct_abstention": 0.8,
+    "incorrect_order_proposal_rate": 0.46511627906976744
+  }
+}

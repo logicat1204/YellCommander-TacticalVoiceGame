@@ -1,0 +1,593 @@
+{
+  "sample_rate": 48000,
+  "source": "eSpeak NG es-419; ruido blanco reproducible; silencio digital",
+  "by_whisper": {
+    "tiny": {
+      "cases": {
+        "alfa": {
+          "reference": "Alfa, avancen por el centro.",
+          "recognition": {
+            "text": "Alfa, alhanzín por el centro.",
+            "status": "voz",
+            "audio_ms": 2330.125,
+            "speech_ms": 2330.1,
+            "peak_dbfs": -2.7,
+            "preprocess_ms": 2.413,
+            "min_logprob": -0.9498
+          },
+          "stt_ms": 288.127,
+          "proposals": {
+            "A": {
+              "prediction": {
+                "version": 1,
+                "intent": "orden",
+                "subject": {
+                  "type": "peloton",
+                  "name": "Alfa"
+                },
+                "action": "avanzar",
+                "location": {
+                  "id": "centro"
+                },
+                "target": null,
+                "model_confidence": 0.58692
+              },
+              "command": {
+                "version": 1,
+                "intent": "desconocido",
+                "subject": null,
+                "action": null,
+                "location": null,
+                "target": null,
+                "model_confidence": null
+              },
+              "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+              "nlp_ms": 34.203
+            },
+            "C": {
+              "prediction": {
+                "version": 1,
+                "intent": "orden",
+                "subject": {
+                  "type": "peloton",
+                  "name": "Alfa"
+                },
+                "action": "defender",
+                "location": {
+                  "id": "centro"
+                },
+                "target": null,
+                "model_confidence": 0.41039860248565674
+              },
+              "command": {
+                "version": 1,
+                "intent": "desconocido",
+                "subject": null,
+                "action": null,
+                "location": null,
+                "target": null,
+                "model_confidence": null
+              },
+              "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+              "nlp_ms": 18.225
+            }
+          }
+        },
+        "alfa_negada": {
+          "reference": "Alfa, no avancen por el centro.",
+          "recognition": {
+            "text": "Alfa, no avancem por el centro.",
+            "status": "voz",
+            "audio_ms": 2495.8125,
+            "speech_ms": 2495.8,
+            "peak_dbfs": 0.0,
+            "preprocess_ms": 3.065,
+            "min_logprob": -0.7406
+          },
+          "stt_ms": 294.051,
+          "proposals": {
+            "A": {
+              "prediction": {
+                "version": 1,
+                "intent": "desconocido",
+                "subject": null,
+                "action": null,
+                "location": null,
+                "target": null,
+                "model_confidence": 0.93669
+              },
+              "command": {
+                "version": 1,
+                "intent": "desconocido",
+                "subject": null,
+                "action": null,
+                "location": null,
+                "target": null,
+                "model_confidence": 0.93669
+              },
+              "reason": "",
+              "nlp_ms": 1.496
+            },
+            "C": {
+              "prediction": {
+                "version": 1,
+                "intent": "desconocido",
+                "subject": null,
+                "action": null,
+                "location": null,
+                "target": null,
+                "model_confidence": 0.9889013767242432
+              },
+              "command": {
+                "version": 1,
+                "intent": "desconocido",
+                "subject": null,
+                "action": null,
+                "location": null,
+                "target": null,
+                "model_confidence": 0.9889013767242432
+              },
+              "reason": "",
+              "nlp_ms": 14.049
+            }
+          }
+        },
+        "bravo": {
+          "reference": "Bravo, defiendan nuestra base.",
+          "recognition": {
+            "text": "",
+            "status": "transcripcion_incierta",
+            "audio_ms": 2335.0625,
+            "speech_ms": 2335.1,
+            "peak_dbfs": -3.8,
+            "preprocess_ms": 3.006,
+            "min_logprob": -1.1333
+          },
+          "stt_ms": 1084.056,
+          "proposals": {}
+        },
+        "arenga": {
+          "reference": "Soldados, ustedes pueden con esto, vamos a ganar.",
+          "recognition": {
+            "text": "",
+            "status": "transcripcion_incierta",
+            "audio_ms": 3828.0625,
+            "speech_ms": 3828.1,
+            "peak_dbfs": -2.9,
+            "preprocess_ms": 3.022,
+            "min_logprob": -1.0168
+          },
+          "stt_ms": 1904.368,
+          "proposals": {}
+        },
+        "alfa_ruido_12db": {
+          "reference": "Alfa, avancen por el centro.",
+          "recognition": {
+            "text": "Alfa, alhanzín por el centro.",
+            "status": "voz",
+            "audio_ms": 2330.125,
+            "speech_ms": 2330.1,
+            "peak_dbfs": -2.7,
+            "preprocess_ms": 3.153,
+            "min_logprob": -0.9161
+          },
+          "stt_ms": 484.832,
+          "proposals": {
+            "A": {
+              "prediction": {
+                "version": 1,
+                "intent": "orden",
+                "subject": {
+                  "type": "peloton",
+                  "name": "Alfa"
+                },
+                "action": "avanzar",
+                "location": {
+                  "id": "centro"
+                },
+                "target": null,
+                "model_confidence": 0.58692
+              },
+              "command": {
+                "version": 1,
+                "intent": "desconocido",
+                "subject": null,
+                "action": null,
+                "location": null,
+                "target": null,
+                "model_confidence": null
+              },
+              "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+              "nlp_ms": 1.714
+            },
+            "C": {
+              "prediction": {
+                "version": 1,
+                "intent": "orden",
+                "subject": {
+                  "type": "peloton",
+                  "name": "Alfa"
+                },
+                "action": "defender",
+                "location": {
+                  "id": "centro"
+                },
+                "target": null,
+                "model_confidence": 0.41039860248565674
+              },
+              "command": {
+                "version": 1,
+                "intent": "desconocido",
+                "subject": null,
+                "action": null,
+                "location": null,
+                "target": null,
+                "model_confidence": null
+              },
+              "reason": "Confianza de interpretación insuficiente. Repita la frase.",
+              "nlp_ms": 13.146
+            }
+          }
+        },
+        "ruido": {
+          "reference": null,
+          "recognition": {
+            "text": "",
+            "status": "sin_voz",
+            "audio_ms": 2000.0,
+            "speech_ms": 0.0,
+            "peak_dbfs": -21.0,
+            "preprocess_ms": 5.219,
+            "min_logprob": null
+          },
+          "stt_ms": 17.056,
+          "proposals": {}
+        },
+        "silencio": {
+          "reference": null,
+          "recognition": {
+            "text": "",
+            "status": "sin_senal",
+            "audio_ms": 1000.0,
+            "speech_ms": 0.0,
+            "peak_dbfs": -96.0,
+            "preprocess_ms": 2.184,
+            "min_logprob": null
+          },
+          "stt_ms": 2.193,
+          "proposals": {}
+        }
+      },
+      "stt": {
+        "p50_ms": 389.44,
+        "p95_ms": 1699.29
+      }
+    },
+    "base": {
+      "cases": {
+        "alfa": {
+          "reference": "Alfa, avancen por el centro.",
+          "recognition": {
+            "text": "Alpha, avancem por el centro.",
+            "status": "voz",
+            "audio_ms": 2330.125,
+            "speech_ms": 2330.1,
+            "peak_dbfs": -2.7,
+            "preprocess_ms": 3.065,
+            "min_logprob": -0.6256
+          },
+          "stt_ms": 569.325,
+          "proposals": {
+            "A": {
+              "prediction": {
+                "version": 1,
+                "intent": "orden",
+                "subject": {
+                  "type": "peloton",
+                  "name": "Alfa"
+                },
+                "action": "avanzar",
+                "location": {
+                  "id": "centro"
+                },
+                "target": null,
+                "model_confidence": 0.84429
+              },
+              "command": {
+                "version": 1,
+                "intent": "orden",
+                "subject": {
+                  "type": "peloton",
+                  "name": "Alfa"
+                },
+                "action": "avanzar",
+                "location": {
+                  "id": "centro"
+                },
+                "target": null,
+                "model_confidence": 0.84429
+              },
+              "reason": "",
+              "nlp_ms": 1.609
+            },
+            "C": {
+              "prediction": {
+                "version": 1,
+                "intent": "orden",
+                "subject": {
+                  "type": "peloton",
+                  "name": "Alfa"
+                },
+                "action": "avanzar",
+                "location": {
+                  "id": "centro"
+                },
+                "target": null,
+                "model_confidence": 0.9536305069923401
+              },
+              "command": {
+                "version": 1,
+                "intent": "orden",
+                "subject": {
+                  "type": "peloton",
+                  "name": "Alfa"
+                },
+                "action": "avanzar",
+                "location": {
+                  "id": "centro"
+                },
+                "target": null,
+                "model_confidence": 0.9536305069923401
+              },
+              "reason": "",
+              "nlp_ms": 19.473
+            }
+          }
+        },
+        "alfa_negada": {
+          "reference": "Alfa, no avancen por el centro.",
+          "recognition": {
+            "text": "Alpha, no avancem por el centro.",
+            "status": "voz",
+            "audio_ms": 2495.8125,
+            "speech_ms": 2495.8,
+            "peak_dbfs": 0.0,
+            "preprocess_ms": 3.915,
+            "min_logprob": -0.6407
+          },
+          "stt_ms": 576.911,
+          "proposals": {
+            "A": {
+              "prediction": {
+                "version": 1,
+                "intent": "desconocido",
+                "subject": null,
+                "action": null,
+                "location": null,
+                "target": null,
+                "model_confidence": 0.93669
+              },
+              "command": {
+                "version": 1,
+                "intent": "desconocido",
+                "subject": null,
+                "action": null,
+                "location": null,
+                "target": null,
+                "model_confidence": 0.93669
+              },
+              "reason": "",
+              "nlp_ms": 1.685
+            },
+            "C": {
+              "prediction": {
+                "version": 1,
+                "intent": "desconocido",
+                "subject": null,
+                "action": null,
+                "location": null,
+                "target": null,
+                "model_confidence": 0.9889013767242432
+              },
+              "command": {
+                "version": 1,
+                "intent": "desconocido",
+                "subject": null,
+                "action": null,
+                "location": null,
+                "target": null,
+                "model_confidence": 0.9889013767242432
+              },
+              "reason": "",
+              "nlp_ms": 16.346
+            }
+          }
+        },
+        "bravo": {
+          "reference": "Bravo, defiendan nuestra base.",
+          "recognition": {
+            "text": "",
+            "status": "transcripcion_incierta",
+            "audio_ms": 2335.0625,
+            "speech_ms": 2335.1,
+            "peak_dbfs": -3.8,
+            "preprocess_ms": 3.826,
+            "min_logprob": -0.9914
+          },
+          "stt_ms": 916.693,
+          "proposals": {}
+        },
+        "arenga": {
+          "reference": "Soldados, ustedes pueden con esto, vamos a ganar.",
+          "recognition": {
+            "text": "Sonamos, ustedes pueden con esto, vamos a ganar.",
+            "status": "voz",
+            "audio_ms": 3828.0625,
+            "speech_ms": 3828.1,
+            "peak_dbfs": -2.9,
+            "preprocess_ms": 3.988,
+            "min_logprob": -0.6176
+          },
+          "stt_ms": 600.43,
+          "proposals": {
+            "A": {
+              "prediction": {
+                "version": 1,
+                "intent": "motivacion",
+                "subject": null,
+                "action": null,
+                "location": null,
+                "target": null,
+                "model_confidence": 0.99532
+              },
+              "command": {
+                "version": 1,
+                "intent": "motivacion",
+                "subject": null,
+                "action": null,
+                "location": null,
+                "target": null,
+                "model_confidence": 0.99532
+              },
+              "reason": "",
+              "nlp_ms": 2.019
+            },
+            "C": {
+              "prediction": {
+                "version": 1,
+                "intent": "motivacion",
+                "subject": null,
+                "action": null,
+                "location": null,
+                "target": null,
+                "model_confidence": 0.9991652965545654
+              },
+              "command": {
+                "version": 1,
+                "intent": "motivacion",
+                "subject": null,
+                "action": null,
+                "location": null,
+                "target": null,
+                "model_confidence": 0.9991652965545654
+              },
+              "reason": "",
+              "nlp_ms": 19.48
+            }
+          }
+        },
+        "alfa_ruido_12db": {
+          "reference": "Alfa, avancen por el centro.",
+          "recognition": {
+            "text": "Alpha, avancem por el centro.",
+            "status": "voz",
+            "audio_ms": 2330.125,
+            "speech_ms": 2330.1,
+            "peak_dbfs": -2.7,
+            "preprocess_ms": 2.709,
+            "min_logprob": -0.4691
+          },
+          "stt_ms": 550.356,
+          "proposals": {
+            "A": {
+              "prediction": {
+                "version": 1,
+                "intent": "orden",
+                "subject": {
+                  "type": "peloton",
+                  "name": "Alfa"
+                },
+                "action": "avanzar",
+                "location": {
+                  "id": "centro"
+                },
+                "target": null,
+                "model_confidence": 0.84429
+              },
+              "command": {
+                "version": 1,
+                "intent": "orden",
+                "subject": {
+                  "type": "peloton",
+                  "name": "Alfa"
+                },
+                "action": "avanzar",
+                "location": {
+                  "id": "centro"
+                },
+                "target": null,
+                "model_confidence": 0.84429
+              },
+              "reason": "",
+              "nlp_ms": 1.615
+            },
+            "C": {
+              "prediction": {
+                "version": 1,
+                "intent": "orden",
+                "subject": {
+                  "type": "peloton",
+                  "name": "Alfa"
+                },
+                "action": "avanzar",
+                "location": {
+                  "id": "centro"
+                },
+                "target": null,
+                "model_confidence": 0.9536305069923401
+              },
+              "command": {
+                "version": 1,
+                "intent": "orden",
+                "subject": {
+                  "type": "peloton",
+                  "name": "Alfa"
+                },
+                "action": "avanzar",
+                "location": {
+                  "id": "centro"
+                },
+                "target": null,
+                "model_confidence": 0.9536305069923401
+              },
+              "reason": "",
+              "nlp_ms": 16.732
+            }
+          }
+        },
+        "ruido": {
+          "reference": null,
+          "recognition": {
+            "text": "",
+            "status": "sin_voz",
+            "audio_ms": 2000.0,
+            "speech_ms": 0.0,
+            "peak_dbfs": -21.0,
+            "preprocess_ms": 2.254,
+            "min_logprob": null
+          },
+          "stt_ms": 6.916,
+          "proposals": {}
+        },
+        "silencio": {
+          "reference": null,
+          "recognition": {
+            "text": "",
+            "status": "sin_senal",
+            "audio_ms": 1000.0,
+            "speech_ms": 0.0,
+            "peak_dbfs": -96.0,
+            "preprocess_ms": 2.079,
+            "min_logprob": null
+          },
+          "stt_ms": 2.089,
+          "proposals": {}
+        }
+      },
+      "stt": {
+        "p50_ms": 573.12,
+        "p95_ms": 837.63
+      }
+    }
+  }
+}

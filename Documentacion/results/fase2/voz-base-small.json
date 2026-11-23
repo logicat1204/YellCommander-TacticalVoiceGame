@@ -1,0 +1,118 @@
+{
+  "base": [
+    {
+      "reference": "Alfa, avancen por el centro",
+      "transcript": "Alpha, avancem por el centro",
+      "status": "voz",
+      "correct": true,
+      "ms": 741
+    },
+    {
+      "reference": "Bravo, defiendan nuestra base",
+      "transcript": "La voz de fiendas muestra va a ser...",
+      "status": "voz",
+      "correct": false,
+      "ms": 733
+    },
+    {
+      "reference": "Alfa, ataquen la base enemiga",
+      "transcript": "",
+      "status": "transcripcion_incierta",
+      "correct": false,
+      "ms": 742
+    },
+    {
+      "reference": "Bravo, regresa a la base",
+      "transcript": "La voz de la mesa va a ser...",
+      "status": "voz",
+      "correct": false,
+      "ms": 739
+    },
+    {
+      "reference": "Bravo, patrullen el flanco central",
+      "transcript": "",
+      "status": "transcripcion_incierta",
+      "correct": false,
+      "ms": 2000
+    },
+    {
+      "reference": "Médicos, vayan al centro",
+      "transcript": "Melicos, maya al centro.",
+      "status": "voz",
+      "correct": false,
+      "ms": 600
+    },
+    {
+      "reference": "Alfa, no ataquen la base enemiga",
+      "transcript": "Alpha, no paken la base enemiga.",
+      "status": "voz",
+      "correct": true,
+      "ms": 731
+    },
+    {
+      "reference": "Me gusta el clima de hoy",
+      "transcript": "Me gusta el clima hoy.",
+      "status": "voz",
+      "correct": true,
+      "ms": 854
+    }
+  ],
+  "small": [
+    {
+      "reference": "Alfa, avancen por el centro",
+      "transcript": "Alfa, avance por el centro.",
+      "status": "voz",
+      "correct": true,
+      "ms": 2128
+    },
+    {
+      "reference": "Bravo, defiendan nuestra base",
+      "transcript": "Bravo, defiendan nuestra base.",
+      "status": "voz",
+      "correct": true,
+      "ms": 2151
+    },
+    {
+      "reference": "Alfa, ataquen la base enemiga",
+      "transcript": "¡Alfa! ¡Ataque en la base enemiga!",
+      "status": "voz",
+      "correct": true,
+      "ms": 2060
+    },
+    {
+      "reference": "Bravo, regresa a la base",
+      "transcript": "Bravo, regresa a la base.",
+      "status": "voz",
+      "correct": true,
+      "ms": 2067
+    },
+    {
+      "reference": "Bravo, patrullen el flanco central",
+      "transcript": "Bravo, patrullen el flanco central.",
+      "status": "voz",
+      "correct": true,
+      "ms": 2175
+    },
+    {
+      "reference": "Médicos, vayan al centro",
+      "transcript": "¡Médicos, vaya al centro!",
+      "status": "voz",
+      "correct": false,
+      "ms": 1968
+    },
+    {
+      "reference": "Alfa, no ataquen la base enemiga",
+      "transcript": "Alpha, no atacen la base enemiga.",
+      "status": "voz",
+      "correct": true,
+      "ms": 2374
+    },
+    {
+      "reference": "Me gusta el clima de hoy",
+      "transcript": "Me gusta el clima de hoy.",
+      "status": "voz",
+      "correct": true,
+      "ms": 2012
+    }
+  ]
+}

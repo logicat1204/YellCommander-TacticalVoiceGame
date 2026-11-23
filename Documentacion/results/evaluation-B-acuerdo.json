@@ -1,0 +1,71 @@
+{
+  "samples": 172,
+  "intent": {
+    "accuracy": 0.06395348837209303,
+    "macro_f1": 0.19598924405393123,
+    "labels": {
+      "orden": {
+        "precision": 1.0,
+        "recall": 0.031446540880503145,
+        "support": 159,
+        "f1": 0.06097560975609756
+      },
+      "motivacion": {
+        "precision": 1.0,
+        "recall": 0.25,
+        "support": 4,
+        "f1": 0.4
+      },
+      "charla": {
+        "precision": 0.2,
+        "recall": 0.5,
+        "support": 4,
+        "f1": 0.28571428571428575
+      },
+      "desconocido": {
+        "precision": 0.019230769230769232,
+        "recall": 0.6,
+        "support": 5,
+        "f1": 0.037267080745341616
+      }
+    },
+    "confusion": [
+      [
+        5,
+        0,
+        4,
+        150
+      ],
+      [
+        0,
+        1,
+        2,
+        1
+      ],
+      [
+        0,
+        0,
+        2,
+        2
+      ],
+      [
+        0,
+        0,
+        2,
+        3
+      ]
+    ]
+  },
+  "exact_match": 0.06395348837209303,
+  "order_exact_match": 0.031446540880503145,
+  "order_field_accuracy": {
+    "subject": 0.031446540880503145,
+    "action": 0.031446540880503145,
+    "location": 0.27044025157232704,
+    "target": 0.9056603773584906
+  },
+  "normalized_entity_f1": 0.08360128617363344,
+  "ood_correct_abstention": 0.6,
+  "incorrect_order_proposal_rate": 0.0,
+  "rejected_by_agreement": 129
+}

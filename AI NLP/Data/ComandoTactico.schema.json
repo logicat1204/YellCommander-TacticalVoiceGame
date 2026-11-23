@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ComandoTactico",
+  "type": "object",
+  "required": [
+    "id_comando",
+    "texto_original",
+    "acciones",
+    "estado"
+  ],
+  "properties": {
+    "id_comando": {
+      "type": "string"
+    },
+    "texto_original": {
+      "type": "string"
+    },
+    "dialogo_npc": {
+      "type": "string"
+    },
+    "estado": {
+      "enum": [
+        "OK",
+        "ACLARAR",
+        "ACCION_INVALIDA"
+      ]
+    },
+    "acciones": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "comando"
+        ],
+        "properties": {
+          "comando": {
+            "enum": [
+              "MOVER_A",
+              "ATACAR",
+              "DEFENDER",
+              "CURAR",
+              "SEGUIR",
+              "VIGILAR",
+              "FORMAR",
+              "CESAR_FUEGO",
+              "REPORTAR",
+              "CANCELAR",
+              "ACLARAR",
+              "ACCION_INVALIDA"
+            ]
+          },
+          "unidad": {
+            "enum": [
+              "alpha_squad",
+              "bravo_squad",
+              "medico_1",
+              "todos"
+            ]
+          },
+          "unidad_destino": {
+            "enum": [
+              "alpha_squad",
+              "bravo_squad",
+              "medico_1"
+            ]
+          },
+          "objetivo": {
+            "enum": [
+              "trinchera",
+              "puerta_norte",
+              "flanco_izquierdo",
+              "flanco_derecho",
+              "puente",
+              "colina",
+              "torre_vigia",
+              "bunker_este",
+              "punto_extraccion"
+            ]
+          },
+          "postura": {
+            "enum": [
+              "de_pie",
+              "agachado",
+              "tumbado"
+            ]
+          },
+          "modo": {
+            "enum": [
+              "normal",
+              "sigilo",
+              "agresivo"
+            ]
+          },
+          "condicion": {
+            "enum": [
+              "detectar_disparo",
+              "detectar_enemigo",
+              "herido",
+              "sin_municion"
+            ]
+          },
+          "reaccion": {
+            "enum": [
+              "ALERTAR_JUGADOR",
+              "ABRIR_FUEGO",
+              "REPLEGARSE",
+              "MANTENER"
+            ]
+          },
+          "formacion": {
+            "enum": [
+              "linea",
+              "columna",
+              "cuna"
+            ]
+          },
+          "confianza": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        }
+      }
+    }
+  }
+}

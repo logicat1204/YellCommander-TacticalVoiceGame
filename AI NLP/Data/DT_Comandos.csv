@@ -1,0 +1,11 @@
+Name,ComandoTag,RequiereObjetivo,RequiereUnidadDestino,Prioridad,Ejemplo
+MOVER_A,"(TagName=""Comando.MoverA"")",true,false,5,"Alpha, muevanse al flanco izquierdo"
+ATACAR,"(TagName=""Comando.Atacar"")",true,false,5,Ataquen el bunker del este
+DEFENDER,"(TagName=""Comando.Defender"")",true,false,5,"Bravo, defiendan la trinchera"
+CURAR,"(TagName=""Comando.Curar"")",false,true,6,"Medico, cura a Alpha"
+SEGUIR,"(TagName=""Comando.Seguir"")",false,true,4,"Medico, sigue a Alpha"
+VIGILAR,"(TagName=""Comando.Vigilar"")",true,false,4,Vigila la colina y avisame si ves a alguien
+FORMAR,"(TagName=""Comando.Formar"")",false,false,3,"Alpha, formacion en linea"
+CESAR_FUEGO,"(TagName=""Comando.CesarFuego"")",false,false,10,Alto el fuego
+REPORTAR,"(TagName=""Comando.Reportar"")",false,false,2,"Bravo, informe de situacion"
+CANCELAR,"(TagName=""Comando.Cancelar"")",false,false,9,Olvida eso

@@ -1,0 +1,5 @@
+Name,NombreES,Rol,Escuadron,NumMiembros,VidaMax,VelCaminar,VelCorrer,VelAgachado,AlcanceDisparo,DanoDisparo,CadenciaSeg,Alias
+alpha_squad,Escuadron Alpha,asalto,Alpha,3,100,200,450,120,4500,12,0.18,alpha;alfa;equipo alpha;los de asalto;equipo de asalto
+bravo_squad,Escuadron Bravo,defensa,Bravo,3,100,200,450,120,4500,12,0.18,bravo;equipo bravo;los de defensa;equipo de defensa
+medico_1,Medico,apoyo,Apoyo,1,80,210,470,120,2500,8,0.35,medico;el medico;sanitario;doc
+enemigo_fusilero,Fusilero enemigo,enemigo,Enemigo,1,70,190,420,110,4000,10,0.22,

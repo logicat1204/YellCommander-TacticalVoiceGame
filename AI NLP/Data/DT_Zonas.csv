@@ -1,0 +1,10 @@
+Name,ZonaTag,NombreES,Alias,Ubicacion,Radio,Rol
+trinchera,"(TagName=""Zona.Trinchera"")",trinchera,"trinchera;la trinchera;posicion defensiva;las trincheras","(X=3400.0,Y=12600.0,Z=40.0)",1000,defensa
+puerta_norte,"(TagName=""Zona.PuertaNorte"")",puerta norte,"puerta norte;acceso norte;entrada norte;la puerta;el norte","(X=12600.0,Y=2200.0,Z=-39.3)",800,transito
+flanco_izquierdo,"(TagName=""Zona.FlancoIzquierdo"")",flanco izquierdo,"flanco izquierdo;lado izquierdo;por la izquierda;izquierda","(X=10000.0,Y=6200.0,Z=60.2)",1200,transito
+flanco_derecho,"(TagName=""Zona.FlancoDerecho"")",flanco derecho,"flanco derecho;lado derecho;por la derecha;derecha","(X=10000.0,Y=19200.0,Z=-116.0)",1200,transito
+puente,"(TagName=""Zona.Puente"")",puente,"puente;el puente;paso central;el cruce","(X=12600.0,Y=12600.0,Z=45.9)",1000,cuello_de_botella
+colina,"(TagName=""Zona.Colina"")",colina,"colina;la colina;loma;la cima","(X=17500.0,Y=6000.0,Z=1072.1)",1500,vigilancia
+torre_vigia,"(TagName=""Zona.TorreVigia"")",torre vigia,"torre de vigia;torre;la torre;atalaya","(X=17800.0,Y=5800.0,Z=1057.6)",400,vigilancia
+bunker_este,"(TagName=""Zona.BunkerEste"")",bunker este,"bunker;bunker este;el bunker;fortin;bunker enemigo;objetivo","(X=21400.0,Y=12600.0,Z=299.5)",1200,objetivo_ofensivo
+punto_extraccion,"(TagName=""Zona.PuntoExtraccion"")",punto extraccion,"punto de extraccion;extraccion;zona de extraccion;evacuacion","(X=12600.0,Y=23200.0,Z=80.0)",1200,extraccion

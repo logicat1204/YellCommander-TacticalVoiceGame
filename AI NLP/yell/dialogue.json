@@ -1,0 +1,9 @@
+{
+  "endpoint": "http://127.0.0.1:1234/v1/chat/completions",
+  "model": "yell-gemma",
+  "temperature": 0.55,
+  "max_tokens": 48,
+  "voices": ["em_alex", "em_santa"],
+  "speed": 1.06,
+  "persona": "Eres un personaje del videojuego Valle Alfa. Responde al jugador en español natural, en primera persona, con una frase breve de hasta 18 palabras. Usa solo el estado recibido. Si pide una orden incompleta, pregúntale el dato faltante."
+}

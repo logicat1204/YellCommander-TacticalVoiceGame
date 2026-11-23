@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:yell-commander:command:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "intent", "subject", "action", "location", "target", "model_confidence"],
+  "properties": {
+    "version": {"const": 1},
+    "intent": {"enum": ["orden", "motivacion", "charla", "desconocido"]},
+    "subject": {"anyOf": [{"type": "null"}, {"$ref": "#/$defs/unit"}]},
+    "action": {"enum": [null, "avanzar", "defender", "atacar", "retirarse", "reagruparse", "patrullar", "explorar", "mantener_posicion", "cancelar_orden", "curar", "reanimar"]},
+    "location": {"anyOf": [{"type": "null"}, {
+      "type": "object", "additionalProperties": false, "required": ["id"],
+      "properties": {"id": {"enum": ["flanco_izquierdo", "centro", "flanco_derecho", "base_aliada", "base_enemiga"]}}
+    }]},
+    "target": {"anyOf": [{"type": "null"}, {"$ref": "#/$defs/unit"}]},
+    "model_confidence": {"anyOf": [{"type": "null"}, {"type": "number", "minimum": 0, "maximum": 1}]}
+  },
+  "$defs": {
+    "unit": {
+      "type": "object", "additionalProperties": false, "required": ["type", "name"],
+      "properties": {
+        "type": {"enum": ["peloton", "soldado"]},
+        "name": {"type": "string", "minLength": 1, "maxLength": 64}
+      }
+    }
+  }
+}

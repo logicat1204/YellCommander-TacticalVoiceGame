@@ -1,0 +1,1035 @@
+{
+  "concurrente": [
+    {
+      "decision": {
+        "tipo": "accion",
+        "sujeto": {
+          "tipo": "peloton",
+          "id": "Alfa",
+          "nombre": "Alfa"
+        },
+        "accion": "avanzar",
+        "lugar": "centro"
+      },
+      "alternativas": [
+        [
+          "avanzar",
+          0.6833508610725403
+        ],
+        [
+          "atacar",
+          0.2224450707435608
+        ],
+        [
+          "retirarse",
+          0.056636419147253036
+        ]
+      ],
+      "request_id": "fdbd25c0-ed51-4533-9c70-bfd0876731ca",
+      "model": "D",
+      "transcript": "Alpha, avancem por el centro",
+      "prediction": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "avanzar",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "command": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "avanzar",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "",
+      "input": "voz",
+      "request_parse_ms": 1.717,
+      "stt_wait_ms": 0.002,
+      "stt_primary_ms": 1864.086,
+      "stt_retry_ms": 0.0,
+      "decision_wait_ms": 0.002,
+      "speech": {
+        "status": "voz",
+        "audio_ms": 2330.125,
+        "speech_ms": 2330.1,
+        "peak_dbfs": -2.7,
+        "preprocess_ms": 36.916,
+        "min_logprob": -0.5906,
+        "retried": false,
+        "first_transcript": "Alpha, avancem por el centro",
+        "used_retry": false
+      },
+      "nlp_route": "clasificador",
+      "verified_by": null,
+      "stt_ms": 1864.086,
+      "nlp_ms": 55.732,
+      "total_ms": 1922.047,
+      "elapsed_ms": 1935.229,
+      "expected": "accion",
+      "reference": "Alfa, avancen por el centro",
+      "correct": true
+    },
+    {
+      "decision": {
+        "tipo": "charla",
+        "interlocutor": {
+          "tipo": "peloton",
+          "id": "Alfa",
+          "nombre": "Alfa"
+        }
+      },
+      "alternativas": [
+        [
+          "charla",
+          0.8411148190498352
+        ],
+        [
+          "curar",
+          0.04955828934907913
+        ],
+        [
+          "avanzar",
+          0.04928990453481674
+        ]
+      ],
+      "dialogue": {
+        "speaker_id": "Alfa-1",
+        "name": "Alex",
+        "generation_wait_ms": 0.003,
+        "first_token_ms": 274.435,
+        "generation_ms": 433.749,
+        "text": "¡Encendemos las alarmas!",
+        "tts_wait_ms": 0.003,
+        "rate": 24000,
+        "tts_ms": 579.122,
+        "pcm_bytes": 72704
+      },
+      "request_id": "69a30f8a-1086-4864-a67c-d8df9bfa724b",
+      "model": "D",
+      "transcript": "Alfa, ha caqué en la base de Miga.",
+      "prediction": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "command": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "",
+      "input": "voz",
+      "request_parse_ms": 24.904,
+      "stt_wait_ms": 1837.909,
+      "stt_primary_ms": 2115.307,
+      "stt_retry_ms": 5695.361,
+      "decision_wait_ms": 0.002,
+      "speech": {
+        "status": "voz",
+        "audio_ms": 2461.875,
+        "speech_ms": 2461.9,
+        "peak_dbfs": -4.0,
+        "preprocess_ms": 15.155,
+        "min_logprob": -0.9451,
+        "retried": true,
+        "first_transcript": "Alfa, ha caqué en la base de Miga.",
+        "used_retry": false
+      },
+      "nlp_route": "clasificador",
+      "verified_by": null,
+      "stt_ms": 7810.668,
+      "nlp_ms": 21.243,
+      "total_ms": 10686.199,
+      "elapsed_ms": 10728.824,
+      "expected": "accion",
+      "reference": "Alfa, ataquen la base enemiga",
+      "correct": false
+    },
+    {
+      "decision": {
+        "tipo": "charla",
+        "interlocutor": {
+          "tipo": "soldado",
+          "id": "Alfa-1",
+          "nombre": "Alex"
+        }
+      },
+      "alternativas": [
+        [
+          "charla",
+          0.9807522892951965
+        ],
+        [
+          "retirarse",
+          0.002897785045206547
+        ],
+        [
+          "explorar",
+          0.002443530596792698
+        ]
+      ],
+      "dialogue": {
+        "speaker_id": "Alfa-1",
+        "name": "Alex",
+        "generation_wait_ms": 0.003,
+        "first_token_ms": 495.141,
+        "generation_ms": 722.577,
+        "text": "En servicio, listo para la misión, ¿qué necesitas?",
+        "tts_wait_ms": 0.004,
+        "rate": 24000,
+        "tts_ms": 1158.583,
+        "pcm_bytes": 135168
+      },
+      "request_id": "f672dba0-7eb3-433e-9f26-40563d7d6521",
+      "model": "D",
+      "transcript": "Alex, ¿cómo estás?",
+      "prediction": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "command": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "",
+      "input": "texto",
+      "request_parse_ms": 0.302,
+      "stt_wait_ms": 0.0,
+      "stt_primary_ms": 0.0,
+      "stt_retry_ms": 0.0,
+      "decision_wait_ms": 0.002,
+      "speech": null,
+      "nlp_route": "clasificador",
+      "verified_by": null,
+      "stt_ms": 0.0,
+      "nlp_ms": 519.379,
+      "total_ms": 3023.948,
+      "elapsed_ms": 3033.205,
+      "expected": "charla",
+      "reference": "Alex, ¿cómo estás?",
+      "correct": true
+    },
+    {
+      "decision": {
+        "tipo": "charla",
+        "interlocutor": {
+          "tipo": "soldado",
+          "id": "Alfa-1",
+          "nombre": "Alex"
+        }
+      },
+      "alternativas": [
+        [
+          "charla",
+          0.9824816584587097
+        ],
+        [
+          "retirarse",
+          0.0026764480862766504
+        ],
+        [
+          "explorar",
+          0.0024596061557531357
+        ]
+      ],
+      "dialogue": {
+        "speaker_id": "Alfa-1",
+        "name": "Alex",
+        "generation_wait_ms": 723.195,
+        "first_token_ms": 449.804,
+        "generation_ms": 612.648,
+        "text": "Todo bien, listo para seguir con la misión.",
+        "tts_wait_ms": 546.921,
+        "rate": 24000,
+        "tts_ms": 762.255,
+        "pcm_bytes": 114688
+      },
+      "request_id": "fcd70716-2d5b-42cb-ae00-60fd91532793",
+      "model": "D",
+      "transcript": "Alex, ¿qué tal va todo?",
+      "prediction": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "command": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "",
+      "input": "texto",
+      "request_parse_ms": 0.128,
+      "stt_wait_ms": 0.0,
+      "stt_primary_ms": 0.0,
+      "stt_retry_ms": 0.0,
+      "decision_wait_ms": 485.634,
+      "speech": null,
+      "nlp_route": "clasificador",
+      "verified_by": null,
+      "stt_ms": 0.0,
+      "nlp_ms": 53.878,
+      "total_ms": 3753.534,
+      "elapsed_ms": 3796.122,
+      "expected": "charla",
+      "reference": "Alex, ¿qué tal va todo?",
+      "correct": true
+    }
+  ],
+  "secuencial": [
+    {
+      "decision": {
+        "tipo": "accion",
+        "sujeto": {
+          "tipo": "peloton",
+          "id": "Alfa",
+          "nombre": "Alfa"
+        },
+        "accion": "avanzar",
+        "lugar": "centro"
+      },
+      "alternativas": [
+        [
+          "avanzar",
+          0.6833508610725403
+        ],
+        [
+          "atacar",
+          0.2224450707435608
+        ],
+        [
+          "retirarse",
+          0.056636419147253036
+        ]
+      ],
+      "request_id": "1eb60208-23ff-4c8a-a942-2aa909bbdeb8",
+      "model": "D",
+      "transcript": "Alpha, avancem por el centro",
+      "prediction": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "avanzar",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "command": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "avanzar",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "",
+      "input": "voz",
+      "request_parse_ms": 1.308,
+      "stt_wait_ms": 0.002,
+      "stt_primary_ms": 1785.6,
+      "stt_retry_ms": 0.0,
+      "decision_wait_ms": 0.004,
+      "speech": {
+        "status": "voz",
+        "audio_ms": 2330.125,
+        "speech_ms": 2330.1,
+        "peak_dbfs": -2.7,
+        "preprocess_ms": 10.171,
+        "min_logprob": -0.5906,
+        "retried": false,
+        "first_transcript": "Alpha, avancem por el centro",
+        "used_retry": false
+      },
+      "nlp_route": "clasificador",
+      "verified_by": null,
+      "stt_ms": 1785.6,
+      "nlp_ms": 24.931,
+      "total_ms": 1811.15,
+      "elapsed_ms": 1823.255,
+      "expected": "accion",
+      "reference": "Alfa, avancen por el centro",
+      "correct": true
+    },
+    {
+      "decision": {
+        "tipo": "charla",
+        "interlocutor": {
+          "tipo": "peloton",
+          "id": "Alfa",
+          "nombre": "Alfa"
+        }
+      },
+      "alternativas": [
+        [
+          "charla",
+          0.8411148190498352
+        ],
+        [
+          "curar",
+          0.04955828934907913
+        ],
+        [
+          "avanzar",
+          0.04928990453481674
+        ]
+      ],
+      "dialogue": {
+        "speaker_id": "Alfa-1",
+        "name": "Alex",
+        "generation_wait_ms": 0.003,
+        "first_token_ms": 285.436,
+        "generation_ms": 363.653,
+        "text": "\"¡Atención!",
+        "tts_wait_ms": 0.002,
+        "rate": 24000,
+        "tts_ms": 488.357,
+        "pcm_bytes": 40960
+      },
+      "request_id": "7c7cce84-dd69-48e2-928c-a1ecd1ecdc14",
+      "model": "D",
+      "transcript": "Alfa, ha caqué en la base de Miga.",
+      "prediction": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "command": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "",
+      "input": "voz",
+      "request_parse_ms": 1.129,
+      "stt_wait_ms": 0.001,
+      "stt_primary_ms": 2065.898,
+      "stt_retry_ms": 5603.703,
+      "decision_wait_ms": 0.002,
+      "speech": {
+        "status": "voz",
+        "audio_ms": 2461.875,
+        "speech_ms": 2461.9,
+        "peak_dbfs": -4.0,
+        "preprocess_ms": 15.413,
+        "min_logprob": -0.9451,
+        "retried": true,
+        "first_transcript": "Alfa, ha caqué en la base de Miga.",
+        "used_retry": false
+      },
+      "nlp_route": "clasificador",
+      "verified_by": null,
+      "stt_ms": 7669.601,
+      "nlp_ms": 54.065,
+      "total_ms": 8576.719,
+      "elapsed_ms": 8606.465,
+      "expected": "accion",
+      "reference": "Alfa, ataquen la base enemiga",
+      "correct": false
+    },
+    {
+      "decision": {
+        "tipo": "charla",
+        "interlocutor": {
+          "tipo": "soldado",
+          "id": "Alfa-1",
+          "nombre": "Alex"
+        }
+      },
+      "alternativas": [
+        [
+          "charla",
+          0.9807522892951965
+        ],
+        [
+          "retirarse",
+          0.002897785045206547
+        ],
+        [
+          "explorar",
+          0.002443530596792698
+        ]
+      ],
+      "dialogue": {
+        "speaker_id": "Alfa-1",
+        "name": "Alex",
+        "generation_wait_ms": 0.002,
+        "first_token_ms": 99.882,
+        "generation_ms": 331.508,
+        "text": "En buen estado, listo para la misión, ¡qué quieres!",
+        "tts_wait_ms": 0.002,
+        "rate": 24000,
+        "tts_ms": 689.79,
+        "pcm_bytes": 124928
+      },
+      "request_id": "055c4c37-940f-4363-9d5f-811c0d315ec1",
+      "model": "D",
+      "transcript": "Alex, ¿cómo estás?",
+      "prediction": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "command": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "",
+      "input": "texto",
+      "request_parse_ms": 0.062,
+      "stt_wait_ms": 0.0,
+      "stt_primary_ms": 0.0,
+      "stt_retry_ms": 0.0,
+      "decision_wait_ms": 0.002,
+      "speech": null,
+      "nlp_route": "clasificador",
+      "verified_by": null,
+      "stt_ms": 0.0,
+      "nlp_ms": 17.815,
+      "total_ms": 1039.341,
+      "elapsed_ms": 1046.423,
+      "expected": "charla",
+      "reference": "Alex, ¿cómo estás?",
+      "correct": true
+    },
+    {
+      "decision": {
+        "tipo": "charla",
+        "interlocutor": {
+          "tipo": "soldado",
+          "id": "Alfa-1",
+          "nombre": "Alex"
+        }
+      },
+      "alternativas": [
+        [
+          "charla",
+          0.9824816584587097
+        ],
+        [
+          "retirarse",
+          0.0026764480862766504
+        ],
+        [
+          "explorar",
+          0.0024596061557531357
+        ]
+      ],
+      "dialogue": {
+        "speaker_id": "Alfa-1",
+        "name": "Alex",
+        "generation_wait_ms": 0.003,
+        "first_token_ms": 90.328,
+        "generation_ms": 326.302,
+        "text": "Bien, la misión se ejecuta como siempre, ¿y tú?",
+        "tts_wait_ms": 0.003,
+        "rate": 24000,
+        "tts_ms": 735.704,
+        "pcm_bytes": 125952
+      },
+      "request_id": "6c64dbdc-2d0a-4aff-8080-e925fd967f78",
+      "model": "D",
+      "transcript": "Alex, ¿qué tal va todo?",
+      "prediction": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "command": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "",
+      "input": "texto",
+      "request_parse_ms": 0.107,
+      "stt_wait_ms": 0.0,
+      "stt_primary_ms": 0.0,
+      "stt_retry_ms": 0.0,
+      "decision_wait_ms": 0.002,
+      "speech": null,
+      "nlp_route": "clasificador",
+      "verified_by": null,
+      "stt_ms": 0.0,
+      "nlp_ms": 23.28,
+      "total_ms": 1085.586,
+      "elapsed_ms": 1090.829,
+      "expected": "charla",
+      "reference": "Alex, ¿qué tal va todo?",
+      "correct": true
+    }
+  ],
+  "nota_http": "Lote con los tiempos por etapa habilitados, antes de activar la gramática de órdenes explícitas en el modo D.",
+  "voz_previa": {
+    "decisión_p50_ms": 33.249,
+    "solo_base": {
+      "n": 3,
+      "stt_p50_ms": 1619.886
+    },
+    "con_reintento": {
+      "n": 22,
+      "stt_p50_ms": 6516.954
+    }
+  },
+  "memoria": {
+    "cuda_total_mib": 6141,
+    "pico_d3d12_una_charla_anterior_mib": 5700,
+    "prueba_grafica_actual": "Windows agotó la memoria comprometida durante el arranque de Unreal."
+  },
+  "unreal_sin_render": {
+    "entrada": "texto",
+    "audio": "WASAPI",
+    "ordenes": [
+      {
+        "decision": {
+          "tipo": "accion",
+          "sujeto": {
+            "tipo": "soldado",
+            "id": "Alfa-2",
+            "nombre": "Juan"
+          },
+          "accion": "avanzar",
+          "lugar": "centro"
+        },
+        "alternativas": [
+          [
+            "avanzar",
+            1
+          ]
+        ],
+        "request_id": "903426E6-4D33-0551-043B-EF946C2F8CFA",
+        "model": "D",
+        "transcript": "Juan, avancen al centro",
+        "prediction": {
+          "version": 1,
+          "intent": "orden",
+          "subject": {
+            "type": "soldado",
+            "name": "Alfa-2"
+          },
+          "action": "avanzar",
+          "location": {
+            "id": "centro"
+          },
+          "target": null,
+          "model_confidence": null
+        },
+        "command": {
+          "version": 1,
+          "intent": "orden",
+          "subject": {
+            "type": "soldado",
+            "name": "Alfa-2"
+          },
+          "action": "avanzar",
+          "location": {
+            "id": "centro"
+          },
+          "target": null,
+          "model_confidence": null
+        },
+        "reason": "",
+        "input": "texto",
+        "request_parse_ms": 0.282,
+        "stt_wait_ms": 0,
+        "stt_primary_ms": 0,
+        "stt_retry_ms": 0,
+        "decision_wait_ms": 465.121,
+        "speech": null,
+        "nlp_route": "gramatica",
+        "verified_by": null,
+        "stt_ms": 0,
+        "nlp_ms": 4.129,
+        "total_ms": 469.333,
+        "timestamp_utc": "2026-11-22T21:05:28.427Z",
+        "channel": "radio",
+        "result": "¡Copiado, Juan! avanzar centro.",
+        "accepted": true,
+        "round_trip_ms": 484.76479947566986
+      },
+      {
+        "decision": {
+          "tipo": "accion",
+          "sujeto": {
+            "tipo": "peloton",
+            "id": "Bravo",
+            "nombre": "Bravo"
+          },
+          "accion": "defender",
+          "lugar": "base_aliada"
+        },
+        "alternativas": [
+          [
+            "defender",
+            1
+          ]
+        ],
+        "request_id": "75E13A78-42E4-C44F-56DD-DAB821ADC52B",
+        "model": "D",
+        "transcript": "Bravo, defiendan nuestra base",
+        "prediction": {
+          "version": 1,
+          "intent": "orden",
+          "subject": {
+            "type": "peloton",
+            "name": "Bravo"
+          },
+          "action": "defender",
+          "location": {
+            "id": "base_aliada"
+          },
+          "target": null,
+          "model_confidence": null
+        },
+        "command": {
+          "version": 1,
+          "intent": "orden",
+          "subject": {
+            "type": "peloton",
+            "name": "Bravo"
+          },
+          "action": "defender",
+          "location": {
+            "id": "base_aliada"
+          },
+          "target": null,
+          "model_confidence": null
+        },
+        "reason": "",
+        "input": "texto",
+        "request_parse_ms": 0.245,
+        "stt_wait_ms": 0,
+        "stt_primary_ms": 0,
+        "stt_retry_ms": 0,
+        "decision_wait_ms": 466.885,
+        "speech": null,
+        "nlp_route": "gramatica",
+        "verified_by": null,
+        "stt_ms": 0,
+        "nlp_ms": 1.325,
+        "total_ms": 468.274,
+        "timestamp_utc": "2026-11-22T21:05:28.436Z",
+        "channel": "radio",
+        "result": "¡Copiado, Bravo! defender base aliada.",
+        "accepted": true,
+        "round_trip_ms": 494.0742030739784
+      },
+      {
+        "decision": {
+          "tipo": "charla",
+          "interlocutor": {
+            "tipo": "soldado",
+            "id": "Alfa-1",
+            "nombre": "Alex"
+          }
+        },
+        "alternativas": [
+          [
+            "charla",
+            0.9807522892951965
+          ],
+          [
+            "retirarse",
+            0.002897785045206547
+          ],
+          [
+            "explorar",
+            0.002443530596792698
+          ]
+        ],
+        "dialogue": {
+          "speaker_id": "Alfa-1",
+          "name": "Alex",
+          "generation_wait_ms": 0.003,
+          "first_token_ms": 79.973,
+          "generation_ms": 202.691,
+          "text": "Bien, listo para la carga.",
+          "tts_wait_ms": 0.005,
+          "rate": 24000,
+          "tts_ms": 604.775,
+          "audio_queued": true,
+          "audio_ms": 1600
+        },
+        "request_id": "90A0AE41-4798-6A5E-F0FF-F98346C2D7B8",
+        "model": "D",
+        "transcript": "Alex, ¿cómo estás?",
+        "prediction": {
+          "version": 1,
+          "intent": "charla",
+          "subject": null,
+          "action": null,
+          "location": null,
+          "target": null,
+          "model_confidence": null
+        },
+        "command": {
+          "version": 1,
+          "intent": "charla",
+          "subject": null,
+          "action": null,
+          "location": null,
+          "target": null,
+          "model_confidence": null
+        },
+        "reason": "",
+        "input": "texto",
+        "request_parse_ms": 1.672,
+        "stt_wait_ms": 0,
+        "stt_primary_ms": 0,
+        "stt_retry_ms": 0,
+        "decision_wait_ms": 0.003,
+        "speech": null,
+        "nlp_route": "clasificador",
+        "verified_by": null,
+        "stt_ms": 0,
+        "nlp_ms": 469.188,
+        "total_ms": 1559.184,
+        "timestamp_utc": "2026-11-22T21:05:29.513Z",
+        "channel": "radio",
+        "result": "Alex: Bien, listo para la carga.",
+        "accepted": false,
+        "round_trip_ms": 1575.660102069378
+      },
+      {
+        "decision": {
+          "tipo": "charla",
+          "interlocutor": {
+            "tipo": "soldado",
+            "id": "Bravo-1",
+            "nombre": "Diego"
+          }
+        },
+        "alternativas": [
+          [
+            "charla",
+            0.9807522892951965
+          ],
+          [
+            "retirarse",
+            0.002897785045206547
+          ],
+          [
+            "explorar",
+            0.002443530596792698
+          ]
+        ],
+        "dialogue": {
+          "speaker_id": "Bravo-1",
+          "name": "Diego",
+          "generation_wait_ms": 203.497,
+          "first_token_ms": 120.967,
+          "generation_ms": 274.835,
+          "text": "En servicio, listo para la misión, amigo.",
+          "tts_wait_ms": 330.925,
+          "rate": 24000,
+          "tts_ms": 674.21,
+          "audio_queued": true,
+          "audio_ms": 2389.333251953125
+        },
+        "request_id": "15657DEF-465D-E358-FB24-FEACADD9B21E",
+        "model": "D",
+        "transcript": "Diego, ¿cómo estás?",
+        "prediction": {
+          "version": 1,
+          "intent": "charla",
+          "subject": null,
+          "action": null,
+          "location": null,
+          "target": null,
+          "model_confidence": null
+        },
+        "command": {
+          "version": 1,
+          "intent": "charla",
+          "subject": null,
+          "action": null,
+          "location": null,
+          "target": null,
+          "model_confidence": null
+        },
+        "reason": "",
+        "input": "texto",
+        "request_parse_ms": 0.276,
+        "stt_wait_ms": 0,
+        "stt_primary_ms": 0,
+        "stt_retry_ms": 0,
+        "decision_wait_ms": 462.49,
+        "speech": null,
+        "nlp_route": "clasificador",
+        "verified_by": null,
+        "stt_ms": 0,
+        "nlp_ms": 57.034,
+        "total_ms": 2221.363,
+        "timestamp_utc": "2026-11-22T21:05:30.188Z",
+        "channel": "radio",
+        "result": "Diego: En servicio, listo para la misión, amigo.",
+        "accepted": false,
+        "round_trip_ms": 2245.507501065731
+      }
+    ],
+    "eventos_audio": [
+      {
+        "request_id": "903426E6-4D33-0551-043B-EF946C2F8CFA",
+        "timestamp_utc": "2026-11-22T21:05:28.426Z",
+        "event": "en_cola",
+        "since_queued_ms": 0,
+        "since_input_ms": 485.1121976971626
+      },
+      {
+        "request_id": "903426E6-4D33-0551-043B-EF946C2F8CFA",
+        "timestamp_utc": "2026-11-22T21:05:28.433Z",
+        "event": "iniciado",
+        "since_queued_ms": 6.510701030492783,
+        "since_input_ms": 491.6228987276554
+      },
+      {
+        "request_id": "75E13A78-42E4-C44F-56DD-DAB821ADC52B",
+        "timestamp_utc": "2026-11-22T21:05:28.436Z",
+        "event": "en_cola",
+        "since_queued_ms": 0,
+        "since_input_ms": 494.33309957385063
+      },
+      {
+        "request_id": "90A0AE41-4798-6A5E-F0FF-F98346C2D7B8",
+        "timestamp_utc": "2026-11-22T21:05:29.512Z",
+        "event": "en_cola",
+        "since_queued_ms": 0,
+        "since_input_ms": 1576.8710002303123
+      },
+      {
+        "request_id": "15657DEF-465D-E358-FB24-FEACADD9B21E",
+        "timestamp_utc": "2026-11-22T21:05:30.187Z",
+        "event": "en_cola",
+        "since_queued_ms": 0,
+        "since_input_ms": 2246.780000627041
+      },
+      {
+        "request_id": "903426E6-4D33-0551-043B-EF946C2F8CFA",
+        "timestamp_utc": "2026-11-22T21:05:30.423Z",
+        "event": "finalizado",
+        "since_queued_ms": 1996.6333024203777,
+        "since_input_ms": 2481.7455001175404
+      },
+      {
+        "request_id": "75E13A78-42E4-C44F-56DD-DAB821ADC52B",
+        "timestamp_utc": "2026-11-22T21:05:30.423Z",
+        "event": "iniciado",
+        "since_queued_ms": 1987.7839013934135,
+        "since_input_ms": 2482.117000967264
+      },
+      {
+        "request_id": "75E13A78-42E4-C44F-56DD-DAB821ADC52B",
+        "timestamp_utc": "2026-11-22T21:05:32.399Z",
+        "event": "finalizado",
+        "since_queued_ms": 3963.6728018522263,
+        "since_input_ms": 4458.005901426077
+      },
+      {
+        "request_id": "90A0AE41-4798-6A5E-F0FF-F98346C2D7B8",
+        "timestamp_utc": "2026-11-22T21:05:32.400Z",
+        "event": "iniciado",
+        "since_queued_ms": 2887.489702552557,
+        "since_input_ms": 4464.360702782869
+      },
+      {
+        "request_id": "90A0AE41-4798-6A5E-F0FF-F98346C2D7B8",
+        "timestamp_utc": "2026-11-22T21:05:34.150Z",
+        "event": "finalizado",
+        "since_queued_ms": 4637.821201235056,
+        "since_input_ms": 6214.692201465368
+      },
+      {
+        "request_id": "15657DEF-465D-E358-FB24-FEACADD9B21E",
+        "timestamp_utc": "2026-11-22T21:05:34.151Z",
+        "event": "iniciado",
+        "since_queued_ms": 3962.5549986958504,
+        "since_input_ms": 6209.334999322891
+      },
+      {
+        "request_id": "15657DEF-465D-E358-FB24-FEACADD9B21E",
+        "timestamp_utc": "2026-11-22T21:05:36.690Z",
+        "event": "finalizado",
+        "since_queued_ms": 6502.025600522757,
+        "since_input_ms": 8748.805601149797
+      }
+    ],
+    "reproducciones_sin_solapamiento": 4,
+    "pico_vram_total_muestreado_mib": 4485
+  }
+}

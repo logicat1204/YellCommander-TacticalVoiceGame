@@ -1,0 +1,21 @@
+{
+  "source": "Assets/Terrain/Heightmap_ValleAlfa_1009.png",
+  "obj": "Assets/Models/Generated/SM_Terreno_ValleAlfa.obj",
+  "grid_quads": 96,
+  "size_cm": 25200.0,
+  "height_range_cm": [
+    -600.0,
+    1700.0
+  ],
+  "arena_flatten": {
+    "half_x": 4300.0,
+    "half_y": 2550.0,
+    "z": -12.0
+  },
+  "vertices": 9409,
+  "triangles": 18432,
+  "heightmap_extrema": [
+    24748,
+    54778
+  ]
+}

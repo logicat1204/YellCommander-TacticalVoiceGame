@@ -1,0 +1,120 @@
+{
+  "train": {
+    "samples": 2176,
+    "intents": {
+      "orden": 1698,
+      "motivacion": 106,
+      "charla": 106,
+      "desconocido": 266
+    },
+    "actions": {
+      "avanzar": 177,
+      "defender": 163,
+      "atacar": 154,
+      "retirarse": 155,
+      "reagruparse": 148,
+      "patrullar": 145,
+      "explorar": 161,
+      "mantener_posicion": 109,
+      "cancelar_orden": 158,
+      "curar": 174,
+      "reanimar": 154
+    },
+    "sources": {
+      "familia_v1": 962,
+      "autor_v1": 170,
+      "brief": 43,
+      "semilla": 259,
+      "frases_v2": 574,
+      "redaccion_v2": 168
+    },
+    "families": 248,
+    "sha256": "7704828e26f6cbe90bdc346fc2423a8c9e2905251a9bdecc36ab30b05508fd75"
+  },
+  "val": {
+    "samples": 219,
+    "intents": {
+      "orden": 185,
+      "motivacion": 11,
+      "charla": 11,
+      "desconocido": 12
+    },
+    "actions": {
+      "avanzar": 17,
+      "defender": 18,
+      "atacar": 18,
+      "retirarse": 16,
+      "reagruparse": 19,
+      "patrullar": 15,
+      "explorar": 14,
+      "mantener_posicion": 16,
+      "cancelar_orden": 17,
+      "curar": 19,
+      "reanimar": 16
+    },
+    "sources": {
+      "familia_v1": 107,
+      "autor_v1": 10,
+      "frases_v2": 78,
+      "redaccion_v2": 24
+    },
+    "families": 88,
+    "sha256": "a8e492e0fa084a37c55187a17834e39e8162efe1c0843ec16344c81beebc4340"
+  },
+  "test_v1": {
+    "samples": 172,
+    "intents": {
+      "orden": 159,
+      "motivacion": 4,
+      "charla": 4,
+      "desconocido": 5
+    },
+    "actions": {
+      "avanzar": 15,
+      "defender": 14,
+      "atacar": 15,
+      "retirarse": 15,
+      "reagruparse": 13,
+      "patrullar": 14,
+      "explorar": 14,
+      "mantener_posicion": 15,
+      "cancelar_orden": 14,
+      "curar": 15,
+      "reanimar": 15
+    },
+    "sources": {
+      "familia_v1": 159,
+      "autor_v1": 13
+    },
+    "families": 46,
+    "sha256": "844996e911222f18d58bf2b6684251a2560a252556f193e8934cedae6cb2b241"
+  },
+  "test_v2": {
+    "samples": 125,
+    "intents": {
+      "orden": 89,
+      "motivacion": 12,
+      "charla": 12,
+      "desconocido": 12
+    },
+    "actions": {
+      "avanzar": 9,
+      "defender": 9,
+      "atacar": 9,
+      "retirarse": 9,
+      "reagruparse": 7,
+      "patrullar": 5,
+      "explorar": 10,
+      "mantener_posicion": 9,
+      "cancelar_orden": 7,
+      "curar": 9,
+      "reanimar": 6
+    },
+    "sources": {
+      "frases_v2": 89,
+      "redaccion_v2": 36
+    },
+    "families": 87,
+    "sha256": "95773407b1554ee28b983e2f0abcd96960e45d63e02af0d3b8e33487c7d2772a"
+  }
+}

@@ -1,0 +1,370 @@
+{
+  "config": {
+    "epochs": 40,
+    "patience": 9,
+    "lr": 0.002,
+    "dropout": 0.24,
+    "seed": 421,
+    "threads": 3,
+    "device": "cpu",
+    "dataset": "fase1-v2",
+    "checkpoint": "C:\\Users\\aaran\\Documents\\Semestre 2-26\\SIS421\\SIS421_02-2026\\NLP\\Proyecto final\\AI NLP\\models\\scratch-fase1.pt",
+    "report": "C:\\Users\\aaran\\Documents\\Semestre 2-26\\SIS421\\SIS421_02-2026\\NLP\\Proyecto final\\Documentacion\\results\\fase1\\entrenamiento-a-v2.json"
+  },
+  "pytorch": "2.10.0+cpu",
+  "corpus": {
+    "train": 2176,
+    "val": 219,
+    "test": 172
+  },
+  "sources": {
+    "train": {
+      "familia_v1": 962,
+      "autor_v1": 170,
+      "brief": 43,
+      "semilla": 259,
+      "frases_v2": 574,
+      "redaccion_v2": 168
+    },
+    "val": {
+      "familia_v1": 107,
+      "autor_v1": 10,
+      "frases_v2": 78,
+      "redaccion_v2": 24
+    },
+    "test": {
+      "familia_v1": 159,
+      "autor_v1": 13
+    }
+  },
+  "legacy_audit": {
+    "train": {
+      "rows": 1053,
+      "intents": {
+        "FORMAR": 105,
+        "REPORTAR": 100,
+        "VIGILAR": 94,
+        "CURAR": 95,
+        "SEGUIR": 104,
+        "CESAR_FUEGO": 80,
+        "DEFENDER": 101,
+        "ATACAR": 98,
+        "FUERA_DOMINIO": 98,
+        "MOVER_A": 98,
+        "CANCELAR": 80
+      },
+      "statuses": {
+        "OK": 876,
+        "ACLARAR": 79,
+        "ACCION_INVALIDA": 98
+      },
+      "compound": 143,
+      "bio_length_errors": 93,
+      "exact_duplicates": 0,
+      "slots": {
+        "UNIDAD": 828,
+        "FORMACION": 107,
+        "OBJETIVO": 424,
+        "UNIDAD_DESTINO": 211,
+        "MODO": 57,
+        "POSTURA": 37,
+        "REACCION": 73,
+        "CONDICION": 73
+      }
+    },
+    "val": {
+      "rows": 226,
+      "intents": {
+        "FORMAR": 22,
+        "REPORTAR": 22,
+        "VIGILAR": 20,
+        "CURAR": 21,
+        "SEGUIR": 22,
+        "CESAR_FUEGO": 17,
+        "DEFENDER": 22,
+        "ATACAR": 21,
+        "FUERA_DOMINIO": 21,
+        "MOVER_A": 21,
+        "CANCELAR": 17
+      },
+      "statuses": {
+        "OK": 184,
+        "ACLARAR": 21,
+        "ACCION_INVALIDA": 21
+      },
+      "compound": 31,
+      "bio_length_errors": 19,
+      "exact_duplicates": 0,
+      "slots": {
+        "UNIDAD": 169,
+        "FORMACION": 25,
+        "UNIDAD_DESTINO": 45,
+        "OBJETIVO": 84,
+        "MODO": 18,
+        "REACCION": 15,
+        "CONDICION": 15,
+        "POSTURA": 12
+      }
+    },
+    "test": {
+      "rows": 231,
+      "intents": {
+        "FORMAR": 23,
+        "REPORTAR": 22,
+        "VIGILAR": 21,
+        "CURAR": 21,
+        "SEGUIR": 23,
+        "CESAR_FUEGO": 18,
+        "DEFENDER": 22,
+        "ATACAR": 21,
+        "FUERA_DOMINIO": 21,
+        "MOVER_A": 21,
+        "CANCELAR": 18
+      },
+      "statuses": {
+        "OK": 190,
+        "ACLARAR": 20,
+        "ACCION_INVALIDA": 21
+      },
+      "compound": 46,
+      "bio_length_errors": 30,
+      "exact_duplicates": 0,
+      "slots": {
+        "FORMACION": 27,
+        "UNIDAD": 189,
+        "OBJETIVO": 94,
+        "MODO": 8,
+        "UNIDAD_DESTINO": 51,
+        "REACCION": 17,
+        "CONDICION": 17,
+        "POSTURA": 6
+      }
+    },
+    "train_val_shared_normalized": 0,
+    "train_test_shared_normalized": 0,
+    "val_test_shared_normalized": 0
+  },
+  "vocabulary": 1647,
+  "parameters": 117593,
+  "best_epoch": 9,
+  "temperatures": [
+    0.8187307530779818,
+    1.2214027581601699
+  ],
+  "history": [
+    {
+      "epoch": 1,
+      "lr": 0.002,
+      "train_loss": 5.369273236569236,
+      "validation_loss": 4.082335354530648,
+      "validation_exact_match": 0.2191780821917808,
+      "validation_intent_macro_f1": 0.3376421811235565
+    },
+    {
+      "epoch": 2,
+      "lr": 0.002,
+      "train_loss": 3.543336782385321,
+      "validation_loss": 3.4709895800237787,
+      "validation_exact_match": 0.3607305936073059,
+      "validation_intent_macro_f1": 0.4451147623228396
+    },
+    {
+      "epoch": 3,
+      "lr": 0.002,
+      "train_loss": 2.6408147522631813,
+      "validation_loss": 3.175937450095399,
+      "validation_exact_match": 0.4429223744292237,
+      "validation_intent_macro_f1": 0.514618542377163
+    },
+    {
+      "epoch": 4,
+      "lr": 0.002,
+      "train_loss": 1.8453249414177502,
+      "validation_loss": 2.930407160493337,
+      "validation_exact_match": 0.5068493150684932,
+      "validation_intent_macro_f1": 0.62802601196627
+    },
+    {
+      "epoch": 5,
+      "lr": 0.002,
+      "train_loss": 1.2883317786104538,
+      "validation_loss": 2.8512696566647047,
+      "validation_exact_match": 0.5296803652968036,
+      "validation_intent_macro_f1": 0.6433243823845328
+    },
+    {
+      "epoch": 6,
+      "lr": 0.002,
+      "train_loss": 1.0329315412570448,
+      "validation_loss": 2.7056720616066294,
+      "validation_exact_match": 0.5296803652968036,
+      "validation_intent_macro_f1": 0.6305653295801079
+    },
+    {
+      "epoch": 7,
+      "lr": 0.002,
+      "train_loss": 0.9226665897842716,
+      "validation_loss": 2.706989939354326,
+      "validation_exact_match": 0.54337899543379,
+      "validation_intent_macro_f1": 0.6394589923083571
+    },
+    {
+      "epoch": 8,
+      "lr": 0.002,
+      "train_loss": 0.8797710794298088,
+      "validation_loss": 2.6090983103399408,
+      "validation_exact_match": 0.5251141552511416,
+      "validation_intent_macro_f1": 0.6211853415774393
+    },
+    {
+      "epoch": 9,
+      "lr": 0.002,
+      "train_loss": 0.8520021090174422,
+      "validation_loss": 2.5545444466752003,
+      "validation_exact_match": 0.5662100456621004,
+      "validation_intent_macro_f1": 0.6315321794045199
+    },
+    {
+      "epoch": 10,
+      "lr": 0.002,
+      "train_loss": 0.8290190602488378,
+      "validation_loss": 2.4991110568721546,
+      "validation_exact_match": 0.5388127853881278,
+      "validation_intent_macro_f1": 0.5967006033182504
+    },
+    {
+      "epoch": 11,
+      "lr": 0.002,
+      "train_loss": 0.8172509595751762,
+      "validation_loss": 2.418696134602098,
+      "validation_exact_match": 0.5662100456621004,
+      "validation_intent_macro_f1": 0.5921980591447261
+    },
+    {
+      "epoch": 12,
+      "lr": 0.002,
+      "train_loss": 0.8079892581000048,
+      "validation_loss": 2.4359305710553034,
+      "validation_exact_match": 0.5342465753424658,
+      "validation_intent_macro_f1": 0.5740479043459645
+    },
+    {
+      "epoch": 13,
+      "lr": 0.002,
+      "train_loss": 0.794418865486103,
+      "validation_loss": 2.348219088223427,
+      "validation_exact_match": 0.5707762557077626,
+      "validation_intent_macro_f1": 0.5866456582633054
+    },
+    {
+      "epoch": 14,
+      "lr": 0.0011,
+      "train_loss": 0.7894787056481137,
+      "validation_loss": 2.3743852757972124,
+      "validation_exact_match": 0.5616438356164384,
+      "validation_intent_macro_f1": 0.5967006033182504
+    },
+    {
+      "epoch": 15,
+      "lr": 0.0011,
+      "train_loss": 0.7897128296249053,
+      "validation_loss": 2.370232425323904,
+      "validation_exact_match": 0.5844748858447488,
+      "validation_intent_macro_f1": 0.5967006033182504
+    },
+    {
+      "epoch": 16,
+      "lr": 0.0011,
+      "train_loss": 0.7836081911535824,
+      "validation_loss": 2.3322816423085184,
+      "validation_exact_match": 0.5662100456621004,
+      "validation_intent_macro_f1": 0.5967006033182504
+    },
+    {
+      "epoch": 17,
+      "lr": 0.0011,
+      "train_loss": 0.7787283034447361,
+      "validation_loss": 2.3142873103215815,
+      "validation_exact_match": 0.5662100456621004,
+      "validation_intent_macro_f1": 0.5967006033182504
+    },
+    {
+      "epoch": 18,
+      "lr": 0.0006050000000000001,
+      "train_loss": 0.7754522860050201,
+      "validation_loss": 2.3164228767020516,
+      "validation_exact_match": 0.5707762557077626,
+      "validation_intent_macro_f1": 0.5967006033182504
+    }
+  ],
+  "held_out_guarded": {
+    "samples": 172,
+    "intent": {
+      "accuracy": 0.7906976744186046,
+      "macro_f1": 0.5430555555555556,
+      "labels": {
+        "orden": {
+          "precision": 0.9922480620155039,
+          "recall": 0.8050314465408805,
+          "support": 159,
+          "f1": 0.888888888888889
+        },
+        "motivacion": {
+          "precision": 0.6666666666666666,
+          "recall": 1.0,
+          "support": 4,
+          "f1": 0.8
+        },
+        "charla": {
+          "precision": 0.5,
+          "recall": 0.25,
+          "support": 4,
+          "f1": 0.3333333333333333
+        },
+        "desconocido": {
+          "precision": 0.08571428571428572,
+          "recall": 0.6,
+          "support": 5,
+          "f1": 0.15
+        }
+      },
+      "confusion": [
+        [
+          128,
+          0,
+          0,
+          31
+        ],
+        [
+          0,
+          4,
+          0,
+          0
+        ],
+        [
+          0,
+          2,
+          1,
+          1
+        ],
+        [
+          1,
+          0,
+          1,
+          3
+        ]
+      ]
+    },
+    "exact_match": 0.5755813953488372,
+    "order_exact_match": 0.5723270440251572,
+    "order_field_accuracy": {
+      "subject": 0.8050314465408805,
+      "action": 0.5723270440251572,
+      "location": 0.8238993710691824,
+      "target": 0.9685534591194969
+    },
+    "normalized_entity_f1": 0.8780487804878049,
+    "ood_correct_abstention": 0.6,
+    "incorrect_order_proposal_rate": 0.22093023255813954
+  }
+}

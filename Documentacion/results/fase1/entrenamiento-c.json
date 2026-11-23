@@ -1,0 +1,337 @@
+{
+  "format": 1,
+  "base_model": "Geotrend/distilbert-base-es-cased@1db4091",
+  "intents": [
+    "orden",
+    "motivacion",
+    "charla",
+    "desconocido"
+  ],
+  "actions": [
+    null,
+    "avanzar",
+    "defender",
+    "atacar",
+    "retirarse",
+    "reagruparse",
+    "patrullar",
+    "explorar",
+    "mantener_posicion",
+    "cancelar_orden",
+    "curar",
+    "reanimar"
+  ],
+  "tags": [
+    "O",
+    "B-SUB",
+    "I-SUB",
+    "B-LOC",
+    "I-LOC",
+    "B-TGT",
+    "I-TGT"
+  ],
+  "dropout": 0.2,
+  "temperatures": [
+    0.7408182206817179,
+    1.0
+  ],
+  "selected_epoch": 4,
+  "trainable_parameters": 7120919,
+  "parameters": 63198743,
+  "torch": "2.10.0+cpu",
+  "transformers": "5.1.0",
+  "device": "cpu",
+  "dataset": {
+    "train": {
+      "samples": 2176,
+      "intents": {
+        "orden": 1698,
+        "motivacion": 106,
+        "charla": 106,
+        "desconocido": 266
+      },
+      "actions": {
+        "avanzar": 177,
+        "defender": 163,
+        "atacar": 154,
+        "retirarse": 155,
+        "reagruparse": 148,
+        "patrullar": 145,
+        "explorar": 161,
+        "mantener_posicion": 109,
+        "cancelar_orden": 158,
+        "curar": 174,
+        "reanimar": 154
+      },
+      "sources": {
+        "familia_v1": 962,
+        "autor_v1": 170,
+        "brief": 43,
+        "semilla": 259,
+        "frases_v2": 574,
+        "redaccion_v2": 168
+      },
+      "families": 248,
+      "sha256": "7704828e26f6cbe90bdc346fc2423a8c9e2905251a9bdecc36ab30b05508fd75"
+    },
+    "val": {
+      "samples": 219,
+      "intents": {
+        "orden": 185,
+        "motivacion": 11,
+        "charla": 11,
+        "desconocido": 12
+      },
+      "actions": {
+        "avanzar": 17,
+        "defender": 18,
+        "atacar": 18,
+        "retirarse": 16,
+        "reagruparse": 19,
+        "patrullar": 15,
+        "explorar": 14,
+        "mantener_posicion": 16,
+        "cancelar_orden": 17,
+        "curar": 19,
+        "reanimar": 16
+      },
+      "sources": {
+        "familia_v1": 107,
+        "autor_v1": 10,
+        "frases_v2": 78,
+        "redaccion_v2": 24
+      },
+      "families": 88,
+      "sha256": "a8e492e0fa084a37c55187a17834e39e8162efe1c0843ec16344c81beebc4340"
+    },
+    "test_v1": {
+      "samples": 172,
+      "intents": {
+        "orden": 159,
+        "motivacion": 4,
+        "charla": 4,
+        "desconocido": 5
+      },
+      "actions": {
+        "avanzar": 15,
+        "defender": 14,
+        "atacar": 15,
+        "retirarse": 15,
+        "reagruparse": 13,
+        "patrullar": 14,
+        "explorar": 14,
+        "mantener_posicion": 15,
+        "cancelar_orden": 14,
+        "curar": 15,
+        "reanimar": 15
+      },
+      "sources": {
+        "familia_v1": 159,
+        "autor_v1": 13
+      },
+      "families": 46,
+      "sha256": "844996e911222f18d58bf2b6684251a2560a252556f193e8934cedae6cb2b241"
+    },
+    "test_v2": {
+      "samples": 125,
+      "intents": {
+        "orden": 89,
+        "motivacion": 12,
+        "charla": 12,
+        "desconocido": 12
+      },
+      "actions": {
+        "avanzar": 9,
+        "defender": 9,
+        "atacar": 9,
+        "retirarse": 9,
+        "reagruparse": 7,
+        "patrullar": 5,
+        "explorar": 10,
+        "mantener_posicion": 9,
+        "cancelar_orden": 7,
+        "curar": 9,
+        "reanimar": 6
+      },
+      "sources": {
+        "frases_v2": 89,
+        "redaccion_v2": 36
+      },
+      "families": 87,
+      "sha256": "95773407b1554ee28b983e2f0abcd96960e45d63e02af0d3b8e33487c7d2772a"
+    }
+  },
+  "config": {
+    "base": "C:\\Users\\aaran\\Documents\\Semestre 2-26\\SIS421\\SIS421_02-2026\\NLP\\Proyecto final\\AI NLP\\models\\distilbert-base-es-cased",
+    "output": "C:\\Users\\aaran\\Documents\\Semestre 2-26\\SIS421\\SIS421_02-2026\\NLP\\Proyecto final\\AI NLP\\models\\transfer-c",
+    "report": "C:\\Users\\aaran\\Documents\\Semestre 2-26\\SIS421\\SIS421_02-2026\\NLP\\Proyecto final\\Documentacion\\results\\fase1\\entrenamiento-c.json",
+    "epochs": 8,
+    "patience": 3,
+    "batch_size": 32,
+    "encoder_lr": 6e-05,
+    "head_lr": 0.0009,
+    "dropout": 0.2,
+    "weight_decay": 0.015,
+    "trainable_blocks": 1,
+    "threads": 5,
+    "seed": 421,
+    "device": "auto"
+  },
+  "training_seconds": 163.64,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 3.118084521854625,
+      "val_loss": 2.2133847905076256,
+      "exact_match": 0.6255707762557078,
+      "order_exact_match": 0.6216216216216216,
+      "intent_macro_f1": 0.6929636486701704,
+      "entity_f1": 0.9341142020497804,
+      "seconds": 20.7,
+      "encoder_lr": 6e-05,
+      "head_lr": 0.0009
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.9047807525185978,
+      "val_loss": 2.240672708102013,
+      "exact_match": 0.6118721461187214,
+      "order_exact_match": 0.6108108108108108,
+      "intent_macro_f1": 0.5804815347191508,
+      "entity_f1": 0.8827361563517915,
+      "seconds": 21.45,
+      "encoder_lr": 6e-05,
+      "head_lr": 0.0009
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.6834751998676973,
+      "val_loss": 2.075126719801393,
+      "exact_match": 0.6712328767123288,
+      "order_exact_match": 0.6702702702702703,
+      "intent_macro_f1": 0.6487224351057204,
+      "entity_f1": 0.9196850393700787,
+      "seconds": 21.92,
+      "encoder_lr": 6e-05,
+      "head_lr": 0.0009
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.6228579554487678,
+      "val_loss": 1.8832372171149405,
+      "exact_match": 0.7123287671232876,
+      "order_exact_match": 0.7081081081081081,
+      "intent_macro_f1": 0.6950725952813067,
+      "entity_f1": 0.9213836477987422,
+      "seconds": 21.86,
+      "encoder_lr": 6e-05,
+      "head_lr": 0.0009
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.601927259389092,
+      "val_loss": 1.8497908256913973,
+      "exact_match": 0.6712328767123288,
+      "order_exact_match": 0.6702702702702703,
+      "intent_macro_f1": 0.6792314627000225,
+      "entity_f1": 0.9044585987261147,
+      "seconds": 22.33,
+      "encoder_lr": 6e-05,
+      "head_lr": 0.0009
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.5867458213778103,
+      "val_loss": 1.7426631407106303,
+      "exact_match": 0.6894977168949772,
+      "order_exact_match": 0.7027027027027027,
+      "intent_macro_f1": 0.6142495871180842,
+      "entity_f1": 0.9079365079365079,
+      "seconds": 22.5,
+      "encoder_lr": 6e-05,
+      "head_lr": 0.0009
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.5749691996504279,
+      "val_loss": 1.768782631447326,
+      "exact_match": 0.680365296803653,
+      "order_exact_match": 0.6702702702702703,
+      "intent_macro_f1": 0.7003051106025935,
+      "entity_f1": 0.9093799682034976,
+      "seconds": 30.12,
+      "encoder_lr": 3.3e-05,
+      "head_lr": 0.000495
+    }
+  ],
+  "validation": {
+    "samples": 219,
+    "intent": {
+      "accuracy": 0.8584474885844748,
+      "macro_f1": 0.6950725952813067,
+      "labels": {
+        "orden": {
+          "precision": 1.0,
+          "recall": 0.8810810810810811,
+          "support": 185,
+          "f1": 0.9367816091954023
+        },
+        "motivacion": {
+          "precision": 0.875,
+          "recall": 0.6363636363636364,
+          "support": 11,
+          "f1": 0.7368421052631579
+        },
+        "charla": {
+          "precision": 0.7,
+          "recall": 0.6363636363636364,
+          "support": 11,
+          "f1": 0.6666666666666666
+        },
+        "desconocido": {
+          "precision": 0.2894736842105263,
+          "recall": 0.9166666666666666,
+          "support": 12,
+          "f1": 0.43999999999999995
+        }
+      },
+      "confusion": [
+        [
+          163,
+          0,
+          0,
+          22
+        ],
+        [
+          0,
+          7,
+          2,
+          2
+        ],
+        [
+          0,
+          1,
+          7,
+          3
+        ],
+        [
+          0,
+          0,
+          1,
+          11
+        ]
+      ]
+    },
+    "exact_match": 0.7123287671232876,
+    "order_exact_match": 0.7081081081081081,
+    "order_field_accuracy": {
+      "subject": 0.8810810810810811,
+      "action": 0.7081081081081081,
+      "location": 0.8810810810810811,
+      "target": 0.9675675675675676
+    },
+    "normalized_entity_f1": 0.9213836477987422,
+    "ood_correct_abstention": 0.9166666666666666,
+    "incorrect_order_proposal_rate": 0.1461187214611872
+  }
+}

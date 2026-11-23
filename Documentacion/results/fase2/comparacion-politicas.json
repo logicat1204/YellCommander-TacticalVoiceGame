@@ -1,0 +1,32 @@
+{
+  "A_anterior": {
+    "samples": 125,
+    "exact_match": 0.144,
+    "order_exact_match": 0.02247191011235955,
+    "incorrect_order_proposal_rate": 0.016
+  },
+  "A_partida": {
+    "samples": 125,
+    "exact_match": 0.36,
+    "order_exact_match": 0.2696629213483146,
+    "incorrect_order_proposal_rate": 0.056
+  },
+  "B_con_A_anterior": {
+    "samples": 125,
+    "exact_match": 0.216,
+    "order_exact_match": 0.011235955056179775,
+    "incorrect_order_proposal_rate": 0.0
+  },
+  "B_con_A_actual": {
+    "samples": 125,
+    "exact_match": 0.28,
+    "order_exact_match": 0.0898876404494382,
+    "incorrect_order_proposal_rate": 0.0
+  },
+  "B_con_A_o_C": {
+    "samples": 125,
+    "exact_match": 0.344,
+    "order_exact_match": 0.16853932584269662,
+    "incorrect_order_proposal_rate": 0.0
+  }
+}

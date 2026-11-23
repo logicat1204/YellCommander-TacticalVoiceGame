@@ -1,0 +1,15 @@
+Encargo para el agente de arte de Yell Commander
+
+Integra el paquete local Assets en WarCommanderDemo para que Valle Alfa resulte legible desde la cámara en primera persona. El estilo de partida es low-poly. Conserva las fuentes en Assets y organiza los recursos importados en /Game/Yell/Art. Lee Assets/README.md y las guías de Assets/Docs antes de empezar.
+
+1. Registra una vista desde la base, el centro y un flanco. Mide el tiempo de fotograma en el mismo punto y resolución. Inventaría los recursos existentes en /Game/Yell y prepara una copia de presentación del nivel para evaluar la importación. El escenario se genera al iniciar la partida. Comprueba en Play que las piezas colocadas coinciden con ese escenario.
+
+2. Prepara una muestra con un tramo de trinchera, sacos y roca de Models/UE5_StaticMeshes. Comprueba metros a centímetros, pivotes, normales DirectX, texturas ORM y materiales instanciados. Extiende los materiales a las dos bases y a los tres carriles. Alinea las mallas decorativas con la geometría jugable. Mantén libres los pasos, la línea de visión, el volumen del núcleo y las terminales. Usa el heightmap como referencia en la copia visual.
+
+3. Integra las apariencias de aliado, médico y enemigo de Models/Mixamo_Upload. Verifica la altura de 180 cm y la lectura del uniforme a distancia de juego. Revisa si hay un esqueleto compatible antes de retargetear. El paquete entrega T-pose y carece de clips de movimiento. Si faltan, entrega la prueba de escala y una lista precisa de los clips pendientes. Los sockets y animaciones serán cosméticos. La cápsula, el movimiento y la fuente de identidad siguen perteneciendo al actor de juego.
+
+4. Prepara los tres estados visuales del búnker, iconos de radio y proximidad, placa de nombre, materiales de HUD y VFX de polvo y confirmación. Lee el nombre, el pelotón y el estado a través de propiedades o eventos existentes cuando estén expuestos. Usa texto de muestra en el nivel de presentación si falta una propiedad. Documenta el punto de conexión que necesita el agente de juego.
+
+5. Limita las escrituras a recursos visuales importados, materiales, Niagara, widgets, Blueprints exclusivamente de presentación y su nivel de muestra. Quedan fuera el clasificador, datasets, modelos, servidor de voz, contrato JSON, generación de nombres, selección de receptores, Behavior Trees, combate, colisiones jugables, navegación y controles. Entrega cualquier conexión que requiera editar C++ de juego como una petición concreta al responsable de integración.
+
+6. Entrega el inventario origen → recurso UE, capturas comparables antes/después, coste de fotograma con la misma cámara, referencias faltantes y pasos para activar o retirar la presentación. Comprueba Play In Editor y la partida independiente, recorrido por los tres carriles, selección de un individuo y de un pelotón con los identificadores disponibles, lectura del HUD y ausencia de diferencias en los destinatarios de una misma orden. Registra los puntos pendientes sin sustituir lógica de juego para simularlos.

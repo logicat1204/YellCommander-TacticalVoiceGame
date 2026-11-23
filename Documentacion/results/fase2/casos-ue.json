@@ -1,0 +1,161 @@
+{
+  "engine": "Unreal Engine 5.8",
+  "physical_probe": {
+    "source": "YellCommander.Voz.Dispositivo",
+    "log_utc": "2026.11.20-08.00.56:791",
+    "result": "WASAPI: Microphone Array (Intel® Smart Sound Technology for Digital Microphones); 48000 Hz; 2 canales; 115 paquetes; 1150 ms; 1 cortes; inicio=1",
+    "audio_saved_or_sent": false
+  },
+  "suites": {
+    "radio_C": [
+      "YellCommander.Voz.Captura",
+      "YellCommander.Voz.Dispositivo",
+      "YellCommander.Contrato",
+      "YellCommander.Partida"
+    ],
+    "proximidad_A": [
+      "YellCommander.Voz.Captura",
+      "YellCommander.Voz.Dispositivo",
+      "YellCommander.Contrato",
+      "YellCommander.Partida"
+    ]
+  },
+  "cases": {
+    "radio_C": {
+      "capture": {
+        "timestamp_utc": "2026-11-20T08:00:58.790Z",
+        "request_id": "FA85FF76-4E41-A9C4-3453-F7809EDF2E18",
+        "channel": "radio",
+        "device": "Paquetes de prueba",
+        "capture_status": "listo",
+        "held_ms": 2330.125,
+        "audio_ms": 2330.125,
+        "sample_rate_hz": 48000,
+        "channels": 1,
+        "packets": 219,
+        "discontinuities": 1,
+        "startup_discontinuity": true,
+        "peak_dbfs": -2.7279671755070116
+      },
+      "order": {
+        "request_id": "FA85FF76-4E41-A9C4-3453-F7809EDF2E18",
+        "model": "C",
+        "transcript": "Alpha, avancem por el centro.",
+        "prediction": {
+          "version": 1,
+          "intent": "orden",
+          "subject": {
+            "type": "peloton",
+            "name": "Alfa"
+          },
+          "action": "avanzar",
+          "location": {
+            "id": "centro"
+          },
+          "target": null,
+          "model_confidence": 0.9536305069923401
+        },
+        "command": {
+          "version": 1,
+          "intent": "orden",
+          "subject": {
+            "type": "peloton",
+            "name": "Alfa"
+          },
+          "action": "avanzar",
+          "location": {
+            "id": "centro"
+          },
+          "target": null,
+          "model_confidence": 0.9536305069923401
+        },
+        "reason": "",
+        "speech": {
+          "status": "voz",
+          "audio_ms": 2330.125,
+          "speech_ms": 2330.1,
+          "peak_dbfs": -2.7,
+          "preprocess_ms": 3.702,
+          "min_logprob": -0.6241
+        },
+        "stt_ms": 836.873,
+        "nlp_ms": 27.859,
+        "total_ms": 864.771,
+        "timestamp_utc": "2026-11-20T08:00:59.669Z",
+        "channel": "radio",
+        "result": "¡Copiado, Alfa! avanzar centro.",
+        "accepted": true,
+        "round_trip_ms": 873.2475005090237,
+        "release_to_feedback_ms": 878.4596994519234
+      }
+    },
+    "proximidad_A": {
+      "capture": {
+        "timestamp_utc": "2026-11-20T08:01:15.257Z",
+        "request_id": "481C7112-46AC-060C-1A39-AC975F023967",
+        "channel": "proximidad",
+        "device": "Paquetes de prueba",
+        "capture_status": "listo",
+        "held_ms": 2330.125,
+        "audio_ms": 2330.125,
+        "sample_rate_hz": 48000,
+        "channels": 1,
+        "packets": 219,
+        "discontinuities": 1,
+        "startup_discontinuity": true,
+        "peak_dbfs": -2.7279671755070116
+      },
+      "order": {
+        "request_id": "481C7112-46AC-060C-1A39-AC975F023967",
+        "model": "A",
+        "transcript": "Alpha, avancem por el centro.",
+        "prediction": {
+          "version": 1,
+          "intent": "orden",
+          "subject": {
+            "type": "peloton",
+            "name": "Alfa"
+          },
+          "action": "avanzar",
+          "location": {
+            "id": "centro"
+          },
+          "target": null,
+          "model_confidence": 0.84429
+        },
+        "command": {
+          "version": 1,
+          "intent": "orden",
+          "subject": {
+            "type": "peloton",
+            "name": "Alfa"
+          },
+          "action": "avanzar",
+          "location": {
+            "id": "centro"
+          },
+          "target": null,
+          "model_confidence": 0.84429
+        },
+        "reason": "",
+        "speech": {
+          "status": "voz",
+          "audio_ms": 2330.125,
+          "speech_ms": 2330.1,
+          "peak_dbfs": -2.7,
+          "preprocess_ms": 3.222,
+          "min_logprob": -0.6241
+        },
+        "stt_ms": 731.906,
+        "nlp_ms": 4.483,
+        "total_ms": 736.413,
+        "timestamp_utc": "2026-11-20T08:01:16.004Z",
+        "channel": "proximidad",
+        "result": "Ningún soldado disponible recibió la transmisión.",
+        "accepted": false,
+        "round_trip_ms": 744.9081018567085,
+        "release_to_feedback_ms": 747.8908002376556
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "intenciones": [
+    "MOVER_A",
+    "ATACAR",
+    "DEFENDER",
+    "CURAR",
+    "SEGUIR",
+    "VIGILAR",
+    "FORMAR",
+    "CESAR_FUEGO",
+    "REPORTAR",
+    "CANCELAR",
+    "FUERA_DOMINIO"
+  ],
+  "entidades": [
+    "CONDICION",
+    "FORMACION",
+    "MODO",
+    "OBJETIVO",
+    "POSTURA",
+    "REACCION",
+    "UNIDAD",
+    "UNIDAD_DESTINO"
+  ],
+  "ejemplos": {
+    "train": 1053,
+    "val": 226,
+    "test": 231
+  },
+  "total": 1510,
+  "nota": "Semilla generada por plantillas: sirve para arrancar el entrenamiento. Debe ampliarse con frases escritas por humanos y transcripciones reales de Whisper (acento boliviano, ruido) antes de medir el rendimiento."
+}
