@@ -1,0 +1,301 @@
+{
+  "health": {
+    "models": [
+      "D"
+    ],
+    "profile": "sujeto_lugar",
+    "stt_configured": true,
+    "stt_retry": true,
+    "verifier_c": false,
+    "max_pending": 4
+  },
+  "casos": [
+    {
+      "profile": "sujeto_lugar",
+      "decision": {
+        "tipo": "accion",
+        "sujeto": {
+          "id": "Alfa-1",
+          "tipo": "soldado",
+          "nombre": "Alex"
+        },
+        "lugar": "centro",
+        "accion": "avanzar"
+      },
+      "alternativas": [
+        [
+          "movimiento",
+          1.0
+        ],
+        [
+          "charla",
+          0.0
+        ]
+      ],
+      "request_id": "0475947c-69c1-4e44-83ad-6f0ee1861079",
+      "model": "D",
+      "transcript": "Alex, avancen al centro.",
+      "prediction": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "soldado",
+          "name": "Alfa-1"
+        },
+        "action": "avanzar",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "command": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "soldado",
+          "name": "Alfa-1"
+        },
+        "action": "avanzar",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "",
+      "input": "texto",
+      "request_parse_ms": 0.088,
+      "stt_wait_ms": 0.0,
+      "stt_primary_ms": 0.0,
+      "stt_retry_ms": 0.0,
+      "decision_wait_ms": 0.001,
+      "nlp_ms": 1.456,
+      "speech": null,
+      "nlp_route": "sujeto_lugar",
+      "verified_by": null,
+      "stt_ms": 0.0,
+      "total_ms": 1.497,
+      "ida_vuelta_ms": 21.45,
+      "frase": "Alex, avancen al centro."
+    },
+    {
+      "profile": "sujeto_lugar",
+      "decision": {
+        "tipo": "accion",
+        "sujeto": {
+          "id": "Alfa",
+          "tipo": "peloton",
+          "nombre": "Alfa"
+        },
+        "lugar": "centro",
+        "accion": "avanzar"
+      },
+      "alternativas": [
+        [
+          "movimiento",
+          1.0
+        ],
+        [
+          "charla",
+          0.0
+        ]
+      ],
+      "request_id": "3f13dfa0-64b6-40db-bd44-a2f1d296dbb4",
+      "model": "D",
+      "transcript": "Alpha, avancem por el centro",
+      "prediction": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "avanzar",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "command": {
+        "version": 1,
+        "intent": "orden",
+        "subject": {
+          "type": "peloton",
+          "name": "Alfa"
+        },
+        "action": "avanzar",
+        "location": {
+          "id": "centro"
+        },
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "",
+      "input": "voz",
+      "request_parse_ms": 0.448,
+      "stt_wait_ms": 0.001,
+      "stt_primary_ms": 956.164,
+      "stt_retry_ms": 0.0,
+      "decision_wait_ms": 0.001,
+      "nlp_ms": 0.251,
+      "speech": {
+        "status": "voz",
+        "audio_ms": 2330.125,
+        "speech_ms": 2330.1,
+        "peak_dbfs": -2.7,
+        "preprocess_ms": 5.416,
+        "min_logprob": -0.5948,
+        "retried": false,
+        "first_transcript": "Alpha, avancem por el centro",
+        "retry_reason": "",
+        "primary_device": "cuda",
+        "retry_device": null,
+        "retry_error": null,
+        "retry_transcript": null,
+        "used_retry": false
+      },
+      "nlp_route": "sujeto_lugar",
+      "verified_by": null,
+      "stt_ms": 956.164,
+      "total_ms": 956.747,
+      "ida_vuelta_ms": 978.7,
+      "frase": "Alfa, avancen por el centro."
+    },
+    {
+      "profile": "sujeto_lugar",
+      "decision": {
+        "tipo": "charla",
+        "interlocutor": {
+          "id": "Alfa-1",
+          "tipo": "soldado",
+          "nombre": "Alex"
+        }
+      },
+      "alternativas": [
+        [
+          "charla",
+          1.0
+        ]
+      ],
+      "dialogue": {
+        "speaker_id": "Alfa-1",
+        "name": "Alex",
+        "generation_wait_ms": 0.001,
+        "first_token_ms": 84.862,
+        "generation_ms": 179.326,
+        "text": "Tengo 67 puntos de salud.",
+        "voice": "em_santa",
+        "tts_wait_ms": 0.002,
+        "rate": 24000,
+        "tts_device": "cuda",
+        "tts_ms": 272.768,
+        "bytes_pcm": 111616
+      },
+      "request_id": "5f12bec2-9a30-456e-be2e-29fde654df0f",
+      "model": "D",
+      "transcript": "Alex, ¿cuánta salud tienes?",
+      "prediction": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "command": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "",
+      "input": "texto",
+      "request_parse_ms": 0.051,
+      "stt_wait_ms": 0.0,
+      "stt_primary_ms": 0.0,
+      "stt_retry_ms": 0.0,
+      "decision_wait_ms": 0.001,
+      "nlp_ms": 0.112,
+      "speech": null,
+      "nlp_route": "sujeto_lugar",
+      "verified_by": null,
+      "stt_ms": 0.0,
+      "total_ms": 452.362,
+      "ida_vuelta_ms": 455.24,
+      "frase": "Alex, ¿cuánta salud tienes?"
+    },
+    {
+      "profile": "sujeto_lugar",
+      "decision": {
+        "tipo": "charla",
+        "interlocutor": {
+          "id": "Alfa-1",
+          "tipo": "soldado",
+          "nombre": "Alex"
+        }
+      },
+      "alternativas": [
+        [
+          "charla",
+          1.0
+        ]
+      ],
+      "dialogue": {
+        "speaker_id": "Alfa-1",
+        "name": "Alex",
+        "generation_wait_ms": 0.001,
+        "first_token_ms": 66.368,
+        "generation_ms": 121.89,
+        "text": "Antes arreglaba relojes.",
+        "voice": "em_santa",
+        "tts_wait_ms": 0.002,
+        "rate": 24000,
+        "tts_device": "cuda",
+        "tts_ms": 237.532,
+        "bytes_pcm": 80896
+      },
+      "request_id": "7c7edd44-a1d1-4d60-90da-8584bd4eaef2",
+      "model": "D",
+      "transcript": "Alex, ¿a qué te dedicabas antes?",
+      "prediction": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "command": {
+        "version": 1,
+        "intent": "charla",
+        "subject": null,
+        "action": null,
+        "location": null,
+        "target": null,
+        "model_confidence": null
+      },
+      "reason": "",
+      "input": "texto",
+      "request_parse_ms": 0.073,
+      "stt_wait_ms": 0.0,
+      "stt_primary_ms": 0.0,
+      "stt_retry_ms": 0.0,
+      "decision_wait_ms": 0.001,
+      "nlp_ms": 0.136,
+      "speech": null,
+      "nlp_route": "sujeto_lugar",
+      "verified_by": null,
+      "stt_ms": 0.0,
+      "total_ms": 359.736,
+      "ida_vuelta_ms": 373.6,
+      "frase": "Alex, ¿a qué te dedicabas antes?"
+    }
+  ]
+}

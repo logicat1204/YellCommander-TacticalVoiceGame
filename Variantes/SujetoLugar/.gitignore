@@ -1,0 +1,4 @@
+modelos/*.gguf*
+modelos/.cache/
+logs/
+/.runtime/

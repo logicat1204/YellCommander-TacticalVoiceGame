@@ -1,0 +1,53 @@
+{
+  "actual": {
+    "n": 10,
+    "exactos": 10,
+    "movimientos_indebidos": 0,
+    "p50_ms": 0.2,
+    "p95_ms": 6.19,
+    "errores": []
+  },
+  "sujeto_lugar": {
+    "n": 10,
+    "exactos": 9,
+    "movimientos_indebidos": 1,
+    "p50_ms": 0.22,
+    "p95_ms": 48.99,
+    "errores": [
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": true,
+        "ms": 88.841,
+        "texto": "Alpha, hasta que en la base enemiga.",
+        "esperado": null,
+        "obtenido": [
+          "Alfa",
+          "base_enemiga"
+        ]
+      }
+    ]
+  },
+  "sujeto_lugar_postura": {
+    "n": 10,
+    "exactos": 9,
+    "movimientos_indebidos": 1,
+    "p50_ms": 0.22,
+    "p95_ms": 1.76,
+    "errores": [
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": true,
+        "ms": 3.008,
+        "texto": "Alpha, hasta que en la base enemiga.",
+        "esperado": null,
+        "obtenido": [
+          "Alfa",
+          "base_enemiga"
+        ]
+      }
+    ],
+    "exactos_incluida_postura": 9
+  }
+}

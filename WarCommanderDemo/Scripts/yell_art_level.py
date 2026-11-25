@@ -13,6 +13,7 @@ Cameras are named so the capture script can find them.
 Run headless with -run=pythonscript.
 """
 import json
+import math
 import os
 import traceback
 
@@ -68,9 +69,15 @@ def record(label, kind, loc, rot, scale, folder):
 
 def spawn(label, mesh, loc, rot=(0.0, 0.0, 0.0), scale=(1.0, 1.0, 1.0),
           mat=None, folder="Arena_Art", collision=False):
+    if isinstance(rot, unreal.Rotator):
+        rotator = rot
+        rot_tuple = (rot.pitch, rot.yaw, rot.roll)
+    else:
+        rotator = unreal.Rotator(pitch=rot[0], yaw=rot[1], roll=rot[2])
+        rot_tuple = rot
     actor = AES.spawn_actor_from_class(unreal.StaticMeshActor,
                                        unreal.Vector(loc[0], loc[1], loc[2]),
-                                       unreal.Rotator(rot[0], rot[1], rot[2]))
+                                       rotator)
     actor.set_actor_label(label)
     actor.set_actor_scale3d(unreal.Vector(scale[0], scale[1], scale[2]))
     try:
@@ -84,7 +91,7 @@ def spawn(label, mesh, loc, rot=(0.0, 0.0, 0.0), scale=(1.0, 1.0, 1.0),
         comp.set_material(0, mat)
     if not collision:
         comp.set_collision_enabled(unreal.CollisionEnabled.NO_COLLISION)
-    record(label, mesh.get_name(), loc, rot, scale, folder)
+    record(label, mesh.get_name(), loc, rot_tuple, scale, folder)
     return actor
 
 
@@ -94,10 +101,22 @@ def block(label, size, loc, mat, folder="Arena_Art", rot=(0.0, 0.0, 0.0), mesh=N
     return spawn(label, mesh or load(CUBE), loc, rot, scale, mat, folder)
 
 
-def sign(label, text, loc, color, size, yaw=0.0, folder="Arena_Art"):
+def sign(label, text, loc, color, size, face_to=None, folder="Arena_Art"):
+    """TextRenderActor whose readable side points at face_to.
+
+    A TextRenderActor with rotation 0 reads along +Y and faces +X, so the yaw
+    must point its +X at the viewer.  face_to may also be a legacy yaw number
+    (0 = readable from -X).
+    """
+    if isinstance(face_to, (int, float)):
+        yaw = float(face_to) + 180.0
+    elif face_to is None:
+        yaw = 180.0
+    else:
+        yaw = math.degrees(math.atan2(face_to[1] - loc[1], face_to[0] - loc[0]))
     actor = AES.spawn_actor_from_class(unreal.TextRenderActor,
                                        unreal.Vector(loc[0], loc[1], loc[2]),
-                                       unreal.Rotator(0.0, yaw, 0.0))
+                                       unreal.Rotator(pitch=0.0, yaw=yaw, roll=0.0))
     actor.set_actor_label(label)
     try:
         actor.set_folder_path(folder)
@@ -121,10 +140,13 @@ def sign(label, text, loc, color, size, yaw=0.0, folder="Arena_Art"):
     return actor
 
 
-def camera(label, loc, rot, fov=75.0):
+def camera(label, loc, look_at=None, rot=None, fov=75.0):
+    if rot is None:
+        rot = unreal.MathLibrary.find_look_at_rotation(
+            unreal.Vector(loc[0], loc[1], loc[2]),
+            unreal.Vector(look_at[0], look_at[1], look_at[2]))
     actor = AES.spawn_actor_from_class(unreal.CameraActor,
-                                       unreal.Vector(loc[0], loc[1], loc[2]),
-                                       unreal.Rotator(rot[0], rot[1], rot[2]))
+                                       unreal.Vector(loc[0], loc[1], loc[2]), rot)
     actor.set_actor_label(label)
     try:
         actor.set_folder_path("Camaras")
@@ -132,7 +154,7 @@ def camera(label, loc, rot, fov=75.0):
         pass
     comp = actor.get_component_by_class(unreal.CameraComponent)
     comp.set_editor_property("field_of_view", fov)
-    record(label, "Camera", loc, rot, (1.0, 1.0, 1.0), "Camaras")
+    record(label, "Camera", loc, (rot.pitch, rot.yaw, rot.roll), (1.0, 1.0, 1.0), "Camaras")
     return actor
 
 
@@ -196,11 +218,8 @@ def build_proxy():
     sign("Proxy_Rotulo_Aliada", "BASE ALIADA", (-3200, 0, 355),
          unreal.Color(13, 122, 153, 255), 55.0, 0.0, f)
     sign("Proxy_Rotulo_Rival", "BASE RIVAL", (3200, 0, 355),
-         unreal.Color(171, 33, 14, 255), 55.0, 180.0, f)
-    for team in (0, 1):
-        terminal_x = -3040.0 if team == 0 else 3040.0
-        sign("Proxy_Rotulo_Refuerzos_%d" % team, "REFUERZOS",
-             (terminal_x + 60, -700, 197), unreal.Color(194, 120, 26, 255), 33.0, 0.0, f)
+         unreal.Color(171, 33, 14, 255), 55.0, 0.0, f)
+
     log("PROXY pieces " + str(len([m for m in MANIFEST_DATA if m["folder"] == f])))
 
 
@@ -246,24 +265,26 @@ def build_art_arena():
             spawn("Arte_Muro_X%d_%d" % (side, i), muro_roca, (side * 4150, y, 0),
                   (0, 90, 0), (1, 1, 1), roca, f)
 
-    # cover: sandbag walls stacked to the exact gameplay height (158 cm)
+    # cover: sandbag parapet 199 x 62 cm, two bags high = 158 cm
+    # (gameplay cover box is 175 x 235 x 158, same centre)
     for lane_index, y in enumerate(LANE_Y):
         for index in range(5):
             cx = (index - 2) * 520.0
             cy = COVER_Y[(y, index)]
-            for column in range(4):
-                for row in range(2):
-                    spawn("Arte_Cobertura_%d_%d_%d_%d" % (lane_index, index, column, row),
-                          saco_alto, (cx + (column - 1.5) * 31.5, cy, row * 79.4),
-                          (0, 90, 0), (1, 1, 1), saco, f)
+            for depth_row in range(2):
+                for level in range(2):
+                    spawn("Arte_Cobertura_%d_%d_%d_%d" % (lane_index, index, depth_row, level),
+                          saco_alto, (cx, cy + (depth_row - 0.5) * 31.0, level * 79.4),
+                          (0, 0, 0), (1, 1, 1), saco, f)
 
-    # central barricades: 4 rows of sandbags, 316 cm tall
+    # central barricades: 7 modules x 2 rows x 4 levels = 1396 x 62 x 318 cm
     for y in (-720.0, 720.0):
         for column in range(7):
-            for row in range(4):
-                spawn("Arte_Barricada_%d_%d_%d" % (y, column, row), saco_alto,
-                      ((column - 3) * 199.4, y, row * 79.4),
-                      (0, 0, 0), (1, 1, 1), saco, f)
+            for depth_row in range(2):
+                for level in range(4):
+                    spawn("Arte_Barricada_%d_%d_%d_%d" % (y, column, depth_row, level), saco_alto,
+                          ((column - 3) * 199.4, y + (depth_row - 0.5) * 31.0, level * 79.4),
+                          (0, 0, 0), (1, 1, 1), saco, f)
 
     # cores + terminals keep the gameplay volumes clear, only the skin changes
     for team in (0, 1):
@@ -290,12 +311,18 @@ def build_art_arena():
     sign("Arte_Rotulo_Aliada", "BASE ALIADA", (-3200, 0, 355),
          unreal.Color(69, 224, 232, 255), 55.0, 0.0, f)
     sign("Arte_Rotulo_Rival", "BASE RIVAL", (3200, 0, 355),
-         unreal.Color(252, 89, 59, 255), 55.0, 180.0, f)
-    for team in (0, 1):
-        terminal_x = -3040.0 if team == 0 else 3040.0
-        sign("Arte_Rotulo_Refuerzos_%d" % team, "REFUERZOS",
-             (terminal_x + 60, -700, 197), unreal.Color(245, 173, 77, 255), 33.0, 0.0, f)
+         unreal.Color(252, 89, 59, 255), 55.0, 0.0, f)
+
     log("ART arena pieces " + str(len([m for m in MANIFEST_DATA if m["folder"] == f])))
+
+
+def plane_rot(normal):
+    """Rotation whose local +Z (the Plane mesh normal) points along `normal`."""
+    try:
+        return unreal.MathLibrary.make_rot_from_z(
+            unreal.Vector(normal[0], normal[1], normal[2]))
+    except Exception:
+        return unreal.Rotator(pitch=-90.0, yaw=0.0, roll=0.0)
 
 
 def pad(label, cx, cy, width, depth):
@@ -303,7 +330,7 @@ def pad(label, cx, cy, width, depth):
           material("Tileable/MI_Plinto"), "Art_Showcase_Plinths")
     sign(label + "_Rotulo", label.replace("Art_Plinto_", "").replace("_", " "),
          (cx, cy - depth / 2 + 120, PAD_TOP + 320),
-         unreal.Color(219, 240, 240, 255), 48.0, 0.0, "Art_Showcase_Plinths")
+         unreal.Color(219, 240, 240, 255), 48.0, (0, 0), "Art_Showcase_Plinths")
 
 
 def build_showcase():
@@ -326,7 +353,7 @@ def build_showcase():
     spawn("Trinchera_Recta_3", recta, (-5400, -1100, PAD_TOP), (0, 90, 0), (1, 1, 1), tierra, f)
     spawn("Trinchera_Final", final, (-5400, -700, PAD_TOP), (0, 90, 0), (1, 1, 1), tierra, f)
     sign("Trinchera_Rotulo", "TRINCHERA MODULAR 4 m", (-5200, -2500, PAD_TOP + 260),
-         unreal.Color(219, 240, 240, 255), 42.0, 0.0, f)
+         unreal.Color(219, 240, 240, 255), 42.0, (0, 0), f)
 
     # ---------------- sandbag gallery
     f = "Art_Showcase_Sacos"
@@ -347,7 +374,7 @@ def build_showcase():
         z = PAD_TOP + (i % 2) * 17.8
         spawn("Saco_Suelto_%d" % i, saco, (x, y, z), (0, i * 27.0, 0), (1, 1, 1), sacomat, f)
     sign("Sacos_Rotulo", "SACOS DE ARENA", (-5200, 2000, PAD_TOP + 260),
-         unreal.Color(219, 240, 240, 255), 42.0, 0.0, f)
+         unreal.Color(219, 240, 240, 255), 42.0, (0, 0), f)
 
     # ---------------- soldiers + weapons gallery
     f = "Art_Showcase_Soldados"
@@ -367,7 +394,7 @@ def build_showcase():
     block("Regla_180cm", (6, 6, 180), (-6100, 3200, PAD_TOP + 90),
           material("Teams/MI_Proxy_Oro"), f)
     sign("Regla_180cm_Rotulo", "180 cm", (-6100, 3200, PAD_TOP + 215),
-         unreal.Color(245, 173, 77, 255), 30.0, 0.0, f)
+         unreal.Color(245, 173, 77, 255), 30.0, (0, 0), f)
     # weapon plinth
     block("Plinto_Armas", (760, 420, 80), (-4800, 3200, PAD_TOP + 40),
           material("Tileable/MI_Plinto"), f)
@@ -378,7 +405,7 @@ def build_showcase():
           (-4800, 3050, PAD_TOP + 95), (0, 90, 0), (1, 1, 1),
           material("Teams/MI_Armas"), f)
     sign("Soldados_Rotulo", "SOLDADOS 1,80 m  (T-POSE, SIN ESQUELETO)", (-5200, 4200, PAD_TOP + 260),
-         unreal.Color(219, 240, 240, 255), 40.0, 0.0, f)
+         unreal.Color(219, 240, 240, 255), 40.0, (0, 0), f)
 
     # ---------------- bunker gallery
     f = "Art_Showcase_Bunker"
@@ -391,7 +418,7 @@ def build_showcase():
         spawn("Bunker_" + name, load(ART + "/Models/Static/" + mesh_name),
               (5500, y, PAD_TOP), (0, -90, 0), (1, 1, 1), concreto, f)
     sign("Bunker_Rotulo", "BUNKER ENEMIGO - 3 ESTADOS", (5500, -150, PAD_TOP + 620),
-         unreal.Color(219, 240, 240, 255), 40.0, 0.0, f)
+         unreal.Color(219, 240, 240, 255), 40.0, (0, 0), f)
 
     # ---------------- rock gallery
     f = "Art_Showcase_Rocas"
@@ -406,20 +433,23 @@ def build_showcase():
     spawn("Roca_Muro", load(ART + "/Models/Static/SM_Rocas_PuertaNorte_Muro"),
           (5000, 2000, PAD_TOP), (0, 90, 0), (1, 1, 1), roca_mat, f)
     sign("Rocas_Rotulo", "PUERTA NORTE - ROCAS", (5500, 2700, PAD_TOP + 400),
-         unreal.Color(219, 240, 240, 255), 40.0, 0.0, f)
+         unreal.Color(219, 240, 240, 255), 40.0, (0, 0), f)
 
     # ---------------- HUD board (facing -Y, camera looks +Y)
     f = "Art_Showcase_HUD"
     pad("Art_Plinto_HUD", 0, -3600, 3200, 1800)
-    block("HUD_Panel", (2500, 40, 1400), (0, -4300, PAD_TOP + 720),
-          material("Tileable/MI_Plinto"), f)
-    # two calibration planes: one of the rolls is correct, the other is mirrored
-    plane = load(PLANE)
-    hud = material("HUD/MI_Cartel_HUD")
-    spawn("HUD_Referencia", plane, (0, -4260, PAD_TOP + 700), (0, 0, 90),
-          (24.0, 14.3, 1.0), hud, f)
-    sign("HUD_Rotulo", "HUD 1210x720 (referencia de arte)", (0, -4200, PAD_TOP + 1520),
-         unreal.Color(219, 240, 240, 255), 40.0, 180.0, f)
+    block("HUD_Panel", (2400, 40, 1429), (0, -4300, PAD_TOP + 720),
+          material("HUD/MI_Cartel_HUD"), f)
+    sign("HUD_Rotulo", "HUD 1210x720 (referencia de arte)", (0, -4200, PAD_TOP + 1560),
+         unreal.Color(219, 240, 240, 255), 40.0, (0, 0), f)
+    # Sample HUD readout in the level.  The game agent only has to replace these
+    # three lines with values read from its own exposed properties/events.
+    for i, line in enumerate([
+            "SOLDADO   Sgto. Rojas      ESCUADRA  Alfa-2      ESTADO  Herido",
+            "ORDEN     Defender sector C        DESTINATARIOS  4 / 4 (misma orden)",
+            "MIC       abierto        RADIO  3.2 s        SELECCION  individual"]):
+        sign("HUD_Muestra_%d" % i, line, (0, -4150, PAD_TOP + 470 - i * 130),
+             unreal.Color(69, 224, 232, 255), 26.0, (0, 0), f)
 
     # ---------------- VFX gallery
     f = "Art_Showcase_VFX"
@@ -430,10 +460,10 @@ def build_showcase():
             ("Polvo", "VFX/MI_VFX_Polvo", 200),
             ("Chispas", "VFX/MI_VFX_Chispas", 700),
             ("Circulo", "VFX/MI_VFX_Circulo", 1100)]):
-        spawn("VFX_" + name, plane, (x, 3400, PAD_TOP + 200), (0, 0, 90),
-              (5.0, 5.0, 1.0), material(mat_name), f)
+        spawn("VFX_" + name, load(CUBE), (x, 3400, PAD_TOP + 200), unreal.Rotator(pitch=0.0, yaw=0.0, roll=0.0),
+              (5.0, 0.05, 5.0), material(mat_name), f)
     sign("VFX_Rotulo", "VFX - POLVO / CONFIRMACION / IMPACTO", (0, 3000, PAD_TOP + 500),
-         unreal.Color(219, 240, 240, 255), 40.0, 180.0, f)
+         unreal.Color(219, 240, 240, 255), 40.0, (0, 0), f)
 
 
 def build_environment():
@@ -447,7 +477,7 @@ def build_environment():
         pass
     comp = sun.get_component_by_class(unreal.DirectionalLightComponent)
     comp.set_mobility(unreal.ComponentMobility.MOVABLE)
-    comp.set_intensity(5.0)
+    comp.set_intensity(7.0)
     comp.set_editor_property("atmosphere_sun_light", True)
 
     sky_atmo = AES.spawn_actor_from_class(unreal.SkyAtmosphere, unreal.Vector(0, 0, 0),
@@ -467,8 +497,34 @@ def build_environment():
         pass
     light = sky.get_component_by_class(unreal.SkyLightComponent)
     light.set_mobility(unreal.ComponentMobility.MOVABLE)
-    light.set_intensity(0.9)
+    light.set_intensity(2.5)
     light.set_editor_property("real_time_capture", True)
+
+    # Locked exposure range so the before/after captures stay comparable and
+    # the shadows do not crush.  Same volume is used by Play In Editor.
+    vol = AES.spawn_actor_from_class(unreal.PostProcessVolume, unreal.Vector(0, 0, 0),
+                                     unreal.Rotator(0, 0, 0))
+    vol.set_actor_label("PostProceso")
+    try:
+        vol.set_folder_path("Iluminacion")
+    except Exception:
+        pass
+    try:
+        vol.set_editor_property("unbound", True)
+        settings = vol.get_editor_property("settings")
+        settings.set_editor_property("bloom_intensity", 0.35)
+        settings.set_editor_property("auto_exposure_bias", 0.0)
+        try:
+            settings.set_editor_property("auto_exposure_min_ev100", 1.0)
+            settings.set_editor_property("auto_exposure_max_ev100", 5.0)
+            log("exposure clamped EV100 1..5")
+        except Exception:
+            settings.set_editor_property("auto_exposure_min_brightness", 2.0)
+            settings.set_editor_property("auto_exposure_max_brightness", 4.0)
+            log("exposure clamped via brightness")
+        vol.set_editor_property("settings", settings)
+    except Exception as exc:
+        log("PostProcess EXC %r" % (exc,))
 
     for actor in AES.get_all_level_actors():
         if isinstance(actor, unreal.WorldSettings):
@@ -481,14 +537,16 @@ def build_environment():
 
 
 def build_cameras():
-    camera("Camara_Comandante", (-3100, -510, 180), (0, 0, 0))
-    camera("Camara_Base", (-3200, 0, 430), (-12, 0, 0))
-    camera("Camara_Centro", (0, 0, 560), (-20, 0, 0))
-    camera("Camara_Flanco", (0, -1440, 300), (-6, 0, 0))
-    camera("Camara_Showcase_Oeste", (-3200, -1000, 900), (-18, -120, 0), 80.0)
-    camera("Camara_Showcase_Este", (3200, 0, 900), (-18, 120, 0), 80.0)
-    camera("Camara_HUD", (0, -2700, 700), (0, 180, 0), 60.0)
-    camera("Camara_VFX", (0, 2700, 700), (0, 0, 0), 60.0)
+    camera("Camara_Comandante", (-3100, -510, 180), look_at=(4000, -510, 180))
+    camera("Camara_Base", (-3200, 0, 430), look_at=(2000, 0, 100))
+    camera("Camara_Centro", (0, 0, 560), look_at=(3000, 0, 100))
+    camera("Camara_Flanco", (0, -1440, 300), look_at=(3000, -1440, 100))
+    camera("Camara_Showcase_Oeste", (-3700, -900, 800), look_at=(-5350, -1250, 320), fov=70.0)
+    camera("Camara_Showcase_Soldados", (-4000, 3050, 620), look_at=(-5450, 3200, 340), fov=65.0)
+    camera("Camara_Showcase_Este", (3900, -1150, 700), look_at=(5450, -1500, 320), fov=70.0)
+    camera("Camara_Showcase_Rocas", (3950, 1650, 620), look_at=(5450, 1850, 330), fov=65.0)
+    camera("Camara_HUD", (0, -2500, 800), look_at=(0, -4300, 950), fov=75.0)
+    camera("Camara_VFX", (0, 2500, 650), look_at=(0, 3400, 450), fov=65.0)
 
 
 try:

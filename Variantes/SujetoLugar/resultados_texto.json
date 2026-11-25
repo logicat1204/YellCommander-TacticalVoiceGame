@@ -1,0 +1,678 @@
+{
+  "actual": {
+    "n": 314,
+    "exactos": 288,
+    "movimientos_indebidos": 0,
+    "p50_ms": 4.62,
+    "p95_ms": 7.77,
+    "errores": [
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 5.314,
+        "texto": "Lucía, hagan de barrera en el flanco izquierdo",
+        "esperado": [
+          "Alfa-1",
+          "flanco_izquierdo"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 4.516,
+        "texto": "Bravo, hagan de barrera en el lado derecho",
+        "esperado": [
+          "Bravo",
+          "flanco_derecho"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 7.46,
+        "texto": "Lucía, hagan de barrera en el medio",
+        "esperado": [
+          "Alfa-1",
+          "centro"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 4.649,
+        "texto": "Bravo, hagan de barrera en la base rival",
+        "esperado": [
+          "Bravo",
+          "base_enemiga"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 4.767,
+        "texto": "Lucía, hagan de barrera en nuestra base",
+        "esperado": [
+          "Alfa-1",
+          "base_aliada"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 5.03,
+        "texto": "Bravo, hagan de barrera en el flanco izquierdo",
+        "esperado": [
+          "Bravo",
+          "flanco_izquierdo"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 4.871,
+        "texto": "Lucía, hagan de barrera en el lado derecho",
+        "esperado": [
+          "Alfa-1",
+          "flanco_derecho"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 6.851,
+        "texto": "Bravo, hagan de barrera en el medio",
+        "esperado": [
+          "Bravo",
+          "centro"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 4.427,
+        "texto": "Lucía, hagan de barrera en acá",
+        "esperado": [
+          "Alfa-1",
+          "base_enemiga"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 4.844,
+        "texto": "Bravo, hagan de barrera en nuestra base",
+        "esperado": [
+          "Bravo",
+          "base_aliada"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 4.529,
+        "texto": "Lucía, quiero que tomés el flanco izquierdo",
+        "esperado": [
+          "Alfa-1",
+          "flanco_izquierdo"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 4.766,
+        "texto": "Bravo, quiero que tomés el lado derecho",
+        "esperado": [
+          "Bravo",
+          "flanco_derecho"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 3.919,
+        "texto": "Lucía, quiero que tomés el medio",
+        "esperado": [
+          "Alfa-1",
+          "centro"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 7.69,
+        "texto": "Bravo, quiero que tomés la base rival",
+        "esperado": [
+          "Bravo",
+          "base_enemiga"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 5.656,
+        "texto": "Lucía, quiero que tomés nuestra base",
+        "esperado": [
+          "Alfa-1",
+          "base_aliada"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 4.261,
+        "texto": "Bravo, quiero que tomés el flanco izquierdo",
+        "esperado": [
+          "Bravo",
+          "flanco_izquierdo"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 4.983,
+        "texto": "Lucía, quiero que tomés el lado derecho",
+        "esperado": [
+          "Alfa-1",
+          "flanco_derecho"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 4.221,
+        "texto": "Bravo, quiero que tomés el medio",
+        "esperado": [
+          "Bravo",
+          "centro"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 4.35,
+        "texto": "Lucía, quiero que tomés acá",
+        "esperado": [
+          "Alfa-1",
+          "base_enemiga"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 4.671,
+        "texto": "Bravo, quiero que tomés nuestra base",
+        "esperado": [
+          "Bravo",
+          "base_aliada"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 4.274,
+        "texto": "Lucía esperame en el medio",
+        "esperado": [
+          "Alfa-1",
+          "centro"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 4.362,
+        "texto": "Bravo esperame en la base rival",
+        "esperado": [
+          "Bravo",
+          "base_enemiga"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 8.075,
+        "texto": "Lucía esperame en nuestra base",
+        "esperado": [
+          "Alfa-1",
+          "base_aliada"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 4.093,
+        "texto": "Bravo esperame en el medio",
+        "esperado": [
+          "Bravo",
+          "centro"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 4.813,
+        "texto": "Lucía esperame en acá",
+        "esperado": [
+          "Alfa-1",
+          "base_enemiga"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 4.442,
+        "texto": "Bravo esperame en nuestra base",
+        "esperado": [
+          "Bravo",
+          "base_aliada"
+        ],
+        "obtenido": null
+      }
+    ]
+  },
+  "sujeto_lugar": {
+    "n": 314,
+    "exactos": 300,
+    "movimientos_indebidos": 4,
+    "p50_ms": 1.57,
+    "p95_ms": 2.02,
+    "errores": [
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 2.097,
+        "texto": "Lucía, los quiero juntos en un mismo sitio en el flanco izquierdo",
+        "esperado": [
+          "Alfa-1",
+          "flanco_izquierdo"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 1.692,
+        "texto": "Bravo, los quiero juntos en un mismo sitio en el lado derecho",
+        "esperado": [
+          "Bravo",
+          "flanco_derecho"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 1.636,
+        "texto": "Lucía, los quiero juntos en un mismo sitio en el medio",
+        "esperado": [
+          "Alfa-1",
+          "centro"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 1.729,
+        "texto": "Bravo, los quiero juntos en un mismo sitio en la base rival",
+        "esperado": [
+          "Bravo",
+          "base_enemiga"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 2.108,
+        "texto": "Lucía, los quiero juntos en un mismo sitio en nuestra base",
+        "esperado": [
+          "Alfa-1",
+          "base_aliada"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 1.567,
+        "texto": "Bravo, los quiero juntos en un mismo sitio en el flanco izquierdo",
+        "esperado": [
+          "Bravo",
+          "flanco_izquierdo"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 2.614,
+        "texto": "Lucía, los quiero juntos en un mismo sitio en el lado derecho",
+        "esperado": [
+          "Alfa-1",
+          "flanco_derecho"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 1.615,
+        "texto": "Bravo, los quiero juntos en un mismo sitio en el medio",
+        "esperado": [
+          "Bravo",
+          "centro"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 1.815,
+        "texto": "Lucía, los quiero juntos en un mismo sitio en acá",
+        "esperado": [
+          "Alfa-1",
+          "base_enemiga"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 1.544,
+        "texto": "Bravo, los quiero juntos en un mismo sitio en nuestra base",
+        "esperado": [
+          "Bravo",
+          "base_aliada"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": true,
+        "ms": 1.963,
+        "texto": "Lucía, hacen falta curaciones en el flanco izquierdo",
+        "esperado": null,
+        "obtenido": [
+          "Alfa-1",
+          "flanco_izquierdo"
+        ]
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": true,
+        "ms": 1.71,
+        "texto": "Médico, hacen falta curaciones en el lado derecho",
+        "esperado": null,
+        "obtenido": [
+          "Médico",
+          "flanco_derecho"
+        ]
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": true,
+        "ms": 1.684,
+        "texto": "Médico, hacen falta curaciones en el flanco izquierdo",
+        "esperado": null,
+        "obtenido": [
+          "Médico",
+          "flanco_izquierdo"
+        ]
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": true,
+        "ms": 1.466,
+        "texto": "Lucía, hacen falta curaciones en el lado derecho",
+        "esperado": null,
+        "obtenido": [
+          "Alfa-1",
+          "flanco_derecho"
+        ]
+      }
+    ]
+  },
+  "sujeto_lugar_postura": {
+    "n": 314,
+    "exactos": 300,
+    "movimientos_indebidos": 4,
+    "p50_ms": 2.47,
+    "p95_ms": 3.18,
+    "errores": [
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 2.107,
+        "texto": "Lucía, los quiero juntos en un mismo sitio en el flanco izquierdo",
+        "esperado": [
+          "Alfa-1",
+          "flanco_izquierdo"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 1.445,
+        "texto": "Bravo, los quiero juntos en un mismo sitio en el lado derecho",
+        "esperado": [
+          "Bravo",
+          "flanco_derecho"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 1.947,
+        "texto": "Lucía, los quiero juntos en un mismo sitio en el medio",
+        "esperado": [
+          "Alfa-1",
+          "centro"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 1.457,
+        "texto": "Bravo, los quiero juntos en un mismo sitio en la base rival",
+        "esperado": [
+          "Bravo",
+          "base_enemiga"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 1.498,
+        "texto": "Lucía, los quiero juntos en un mismo sitio en nuestra base",
+        "esperado": [
+          "Alfa-1",
+          "base_aliada"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 1.382,
+        "texto": "Bravo, los quiero juntos en un mismo sitio en el flanco izquierdo",
+        "esperado": [
+          "Bravo",
+          "flanco_izquierdo"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 1.69,
+        "texto": "Lucía, los quiero juntos en un mismo sitio en el lado derecho",
+        "esperado": [
+          "Alfa-1",
+          "flanco_derecho"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 1.589,
+        "texto": "Bravo, los quiero juntos en un mismo sitio en el medio",
+        "esperado": [
+          "Bravo",
+          "centro"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 1.834,
+        "texto": "Lucía, los quiero juntos en un mismo sitio en acá",
+        "esperado": [
+          "Alfa-1",
+          "base_enemiga"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": false,
+        "ms": 1.677,
+        "texto": "Bravo, los quiero juntos en un mismo sitio en nuestra base",
+        "esperado": [
+          "Bravo",
+          "base_aliada"
+        ],
+        "obtenido": null
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": true,
+        "ms": 2.502,
+        "texto": "Lucía, hacen falta curaciones en el flanco izquierdo",
+        "esperado": null,
+        "obtenido": [
+          "Alfa-1",
+          "flanco_izquierdo"
+        ]
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": true,
+        "ms": 2.537,
+        "texto": "Médico, hacen falta curaciones en el lado derecho",
+        "esperado": null,
+        "obtenido": [
+          "Médico",
+          "flanco_derecho"
+        ]
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": true,
+        "ms": 2.774,
+        "texto": "Médico, hacen falta curaciones en el flanco izquierdo",
+        "esperado": null,
+        "obtenido": [
+          "Médico",
+          "flanco_izquierdo"
+        ]
+      },
+      {
+        "ok": false,
+        "postura_correcta": false,
+        "movimiento_indebido": true,
+        "ms": 2.71,
+        "texto": "Lucía, hacen falta curaciones en el lado derecho",
+        "esperado": null,
+        "obtenido": [
+          "Alfa-1",
+          "flanco_derecho"
+        ]
+      }
+    ],
+    "exactos_incluida_postura": 269
+  }
+}

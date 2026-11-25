@@ -13,7 +13,6 @@ from statistics import median
 
 from .contract import ROOT, tokens
 from .inference import SpeechToText, infer
-from .scratch import ScratchModel
 
 SENTENCES = (
     "Alfa, avancen por el centro.",
@@ -105,6 +104,7 @@ def main():
     if args.fixture:
         args.fixture.parent.mkdir(parents=True, exist_ok=True)
         args.fixture.write_bytes(utterances[0][2])
+    from .scratch import ScratchModel
     nlp = ScratchModel()
     report = {}
     for path in args.models:

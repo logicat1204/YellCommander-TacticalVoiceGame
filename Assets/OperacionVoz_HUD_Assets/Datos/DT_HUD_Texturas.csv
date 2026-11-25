@@ -1,0 +1,45 @@
+Name,Archivo,Tamano,Uso,Tinte,Notas
+T_Comm_Glifo_Habla,Comunicacion/T_Comm_Glifo_Habla.png,256x256,Comunicacion: glifo boca suelto,Si (blanco),Para usar con tu propio fondo/color.
+T_Comm_Glifo_Walkie,Comunicacion/T_Comm_Glifo_Walkie.png,256x256,Comunicacion: glifo walkie suelto,Si (blanco),Para usar con tu propio fondo/color.
+T_Comm_Icono_Cambio,Comunicacion/T_Comm_Icono_Cambio.png,256x256,Comunicacion: icono de intercambio (flechas circulares),Si (blanco),Junto a la tecla R o animado al cambiar de modo.
+T_Comm_Modo_Habla,Comunicacion/T_Comm_Modo_Habla.png,256x256,Comunicacion: modo hablar (insignia con boca y ondas),No (anillo azul),Mostrar cuando el modo es voz directa.
+T_Comm_Modo_Walkie,Comunicacion/T_Comm_Modo_Walkie.png,256x256,Comunicacion: modo walkie-talkie (insignia lista),No (anillo ambar),Mostrar cuando el modo es radio.
+T_Key_E,Controles/T_Key_E.png,96x96,Controles: tecla E,No,Tecla con la etiqueta horneada.
+T_Key_Enter,Controles/T_Key_Enter.png,144x96,Controles: tecla Enter,No,Tecla con la etiqueta horneada.
+T_Key_Esc,Controles/T_Key_Esc.png,96x96,Controles: tecla Esc,No,Tecla con la etiqueta horneada.
+T_Key_Espacio,Controles/T_Key_Espacio.png,208x96,Controles: tecla Espacio,No,Tecla con la etiqueta horneada.
+T_Key_F,Controles/T_Key_F.png,96x96,Controles: tecla F,No,Tecla con la etiqueta horneada.
+T_Key_M,Controles/T_Key_M.png,96x96,Controles: tecla M,No,Tecla con la etiqueta horneada.
+T_Key_R,Controles/T_Key_R.png,96x96,Controles: tecla R,No,Tecla con la etiqueta horneada.
+T_Key_R_Pressed,Controles/T_Key_R_Pressed.png,96x96,Controles: tecla R_Pressed,No,Variante de estado (pulsada / resaltada).
+T_Key_R_Resaltada,Controles/T_Key_R_Resaltada.png,96x96,Controles: tecla R_Resaltada,No,Variante de estado (pulsada / resaltada).
+T_Key_Shift,Controles/T_Key_Shift.png,144x96,Controles: tecla Shift,No,Tecla con la etiqueta horneada.
+T_Key_Tab,Controles/T_Key_Tab.png,120x96,Controles: tecla Tab,No,Tecla con la etiqueta horneada.
+T_Key_V,Controles/T_Key_V.png,96x96,Controles: tecla V,No,Tecla con la etiqueta horneada.
+T_Key_Vacia_9S,Controles/T_Key_Vacia_9S.png,128x128,Controles: tecla vacia (9-slice),No,Margen 9-slice sugerido: 0.25 en todos los lados.
+T_Prompt_R_CambiarModo,Controles/T_Prompt_R_CambiarModo.png,520x96,"Controles: prompt listo ""[R] CAMBIAR MODO""",No,Texto horneado en espanol; para otros idiomas usar T_Key_R + texto UMG.
+T_MM_Cono_Vision,Minimapa/Iconos/T_MM_Cono_Vision.png,256x256,Minimapa: cono de vision del jugador,"Si, blanco -> azul con alfa 0.6",Pivote en el centro de la imagen (256x256). Mismo pivote que el jugador.
+T_MM_Estructura_BaseAliada,Minimapa/Iconos/T_MM_Estructura_BaseAliada.png,128x128,Minimapa: base aliada,No,Zona.Trinchera
+T_MM_Estructura_BaseEnemiga,Minimapa/Iconos/T_MM_Estructura_BaseEnemiga.png,128x128,Minimapa: base enemiga (estructura fija),No,Zona.BunkerEste. Ocultar si no quieres NINGUNA info enemiga.
+T_MM_Estructura_FlancoDer,Minimapa/Iconos/T_MM_Estructura_FlancoDer.png,128x128,Minimapa: flanco derecho,No,Zona.FlancoDerecho
+T_MM_Estructura_FlancoIzq,Minimapa/Iconos/T_MM_Estructura_FlancoIzq.png,128x128,Minimapa: flanco izquierdo,No,Zona.FlancoIzquierdo
+T_MM_Indicador_Borde,Minimapa/Iconos/T_MM_Indicador_Borde.png,64x64,Minimapa: flecha para aliados/estructuras fuera de rango,Si (blanco),Rotar hacia el objeto y pegarla al borde del circulo.
+T_MM_Jugador,Minimapa/Iconos/T_MM_Jugador.png,128x128,Minimapa: icono del comandante (jugador),No (ya azul),"Pivote al centro del minimapa. Con mapa rotante no se rota; con mapa fijo, rotar por Yaw."
+T_MM_Medico,Minimapa/Iconos/T_MM_Medico.png,128x128,Minimapa: medico,No,"Disco blanco con cruz roja, como el modelo Medico."
+T_MM_Soldado_Alpha,Minimapa/Iconos/T_MM_Soldado_Alpha.png,128x128,Minimapa: soldado escuadra Alpha,No (anillo azul),Mismo color que el brazalete del modelo Alpha.
+T_MM_Soldado_Bravo,Minimapa/Iconos/T_MM_Soldado_Bravo.png,128x128,Minimapa: soldado escuadra Bravo,No (anillo turquesa),Mismo color que el brazalete del modelo Bravo.
+T_MM_Brujula_Rotante,Minimapa/Marco/T_MM_Brujula_Rotante.png,512x512,Minimapa: anillo de brujula N-E-S-O,No,512x512. Rotar por -Yaw (o dejarlo fijo si el mapa no rota). Va debajo del marco.
+T_MM_Fondo_Circular,Minimapa/Marco/T_MM_Fondo_Circular.png,512x512,Minimapa: fondo oscuro con rejilla (fuera de los limites del mapa),No,512x512 con alfa circular.
+T_MM_Marco_Circular,Minimapa/Marco/T_MM_Marco_Circular.png,512x512,Minimapa: marco fijo (bisel),No,512x512; el hueco interior es transparente.
+T_MM_Mascara_Circular,Minimapa/Marco/T_MM_Mascara_Circular.png,512x512,Minimapa: mascara circular (opacidad del mapa),n/a,Escala de grises. sRGB OFF. Usar como Opacity Mask del material.
+T_MM_Ruta_Destino,Minimapa/Rutas/T_MM_Ruta_Destino.png,128x128,Minimapa: destino de la ruta,No (bandera ambar),"Ancla visual en la base del asta (x=40/128, y=114/128)."
+T_MM_Ruta_Flecha,Minimapa/Rutas/T_MM_Ruta_Flecha.png,64x64,Minimapa: chevron de direccion de ruta,Si (blanco),Colocar cada N px sobre la ruta.
+T_MM_Ruta_Nodo,Minimapa/Rutas/T_MM_Ruta_Nodo.png,64x64,Minimapa: punto intermedio de ruta,Si (blanco),
+T_MM_Ruta_Tile,Minimapa/Rutas/T_MM_Ruta_Tile.png,64x16,Minimapa: segmento de ruta (guiones),Si (blanco),Direccion de texto: Wrap en X. Brush Tiling Horizontal; rotar el widget segun el tramo.
+T_Heart_Contorno,Salud/T_Heart_Contorno.png,256x256,Salud: contorno blanco,Si,Para resaltar/parpadear.
+T_Heart_Critico,Salud/T_Heart_Critico.png,256x256,Salud comandante: a punto de morir,No,"Granate, partido, con gota. < 25 %"
+T_Heart_Fondo,Salud/T_Heart_Fondo.png,256x256,Salud: corazon vacio (fondo),No,Capa inferior si haces barra rellena.
+T_Heart_Herido,Salud/T_Heart_Herido.png,256x256,Salud comandante: estado herido,No,Naranja con grieta y vendaje. 25-60 %
+T_Heart_Mascara,Salud/T_Heart_Mascara.png,256x256,Salud: mascara del corazon (escala de grises),n/a,sRGB OFF. Para relleno vertical por material.
+T_Heart_Pulso_Glow,Salud/T_Heart_Pulso_Glow.png,256x256,Salud: resplandor para latido,Si (rojo),Animar escala 1.0-1.15 y opacidad.
+T_Heart_Sano,Salud/T_Heart_Sano.png,256x256,Salud comandante: estado sano,No,"Rojo, brillante. > 60 %"

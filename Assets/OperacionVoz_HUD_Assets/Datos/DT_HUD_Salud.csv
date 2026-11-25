@@ -1,0 +1,4 @@
+Name,Estado,SaludMin,SaludMax,Textura,Latido_Hz
+sano,Sano,0.60,1.00,T_Heart_Sano,0
+herido,Herido,0.25,0.60,T_Heart_Herido,0.8
+critico,Critico,0.00,0.25,T_Heart_Critico,1.6

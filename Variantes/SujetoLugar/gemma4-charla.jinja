@@ -1,0 +1,7 @@
+{{- bos_token -}}
+{%- for message in messages -%}
+{{- '<|turn>' ~ ('model' if message.role == 'assistant' else message.role) ~ '\n' ~ message.content ~ '<turn|>\n' -}}
+{%- endfor -%}
+{%- if add_generation_prompt -%}
+{{- '<|turn>model\n<|channel>thought\n<channel|>' -}}
+{%- endif -%}

@@ -1,7 +1,10 @@
 #include "YellPlayer.h"
 
+#include "CanvasItem.h"
 #include "Engine/Canvas.h"
 #include "Engine/Engine.h"
+#include "Engine/Texture2D.h"
+#include "GlobalRenderResources.h"
 #include "YellBattle.h"
 
 namespace
@@ -13,11 +16,10 @@ namespace
 	const FLinearColor Cyan(.27f, .88f, .91f, 1);
 	const FLinearColor Gold(.96f, .68f, .30f, 1);
 	const FLinearColor Danger(.99f, .35f, .23f, 1);
-	const FLinearColor Medic(.40f, .91f, .48f, 1);
 
-	FString Countdown(const float Seconds)
+	UTexture2D* Sprite(const TCHAR* Name)
 	{
-		return Seconds > 0 ? FString::Printf(TEXT("%d s"), FMath::CeilToInt(Seconds)) : TEXT("listo");
+		return LoadObject<UTexture2D>(nullptr, *FString::Printf(TEXT("/Game/Yell/Gameplay/HUD/%s.%s"), Name, Name));
 	}
 }
 
@@ -46,140 +48,136 @@ void AYellHUD::DrawHUD()
 		Box(Panel, X, Y, Width, 5);
 		Box(Color, X, Y, Width * FMath::Clamp(Ratio, 0.0f, 1.0f), 5);
 	};
-	const float X = 22.0f, Y = 22.0f;
-	const float MapWidth = 237, MapX = W - MapWidth - X, MapY = Y + 31;
-	Box(Ink, X, Y, 295, 135);
-	Box(Cyan, X, Y, 295, 3);
-	Label(TEXT("YELL COMMANDER"), Paper, X + 13, Y + 11, 1.42f);
-	Label(TEXT("VALLE ALFA"), Muted, X + 13, Y + 33, 1.0f);
-	Label(FString::Printf(TEXT("COMANDANTE   %03.0f"), Commander->Health()), Paper, X + 13, Y + 56, .95f);
-	Bar(X + 13, Y + 73, 269, Commander->Health() / 100, Cyan);
-	Label(FString::Printf(TEXT("BASE ALIADA   %03.0f"), Battle->CoreHealth(0)), Paper, X + 13, Y + 89, .95f);
-	Label(FString::Printf(TEXT("RIVAL   %03.0f"), Battle->CoreHealth(1)), Muted, X + 191, Y + 89, .95f);
-	Bar(X + 13, Y + 110, 129, Battle->CoreHealth(0) / 500, Cyan);
-	Bar(X + 153, Y + 110, 129, Battle->CoreHealth(1) / 500, Danger);
-
-	float AllyY = Y + 150;
-	const int32 Count = Battle->AlliedNames().Num();
-	Box(Ink, X, AllyY, 295, Count * 29 + 53);
-	Label(TEXT("PELOTONES ALIADOS"), Muted, X + 13, AllyY + 9, 1.05f);
-	AllyY += 31;
-	for (const FYellSquad& Squad : Battle->Roster())
-	{
-		if (Squad.Team != 0)
-		{
-			continue;
-		}
-		const FLinearColor Tint = Squad.bMedic ? Medic : Cyan;
-		const AYellSoldier* Leader = nullptr;
-		bool bInspired = false;
-		for (const auto& Member : Squad.Members)
-		{
-			if (Member.IsValid() && Member->CanAct())
-			{
-				Leader = Leader ? Leader : Member.Get();
-				bInspired |= Member->BoostUntil > GetWorld()->GetTimeSeconds();
-			}
-		}
-		Box(Panel, X + 7, AllyY - 2, 281, 23);
-		Box(bInspired ? Gold : Tint, X + 7, AllyY - 2, 3, 23);
-		Label(Squad.Id.ToString(), Tint, X + 15, AllyY + 3, 1.04f);
-		Label(Leader ? YellOrder::ActionText(Leader->CurrentOrder.Action) : TEXT("incapacitado"),
-			Paper, X + 91, AllyY + 4, .89f);
-		Label(FString::Printf(TEXT("%d/%d"), Squad.Ready(), Squad.Alive()), Muted, X + 245, AllyY + 4, .89f);
-		AllyY += 29;
-	}
-	Label(FString::Printf(TEXT("Refuerzos %s     Moral %s"), *Countdown(Battle->NextReinforcement(0)),
-		*Countdown(Battle->NextMorale())), Muted, X + 13, AllyY + 1, .91f);
-
-	Box(Ink, MapX, Y, MapWidth, 235);
-	Box(Gold, MapX, Y, MapWidth, 3);
-	Label(TEXT("MAPA TÁCTICO"), Paper, MapX + 11, Y + 11, 1.05f);
-	auto Map = [MapX, MapY](const FVector& Point)
-	{
-		return FVector2D(MapX + 117 + Point.Y / 24.5, MapY + 88 - Point.X / 49.0);
-	};
-	for (const EYellZone Zone : {EYellZone::Left, EYellZone::Center, EYellZone::Right})
-	{
-		const FVector2D Position = Map(Battle->Position(Zone, 0));
-		Box(Panel, Position.X - 20, MapY + 7, 40, 160);
-		const TCHAR* Name = Zone == EYellZone::Left ? TEXT("IZQ") : Zone == EYellZone::Right ? TEXT("DER") : TEXT("CTR");
-		Label(Name, Muted, Position.X - 10, MapY + 170, .80f);
-	}
-	for (uint8 Team = 0; Team < 2; ++Team)
-	{
-		const FVector2D Point = Map(Battle->CorePosition(Team));
-		Box(Team == 0 ? Cyan : Danger, Point.X - 7, Point.Y - 5, 14, 10);
-	}
+	FVector Eye;
+	FRotator View;
+	Player->GetPlayerViewPoint(Eye, View);
+	TArray<FBox2D> Nameplates;
 	for (const auto& Unit : Battle->Units())
 	{
-		if (!Unit.IsValid() || !Unit->IsAlive() || (Unit->Team == 1 && !Battle->DetectedByPlayer(*Unit)))
+		if (!Unit.IsValid() || Unit->Team != 0 || !Unit->IsAlive()) continue;
+		const FVector Head = Unit->GetActorLocation() + FVector(0, 0, Unit->CanAct() ? 111.f : 1.f);
+		if (FVector::DistSquared(Eye, Head) > FMath::Square(3400.f)) continue;
+		const FCollisionQueryParams Sight(SCENE_QUERY_STAT(YellNameplate), false, Commander);
+		FHitResult Hit;
+		if (GetWorld()->LineTraceSingleByChannel(Hit, Eye, Head, ECC_Visibility, Sight) &&
+			Hit.GetActor() != Unit.Get()) continue;
+		FVector2D Screen;
+		if (!Player->ProjectWorldLocationToScreen(Head, Screen, true)) continue;
+		const float X = Screen.X / Scale, Y = Screen.Y / Scale;
+		if (X < 90 || X > W - 90 || Y < 34 || Y > H - 120) continue;
+		const FString Name = Unit->GivenName + TEXT(" · ") + Unit->Squad.ToString();
+		float Width, Height;
+		GetTextSize(Name, Width, Height, GEngine->GetSmallFont(), .9f);
+		const float Left = X - Width/2 - 5;
+		float LabelY = Y;
+		for (int32 Tier = 0; Tier < 4; ++Tier)
 		{
-			continue;
-		}
-		const FVector2D Point = Map(Unit->GetActorLocation());
-		if (Unit->Team == 0 && Player->Model == TEXT("D") &&
-			FVector::DistSquared(Commander->GetActorLocation(),Unit->GetActorLocation()) < FMath::Square(1300.0))
-		{
-			FVector2D Screen;
-			if (Player->ProjectWorldLocationToScreen(Unit->Eye()+FVector(0,0,42),Screen,true))
-				Label(Unit->GivenName + TEXT(" · ") + Unit->Squad.ToString(),Paper,Screen.X,Screen.Y,.84f);
-		}
-		const FLinearColor Tint = !Unit->CanAct() ? Gold : Unit->Team == 1 ? Danger : Unit->bMedic ? Medic : Cyan;
-		Box(Tint, Point.X - 2, Point.Y - 2, 4, 4);
-		if (Unit->Team == 0 && Unit->CanAct() && Unit->CurrentOrder.Zone != EYellZone::None)
-		{
-			const FVector2D Goal = Map(Unit->Destination);
-			Box(FLinearColor(Tint.R, Tint.G, Tint.B, .40f), Goal.X - 2, Goal.Y - 2, 4, 4);
+			const FBox2D Bounds(FVector2D(Left, LabelY - 2), FVector2D(Left + Width + 10, LabelY + Height + 2));
+			if (!Nameplates.ContainsByPredicate([&Bounds](const FBox2D& Other) { return Bounds.Intersect(Other); }))
+			{
+				Nameplates.Add(Bounds);
+				Box(Ink, Left, LabelY - 2, Width + 10, Height + 4);
+				Label(Name, Unit->CanAct() ? Paper : Gold, X - Width/2, LabelY, .9f);
+				break;
+			}
+			LabelY -= Height + 5;
 		}
 	}
-	const FVector2D Point = Map(Commander->GetActorLocation());
-	Box(Paper, Point.X - 3, Point.Y - 3, 6, 6);
-	Label(FString::Printf(TEXT("Rival · %s"), *Battle->RivalPersonality()), Muted, MapX + 11, MapY + 187, .96f);
+	auto Icon = [this, &Box, Scale](UTexture2D* Texture, float X, float Y, float Size, const FLinearColor& Fallback)
+	{
+		if (Texture)
+			DrawTexture(Texture, X*Scale, Y*Scale, Size*Scale, Size*Scale, 0, 0, 1, 1,
+				FLinearColor::White, BLEND_Translucent);
+		else
+			Box(Fallback, X, Y, Size, Size);
+	};
+	auto Texture = [this](const TCHAR* Name) -> UTexture2D*
+	{
+		const FName Key(Name);
+		if (const auto* Cached = HUDTextures.Find(Key)) return Cached->Get();
+		return HUDTextures.Add(Key, Sprite(Name)).Get();
+	};
+	const float X = 22, Y = H - 114;
+	const float Health = Commander->Health();
+	Box(Ink, X, Y, 318, 92);
+	Icon(Texture(Health <= 30 ? TEXT("T_Heart_Critico") : Health <= 65 ? TEXT("T_Heart_Herido") :
+		TEXT("T_Heart_Sano")), X+11, Y+7, 36, Danger);
+	Label(FString::Printf(TEXT("Comandante   %.0f / 100"), Health), Paper, X+56, Y+8, 1.f);
+	Bar(X+56, Y+29, 247, Health/100.f, Health <= 30 ? Danger : Cyan);
+	Icon(Texture(Player->bRadio ? TEXT("T_Comm_Glifo_Walkie") : TEXT("T_Comm_Glifo_Habla")), X+14, Y+43, 25, Gold);
+	Label(Player->bRadio ? TEXT("Walkie-talkie equipado") : TEXT("Voz de proximidad"), Gold, X+56, Y+44, .99f);
+	Label(Player->bRecording ? TEXT("Grabando   ·   Suelta V para enviar") : TEXT("V  Hablar     R  Cambiar canal     T  Escribir"), Muted, X+14, Y+70, .9f);
 
-	Box(Paper, W * .5f - 5, H * .5f, 10, 1);
-	Box(Paper, W * .5f, H * .5f - 5, 1, 10);
-	const float RadioWidth = FMath::Min(W - 48.0f, 700.0f);
-	const float RadioX = (W - RadioWidth) * .5f, RadioY = H - 108;
-	Box(Ink, RadioX, RadioY, RadioWidth, 85);
-	Box(Player->bRecording ? Danger : Gold, RadioX, RadioY, RadioWidth, 3);
-	const FString Channel = Player->bRadio ? TEXT("RADIO") : TEXT("PROXIMIDAD");
-	const FString State = Player->bRecording ? (Player->bMicReady ? TEXT("GRABANDO") : TEXT("PREPARANDO"))
-		: Player->PendingRequests() ? TEXT("PROCESANDO") : TEXT("EN ESPERA");
-	Label(FString::Printf(TEXT("%s  /  %s  /  MODELO %s"), *Channel, *State, *Player->Model),
-		Gold, RadioX + 14, RadioY + 9, 1.05f);
-	Label(Player->Status.Left(102), Paper, RadioX + 14, RadioY + 30, 1.03f);
-	if (Player->bRecording)
+	int32 SquadCount = 0;
+	for (const FYellSquad& Squad : Battle->Roster())
+		if (Squad.Team == 0 && Squad.Alive()) ++SquadCount;
+	Box(Ink, X, 24, 184, 30 + SquadCount * 23);
+	Label(TEXT("Pelotones aliados"), Paper, X+11, 30, 1.f);
+	int32 Row = 0;
+	for (const FYellSquad& Squad : Battle->Roster())
 	{
-		Box(Panel, RadioX + RadioWidth - 114, RadioY + 13, 98, 4);
-		Box(Cyan, RadioX + RadioWidth - 114, RadioY + 13, 98 * Player->MicLevel, 4);
+		if (Squad.Team != 0 || !Squad.Alive()) continue;
+		const float RowY = 51 + Row++ * 23;
+		Label(Squad.Id.ToString(), Squad.bMedic ? Gold : Cyan, X+11, RowY, .94f);
+		Label(FString::Printf(TEXT("%d / %d"), Squad.Ready(), Squad.Alive()), Paper, X+130, RowY, .94f);
 	}
-	Label(FString::Printf(TEXT("V Hablar   T Escribir   R Canal   F2 Modelo   F3 Diagnóstico   ·   %d en proceso / %d audios"),
-		Player->PendingRequests(), Player->PendingAudio()), Muted, RadioX + 14, RadioY + 58, .94f);
-	if (Battle->IsTerminalNearby(0, Commander->GetActorLocation()))
+
+	const float MapSize = 216, MapX = W - MapSize - 24, MapY = 24;
+	Icon(Texture(TEXT("T_MM_Fondo_Circular")), MapX, MapY, MapSize, Ink);
+	auto MapPoint = [&](const FVector& Location)
 	{
-		Label(TEXT("E  Pedir refuerzos    F  Pedir médicos"), Gold, X, H - 59, 1);
-	}
-	if (Player->bDetails)
+		const FVector2D Extent = Battle->ArenaExtent();
+		const FVector2D Offset(FMath::Clamp(Location.Y / Extent.Y,-1.,1.),
+			FMath::Clamp(-Location.X / Extent.X,-1.,1.));
+		return FVector2D(MapX + MapSize/2, MapY + MapSize/2) + Offset * (MapSize*.31);
+	};
+	const auto& Terrain = Battle->WalkableTriangles();
+	if (!Terrain.IsEmpty())
 	{
-		const float DebugWidth = 590, DebugHeight = 266;
-		const float DX = (W - DebugWidth) / 2, DY = 50;
-		Box(Ink, DX, DY, DebugWidth, DebugHeight);
-		Box(Cyan, DX, DY, 3, DebugHeight);
-		Label(TEXT("DIAGNÓSTICO NLP"), Cyan, DX + 11, DY + 8, 1.25f);
-		Label(Player->StageTiming, Gold, DX + 11, DY + 29, .91f);
-		Label(Player->VoiceDiagnostics.Left(102), Muted, DX + 11, DY + 47, .88f);
-		Label(TEXT("Texto   ") + Player->Transcript.Left(99), Paper, DX + 11, DY + 67, .88f);
-		for (int32 Offset = 0; Offset < Player->DebugJson.Len() && Offset < 380; Offset += 95)
+		TArray<FCanvasUVTri> Triangles;
+		Triangles.Reserve(Terrain.Num() / 3);
+		const FLinearColor Walkable(.34f,.57f,.49f,.57f);
+		for (int32 Index = 0; Index < Terrain.Num(); Index += 3)
 		{
-			Label(Player->DebugJson.Mid(Offset, 95), Muted, DX + 11, DY + 87 + Offset / 95 * 14, .86f);
+			auto& Tri = Triangles.AddDefaulted_GetRef();
+			Tri.V0_Pos = MapPoint(Terrain[Index]) * Scale;
+			Tri.V1_Pos = MapPoint(Terrain[Index+1]) * Scale;
+			Tri.V2_Pos = MapPoint(Terrain[Index+2]) * Scale;
+			Tri.V0_Color = Tri.V1_Color = Tri.V2_Color = Walkable;
+			Tri.V0_UV = Tri.V1_UV = Tri.V2_UV = FVector2D::ZeroVector;
 		}
-		Label(TEXT("RADIO RECIENTE"), Cyan, DX + 11, DY + 150, .99f);
-		for (int32 Index = 0; Index < Player->Recent.Num(); ++Index)
+		FCanvasTriangleItem Overlay(Triangles, GWhiteTexture);
+		Overlay.BlendMode = SE_BLEND_Translucent;
+		Canvas->DrawItem(Overlay);
+	}
+	auto Marker = [&](UTexture2D* Texture, const FVector& Location, float Size, const FLinearColor& Fallback)
+	{
+		const FVector2D Point = MapPoint(Location);
+		Icon(Texture, Point.X - Size/2, Point.Y - Size/2, Size, Fallback);
+	};
+	Marker(Texture(TEXT("T_MM_Estructura_BaseAliada")), Battle->CorePosition(0), 19, Paper);
+	for (const auto& Unit : Battle->Units())
+	{
+		if (Unit.IsValid() && Unit->Team == 0 && Unit->IsAlive())
 		{
-			Label(Player->Recent[Index].Left(99), Paper, DX + 11, DY + 169 + Index * 15, .86f);
+			const TCHAR* Name = Unit->bMedic ? TEXT("T_MM_Medico")
+				: Unit->Squad == TEXT("Bravo") ? TEXT("T_MM_Soldado_Bravo") : TEXT("T_MM_Soldado_Alpha");
+			Marker(Texture(Name), Unit->GetActorLocation(), Unit->CanAct() ? 12 : 8, Cyan);
 		}
 	}
+	Marker(Texture(TEXT("T_MM_Jugador")), Commander->GetActorLocation(), 17, Gold);
+	if (auto* Border = Texture(TEXT("T_MM_Marco_Circular"))) Icon(Border, MapX, MapY, MapSize, Ink);
+	Box(Ink, MapX, MapY+MapSize+7, MapSize, 64);
+	for (uint8 Team = 0; Team < 2; ++Team)
+	{
+		const float BaseY = MapY + MapSize + 12 + Team * 27;
+		const float Integrity = Battle->CoreHealth(Team) / 500.f;
+		Label(FString::Printf(TEXT("%s    %.0f %%"), Team == 0 ? TEXT("Base aliada") : TEXT("Base rival"),
+			Integrity * 100.f), Paper, MapX+11, BaseY, .98f);
+		Bar(MapX+11, BaseY+18, MapSize-22, Integrity, Team == 0 ? Cyan : Danger);
+	}
+	if (Battle->IsTerminalNearby(0,Commander->GetActorLocation()))
+		Label(TEXT("E  Refuerzos     F  Médicos"),Paper,X,Y-22,1.f);
 	if (Battle->Winner() != INDEX_NONE)
 	{
 		const float Left = W * .5f - 185, Top = H * .5f - 65;

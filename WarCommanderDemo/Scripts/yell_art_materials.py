@@ -183,6 +183,7 @@ def master_decal(name):
     mat = new_material(name, unreal.MaterialDomain.MD_DEFERRED_DECAL,
                        unreal.BlendMode.BLEND_TRANSLUCENT,
                        unreal.MaterialShadingModel.MSM_UNLIT)
+    mat.set_editor_property("two_sided", True)
     sample = tex_param(mat, "Textura", tex(ART + "/Textures/UI/Markers/T_Decal_Seleccion"), -520, -60)
     color = vector_param(mat, "Color", unreal.LinearColor(0.37, 0.63, 1.0, 1.0), -520, 220)
     opacity = scalar_param(mat, "Opacity", 1.0, -520, 360)
@@ -202,6 +203,7 @@ def master_vfx(name, subuv, texture_path):
     mat = new_material(name, unreal.MaterialDomain.MD_SURFACE,
                        unreal.BlendMode.BLEND_TRANSLUCENT,
                        unreal.MaterialShadingModel.MSM_UNLIT)
+    mat.set_editor_property("two_sided", True)
     if subuv:
         sample = expr(mat, unreal.MaterialExpressionParticleSubUV, -560, -60)
         sample.set_editor_property("texture", tex(texture_path))
@@ -223,6 +225,24 @@ def master_vfx(name, subuv, texture_path):
     link(mat, sample, src_a, alpha, "A")
     link(mat, opacity, "", alpha, "B")
     out(mat, alpha, "", unreal.MaterialProperty.MP_OPACITY)
+    finish(mat)
+    return mat
+
+
+def master_cartel():
+    """Opaque unlit board material for the art review boards (HUD, icons)."""
+    mat = new_material("M_Cartel", unreal.MaterialDomain.MD_SURFACE,
+                       unreal.BlendMode.BLEND_OPAQUE,
+                       unreal.MaterialShadingModel.MSM_UNLIT)
+    mat.set_editor_property("two_sided", True)
+    sample = tex_param(mat, "Textura",
+                       tex(ART + "/Textures/UI/Mockups/T_UI_HUD_Referencia_1210x720"),
+                       -560, -60)
+    color = vector_param(mat, "Color", unreal.LinearColor(1.0, 1.0, 1.0, 1.0), -560, 240)
+    tinted = expr(mat, unreal.MaterialExpressionMultiply, -260, -60)
+    link(mat, sample, "RGB", tinted, "A")
+    link(mat, color, "", tinted, "B")
+    out(mat, tinted, "RGB", unreal.MaterialProperty.MP_EMISSIVE_COLOR)
     finish(mat)
     return mat
 
@@ -330,12 +350,12 @@ def build_instances(masters):
 
     team = masters["team"]
     for name, color, strength in [
-        ("MI_Base_Aliada", unreal.LinearColor(0.05, 0.48, 0.60, 1.0), 1.4),
-        ("MI_Base_Rival", unreal.LinearColor(0.67, 0.13, 0.055, 1.0), 1.4),
-        ("MI_Nucleo_Aliado", unreal.LinearColor(0.27, 0.88, 0.91, 1.0), 4.0),
-        ("MI_Nucleo_Rival", unreal.LinearColor(0.99, 0.35, 0.23, 1.0), 4.0),
-        ("MI_Terminal_Aliado", unreal.LinearColor(0.96, 0.68, 0.30, 1.0), 2.6),
-        ("MI_Terminal_Rival", unreal.LinearColor(0.96, 0.68, 0.30, 1.0), 2.6),
+        ("MI_Base_Aliada", unreal.LinearColor(0.05, 0.48, 0.60, 1.0), 0.35),
+        ("MI_Base_Rival", unreal.LinearColor(0.67, 0.13, 0.055, 1.0), 0.35),
+        ("MI_Nucleo_Aliado", unreal.LinearColor(0.27, 0.88, 0.91, 1.0), 2.5),
+        ("MI_Nucleo_Rival", unreal.LinearColor(0.99, 0.35, 0.23, 1.0), 2.5),
+        ("MI_Terminal_Aliado", unreal.LinearColor(0.96, 0.68, 0.30, 1.0), 1.6),
+        ("MI_Terminal_Rival", unreal.LinearColor(0.96, 0.68, 0.30, 1.0), 1.6),
     ]:
         mi = instance(name, "Teams", team)
         set_vec(mi, "Color", color)
@@ -483,7 +503,7 @@ def build_instances(masters):
     log("MI arena surfaces 3")
 
     # ---- world-space HUD cards (art review boards) ---------------------
-    sprite = masters["sprite"]
+    cartel = masters["cartel"]
     cards = [
         ("MI_Cartel_Minimapa", "Textures/Terrain/T_Minimapa_ValleAlfa"),
         ("MI_Cartel_HUD", "Textures/UI/Mockups/T_UI_HUD_Referencia_1210x720"),
@@ -517,7 +537,7 @@ def build_instances(masters):
         ("MI_Cartel_Icono_MicOff", "Textures/UI/Icons/T_Icon_MicOff"),
     ]
     for name, rel in cards:
-        mi = instance(name, "HUD", sprite)
+        mi = instance(name, "HUD", cartel)
         set_tex(mi, "Textura", tex(ART + "/" + rel))
         save(mi)
     log("MI carteles " + str(len(cards)))
@@ -533,6 +553,7 @@ try:
         "decal_sel": master_decal("M_Decal_Seleccion"),
         "decal_dst": master_decal("M_Decal_Destino"),
         "sprite": master_vfx("M_VFX_Sprite", False, ART + "/Textures/VFX/T_VFX_CirculoSuave"),
+        "cartel": master_cartel(),
         "fogonazo": master_vfx("M_VFX_Fogonazo", True, ART + "/Textures/VFX/T_VFX_Fogonazo_Flipbook4x4"),
         "humo": master_vfx("M_VFX_Humo", True, ART + "/Textures/VFX/T_VFX_Humo_Flipbook4x4"),
         "polvo": master_vfx("M_VFX_Polvo", True, ART + "/Textures/VFX/T_VFX_Polvo_Flipbook4x4"),

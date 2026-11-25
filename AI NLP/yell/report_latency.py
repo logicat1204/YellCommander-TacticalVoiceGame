@@ -37,17 +37,22 @@ def summarize(directory, limit):
             "espera_reproduccion_ms": sound.get("since_queued_ms"),
             "inicio_audio_ms": sound.get("since_input_ms"),
         }
-        groups[(row.get("model", "?"), mode, kind)].append(enriched)
+        enriched["reintento"] = bool((row.get("speech") or {}).get("retried"))
+        groups[(row.get("profile", "actual"), row.get("model", "?"), mode, kind,
+                dialogue.get("model", ""))].append(enriched)
     report = []
-    for (model, mode, kind), items in sorted(groups.items()):
+    for (profile, model, mode, kind, chat_model), items in sorted(groups.items()):
         metrics = {}
         for field in items[0]:
+            if field == "reintento":
+                continue
             values = [r[field] for r in items if isinstance(r[field], (float, int))]
             if values:
                 metrics[field] = {"n": len(values), "p50": round(median(values), 1),
                                   "p95": round(quantiles(values, n=100, method="inclusive")[94], 1)
                                   if len(values) > 1 else None}
-        report.append({"modelo": model, "entrada": mode, "tipo": kind, "n": len(items), "tiempos": metrics})
+        report.append({"perfil": profile, "modelo": model, "modelo_charla": chat_model or None, "entrada": mode,
+                       "tipo": kind, "n": len(items), "reintentos": sum(r["reintento"] for r in items), "tiempos": metrics})
     return report
 
 

@@ -3,9 +3,16 @@
 .yell-cache/
 __pycache__/
 *.pyc
+.ipynb_checkpoints/
+.pytest_cache/
+.ruff_cache/
+.env
+.env.*
+!.env.example
 AI NLP/models/
 WarCommanderDemo/Binaries/
 WarCommanderDemo/DerivedDataCache/
 WarCommanderDemo/Intermediate/
 WarCommanderDemo/Saved/
 WarCommanderDemo/.vs/
+/WarCommanderDemo/*.sln

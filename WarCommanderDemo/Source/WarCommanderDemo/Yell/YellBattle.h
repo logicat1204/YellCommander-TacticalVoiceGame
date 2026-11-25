@@ -13,6 +13,10 @@ class UBoxComponent;
 class UMaterialInstanceDynamic;
 class UStaticMeshComponent;
 class ATextRenderActor;
+class UAnimSequence;
+class ANavigationData;
+class USoundBase;
+class USoundAttenuation;
 
 enum class EYellSoldierState : uint8
 {
@@ -35,6 +39,7 @@ class AYellSoldier : public ACharacter
 
 public:
 	AYellSoldier();
+	virtual void Tick(float DeltaSeconds) override;
 	void Initialize(uint8 InTeam, FName InSquad, int32 Index, bool bInMedic);
 	void Accept(const FYellOrder& Order, const FVector& Goal, const FVector& Alternate);
 	void Step(class AYellBattle& Battle, double Time);
@@ -43,13 +48,18 @@ public:
 	bool CanAct() const;
 	bool IsAlive() const { return State != EYellSoldierState::Dead; }
 	FVector Eye() const;
+	FVector Muzzle() const;
 
 	uint8 Team = 0;
 	FName Squad;
 	FName CallSign;
 	FString GivenName;
+	FString Background;
+	int32 Eliminations = 0;
+	TWeakObjectPtr<AYellSoldier> DownedBy;
 	bool bMedic = false;
 	float Health = 100.0f;
+	double LastHit = -100.;
 	double BoostUntil = 0.0;
 	EYellSoldierState State = EYellSoldierState::Idle;
 	FYellOrder CurrentOrder;
@@ -60,16 +70,32 @@ private:
 	void Move(const FVector& Goal, double Time, float Acceptance = 65.0f);
 	void Stop();
 	void UpdateVisuals();
+	void LoadUniform();
+	void PoseRifle(bool bWalking);
 
 	UPROPERTY() TObjectPtr<UStaticMeshComponent> Torso;
 	UPROPERTY() TObjectPtr<UStaticMeshComponent> Helmet;
 	UPROPERTY() TObjectPtr<UStaticMeshComponent> Visor;
+	UPROPERTY() TObjectPtr<UStaticMeshComponent> Rifle;
+	UPROPERTY() TObjectPtr<UAnimSequence> WalkClip;
+	UPROPERTY() TObjectPtr<UAnimSequence> AimClip;
+	UPROPERTY() TObjectPtr<UAnimSequence> CareClip;
+	UPROPERTY() TObjectPtr<UAnimSequence> FallClip;
+	UPROPERTY() TObjectPtr<UAnimSequence> ActiveClip;
+	FName RightHand;
+	FName LeftHand;
+	FName Hips;
+	FVector StandingMeshOffset = FVector::ZeroVector;
+	FVector BarrelAxis = FVector::ForwardVector;
+	FVector BarrelTip = FVector::ZeroVector;
 	TWeakObjectPtr<AYellSoldier> VisibleOpponent;
 	FVector Secondary = FVector::ZeroVector;
 	FVector LastMoveGoal = FVector::ZeroVector;
 	double NextMove = 0.0;
 	double NextAction = 0.0;
 	double DownUntil = 0.0;
+	double FallStartedAt = 0.0;
+	double NextFootstep = 0.0;
 	double CoverUntil = 0.0;
 	FVector CoverGoal = FVector::ZeroVector;
 	bool bAlternate = false;
@@ -106,6 +132,10 @@ public:
 	FVector Position(EYellZone Zone, uint8 Team) const;
 	FVector SpawnPosition(uint8 Team) const;
 	FVector CorePosition(uint8 Team) const;
+	FVector TerminalPosition(uint8 Team) const;
+	static FVector2D ArenaExtent();
+	const TArray<FVector>& WalkableTriangles() const { return NavTriangles; }
+	void PlayEffect(FName Name, const FVector& Location, float Volume = 1.f);
 	float CoreHealth(uint8 Team) const { return BaseHealth[Team]; }
 	float NextReinforcement(uint8 Team) const;
 	float NextMorale() const;
@@ -132,6 +162,8 @@ private:
 		EYellZone Lane = EYellZone::Center;
 		double Reported = 0.0;
 		float Confidence = 0.0f;
+		float Power = 0.f;
+		float Proximity = 0.f;
 	};
 
 	struct FScoutReport
@@ -141,8 +173,11 @@ private:
 	};
 
 	void BuildArena();
+	void UpdateCoreAppearance(uint8 Team);
 	void UpdateBattle();
 	void RunRival(double Now);
+	void RequestRivalReinforcements(double Now);
+	UFUNCTION() void CacheWalkableTerrain(ANavigationData* Data);
 	void ReportContact(const FContact& Contact);
 	bool SpawnSquad(uint8 Team, FName Name, bool bMedic, int32 Count);
 	void ApplyOrder(const FYellOrder& Order, const TArray<AYellSoldier*>& Recipients);
@@ -154,6 +189,9 @@ private:
 	TArray<FYellSquad> Squads;
 	TArray<TWeakObjectPtr<AYellSoldier>> AllUnits;
 	TArray<FVector> CoverPositions;
+	TArray<FVector> NavTriangles;
+	UPROPERTY() TMap<FName, TObjectPtr<USoundBase>> Effects;
+	UPROPERTY() TObjectPtr<USoundAttenuation> EffectAttenuation;
 	TMap<FGuid, double> SeenRequests;
 	TMap<FName, FContact> Intelligence;
 	TMap<TWeakObjectPtr<AYellSoldier>, FScoutReport> PendingReports;
@@ -161,12 +199,14 @@ private:
 	FTimerHandle BattleTimer;
 	FDelegateHandle OrderListener;
 	TWeakObjectPtr<AStaticMeshActor> Cores[2];
+	TWeakObjectPtr<AStaticMeshActor> Bunkers[2][3];
 	FYellReinforcements Reinforcements[2];
 	float BaseHealth[2] = {500.0f, 500.0f};
 	double MoraleReady = 0.0;
 	double NextRivalDecision = 0.0;
 	int32 Personality = 0;
-	int32 Tactic = 0;
+	double RetreatUntil = 0.;
+	double LastRivalCoreHit = -100.;
 	int32 WinningTeam = INDEX_NONE;
 	bool bArenaReady = false;
 

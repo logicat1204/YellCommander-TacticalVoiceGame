@@ -85,9 +85,12 @@ AYellPlayer::AYellPlayer()
 		TEXT("/Game/Yell/Audio/RadioAclarar.RadioAclarar"));
 	static ConstructorHelpers::FObjectFinderOptional<USoundBase> Morale(
 		TEXT("/Game/Yell/Audio/RadioMoral.RadioMoral"));
+	static ConstructorHelpers::FObjectFinderOptional<USoundBase> RadioSend(
+		TEXT("/Game/Yell/Gameplay/Sounds/RadioEnvio.RadioEnvio"));
 	AcknowledgeCue = Acknowledge.Get();
 	ClarifyCue = Clarify.Get();
 	MoraleCue = Morale.Get();
+	RadioSendCue = RadioSend.Get();
 }
 
 void AYellPlayer::BeginPlay()
@@ -449,6 +452,8 @@ void AYellPlayer::FinishRecording(EYellVoiceResult Result)
 	MicLevel = 0;
 	if (Result == EYellVoiceResult::Ready && !Take.Wave.IsEmpty())
 	{
+		if (VoiceContext.Channel == EYellChannel::Radio && RadioSendCue && GetWorld()->GetAudioDeviceRaw())
+			UGameplayStatics::PlaySound2D(this, RadioSendCue, .43f);
 		Send(FString(), MoveTemp(Take.Wave), VoiceContext);
 	}
 }
@@ -527,6 +532,14 @@ void AYellPlayer::Send(const FString& Message, TArray<uint8> Wave, const FYellRe
 			Entry->SetNumberField(TEXT("distancia"),Distance);
 			Entry->SetBoolField(TEXT("disponible"),Member->CanAct() && (bUsingRadio || Distance <= Battle->VoiceRadius()));
 			Entry->SetStringField(TEXT("estado"),Member->CanAct() ? TEXT("en servicio") : TEXT("incapacitado"));
+			if (!Member->Background.IsEmpty())
+			{
+				Entry->SetStringField(TEXT("historia"), Member->Background);
+				Entry->SetNumberField(TEXT("salud"), FMath::RoundToInt(Member->Health));
+				Entry->SetNumberField(TEXT("bajas"), Member->Eliminations);
+				const auto* Seen = Member->LastSeenOpponent();
+				Entry->SetBoolField(TEXT("ve_rival"), Seen && Seen->CanAct());
+			}
 			Roster->SetObjectField(Member->CallSign.ToString(),Entry);
 		}
 		Body->SetObjectField(TEXT("roster"),Roster);
@@ -546,7 +559,8 @@ void AYellPlayer::Send(const FString& Message, TArray<uint8> Wave, const FYellRe
 	FJsonSerializer::Serialize(Body, TJsonWriterFactory<>::Create(&Content));
 	const FHttpRequestRef Request = FHttpModule::Get().CreateRequest();
 	Requests.Add(Context.Id, Request);
-	Request->SetURL(TEXT("http://127.0.0.1:18765/v1/interpret"));
+	const bool bSlots = FParse::Param(FCommandLine::Get(), TEXT("YellSujetoLugar"));
+	Request->SetURL(bSlots ? TEXT("http://127.0.0.1:18766/v1/interpret") : TEXT("http://127.0.0.1:18765/v1/interpret"));
 	Request->SetVerb(TEXT("POST"));
 	Request->SetHeader(TEXT("Content-Type"), TEXT("application/json; charset=utf-8"));
 	Request->SetContentAsString(Content);
@@ -663,7 +677,8 @@ void AYellPlayer::OnResponse(FHttpRequestPtr Request, FHttpResponsePtr Response,
 					Reply.RequestId = Context.Id;
 					Reply.InputAt = Context.ReleasedAt > 0 ? Context.ReleasedAt : SentAt;
 					Reply.Speaker = Source;
-					Reply.bSpatial = bLocal;
+					Reply.bRadioSpatial = !bLocal && FParse::Param(FCommandLine::Get(), TEXT("YellSujetoLugar"));
+					Reply.bSpatial = bLocal || Reply.bRadioSpatial;
 					Reply.Duration = PCM.Num() / 48000.f;
 					Reply.PCM = MoveTemp(PCM);
 					(*Talk)->SetBoolField(TEXT("audio_queued"), true);
@@ -762,8 +777,8 @@ void AYellPlayer::UpdateAudio()
 	}
 	else if (const auto* Battle = GetWorld()->GetAuthGameMode<AYellBattle>(); Battle
 		&& !Reply.PCM.IsEmpty() && (!Reply.bSpatial || (Reply.Speaker.IsValid() && Reply.Speaker->CanAct()
-		&& GetPawn() && FVector::Dist(GetPawn()->GetActorLocation(), Reply.Speaker->GetActorLocation())
-			<= Battle->VoiceRadius())))
+		&& (Reply.bRadioSpatial || (GetPawn() && FVector::Dist(GetPawn()->GetActorLocation(), Reply.Speaker->GetActorLocation())
+			<= Battle->VoiceRadius())))))
 	{
 		auto* Voice = NewObject<USoundWaveProcedural>(this);
 		Voice->SetSampleRate(24000);
@@ -772,6 +787,7 @@ void AYellPlayer::UpdateAudio()
 		Voice->QueueAudio(Reply.PCM.GetData(), Reply.PCM.Num());
 		PlayingVoice = Voice;
 		auto* Attenuation = Reply.bSpatial ? NewObject<USoundAttenuation>(this) : nullptr;
+		if (Reply.bRadioSpatial) Attenuation->Attenuation.bAttenuate = false;
 		CurrentReply = Reply.bSpatial ? UGameplayStatics::SpawnSoundAttached(Voice, Reply.Speaker->GetRootComponent(),
 			NAME_None, FVector::ZeroVector, EAttachLocation::KeepRelativeOffset, false, 1.f, 1.f, 0.f, Attenuation)
 			: UGameplayStatics::SpawnSound2D(this, Voice);

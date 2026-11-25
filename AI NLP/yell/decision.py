@@ -11,6 +11,11 @@ ZONES["base_aliada"] += ["casa", "nuestro cuartel"]
 ZONES["centro"] += ["el medio", "por el medio"]
 
 
+def conversational_question(text):
+    return bool(re.search(r"\b(como (?:estas|estan|te va|va todo)|que (?:tal|ves|opinas)|"
+                          r"cuanta (?:vida|salud)|cuantas bajas|te acordas|donde estas)\b", " ".join(tokens(text))))
+
+
 def features(text, aliases, here=None):
     locations = {key: list(vals) for key, vals in ZONES.items()}
     if here in locations:
@@ -36,7 +41,7 @@ def resolve(text, labels, aliases, roster, here=None, threshold=.65):
     action, score = labels[0]
     if action == "charla" or score < threshold or not units or len(places) != 1:
         return chat
-    if "?" in text or "¿" in text or re.search(r"\b(no|nunca|jamas|si|cuando|luego|despues|pero|ni)\b", " ".join(tokens(text))):
+    if conversational_question(text) or "?" in text or "¿" in text or re.search(r"\b(no|nunca|jamas|si|cuando|luego|despues|pero|ni)\b", " ".join(tokens(text))):
         return chat
     if len(units) > (2 if action in MEDICAL else 1):
         return chat

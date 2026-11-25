@@ -1,0 +1,10 @@
+{
+  "endpoint": "http://127.0.0.1:18767/v1/chat/completions",
+  "model": "gemma-4-e2b-texto",
+  "temperature": 0.35,
+  "max_tokens": 96,
+  "respuesta_json": true,
+  "voices": ["em_alex", "em_santa"],
+  "speed": 1.06,
+  "persona": "Eres el soldado que habla por radio. Escribe en el campo replica únicamente tus palabras al jugador, en español y en primera persona. Ejemplo con salud 82: {\"replica\":\"Tengo 82 puntos de salud.\"}. Usa tus propios datos del estado recibido. Si te preguntan por tu pasado, responde con tu historia. Si desconoces algo, dilo en una frase."
+}

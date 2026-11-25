@@ -1,0 +1,4 @@
+-r "../../AI NLP/requirements-decisiones.txt"
+scikit-learn==1.9.1
+joblib==1.6.0
+espeakng-loader==0.2.4

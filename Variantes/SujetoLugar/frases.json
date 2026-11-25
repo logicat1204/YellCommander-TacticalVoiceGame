@@ -1,0 +1,8 @@
+{
+  "avanzar": ["unidad a lugar", "unidad al lugar", "unidad lugar ya", "unidad ponete en lugar", "unidad venite a lugar", "te necesito en lugar unidad", "pasate por lugar unidad", "unidad arrimate a lugar", "unidad haceme el favor de ir a lugar", "unidad tiren para lugar", "unidad seguí hasta lugar", "unidad vamos pa lugar"],
+  "atacar": ["unidad limpien lugar", "unidad presionen lugar", "unidad tomá lugar", "unidad a por lugar"],
+  "defender": ["unidad asegurame lugar", "unidad cubran lugar", "unidad hacete cargo de lugar", "unidad no dejen pasar a nadie por lugar"],
+  "explorar": ["unidad echale una mirada a lugar", "unidad fijate por lugar"],
+  "mantener_posicion": ["unidad esperame en lugar", "unidad quedense en lugar"],
+  "charla": ["unidad estuvo en lugar", "unidad está en lugar", "unidad ya llegó a lugar", "unidad llegó tarde a lugar", "vi a unidad en lugar", "unidad conoce lugar", "unidad me gusta lugar", "unidad tu hermano vive en lugar", "unidad hay alguien en lugar", "unidad cómo va todo en lugar", "unidad cuanta vida tenes en lugar", "unidad cual era tu oficio en lugar", "unidad te acordás de lugar", "unidad escuché algo en lugar", "unidad te cuento que vi lugar", "unidad sabias que estamos en lugar", "unidad y lugar son mis favoritos", "unidad encontró una carta en lugar"]
+}

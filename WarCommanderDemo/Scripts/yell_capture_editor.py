@@ -119,10 +119,14 @@ class Runner:
             ("shot", ("Camara_Base", "06_despues_base")),
             ("shot", ("Camara_Centro", "07_despues_centro")),
             ("shot", ("Camara_Flanco", "08_despues_flanco")),
-            ("shot", ("Camara_Showcase_Oeste", "09_galeria_oeste")),
-            ("shot", ("Camara_Showcase_Este", "10_galeria_este")),
-            ("shot", ("Camara_HUD", "11_hud")),
-            ("shot", ("Camara_VFX", "12_vfx")),
+            ("showcase", None),
+            ("warm", 45),
+            ("shot", ("Camara_Showcase_Oeste", "09_galeria_trinchera")),
+            ("shot", ("Camara_Showcase_Soldados", "10_galeria_soldados")),
+            ("shot", ("Camara_Showcase_Este", "11_galeria_bunker")),
+            ("shot", ("Camara_Showcase_Rocas", "12_galeria_rocas")),
+            ("shot", ("Camara_HUD", "13_hud")),
+            ("shot", ("Camara_VFX", "14_vfx")),
             ("finish", None),
         ]
         self.phase = "run"
@@ -136,15 +140,20 @@ class Runner:
         comp.set_world_location_and_rotation(cam.get_actor_location(),
                                             cam.get_actor_rotation(), False, False)
         comp.capture_scene()
-        target = os.path.join(OUT_DIR, name + ".png")
+        raw_path = os.path.join(OUT_DIR, name)
+        png_path = raw_path + ".png"
+        if os.path.isfile(png_path):
+            os.remove(png_path)
         RL.export_render_target(self.ctx, self.rt, OUT_DIR, name)
-        ok = os.path.isfile(target)
-        if not ok:
+        ok = "fail"
+        if os.path.isfile(raw_path):
+            os.replace(raw_path, png_path)
+            ok = "png"
+        else:
             # fallback: dump raw pixels for an offline conversion
             try:
                 pixels = RL.read_render_target(self.ctx, self.rt)
-                raw = os.path.join(OUT_DIR, name + ".rgba")
-                with open(raw, "wb") as f:
+                with open(png_path.replace(".png", ".rgba"), "wb") as f:
                     for p in pixels:
                         f.write(struct.pack("<4f", p.r, p.g, p.b, p.a))
                 ok = "raw"
@@ -177,9 +186,11 @@ class Runner:
             self.wait = 3
         elif kind == "swap":
             move(self.art, -PARK)
-            move(self.show, -PARK)
             move(self.proxy, PARK)
-            log("swap to art")
+            log("swap to art (showcase still parked)")
+        elif kind == "showcase":
+            move(self.show, -PARK)
+            log("showcase on")
         elif kind == "finish":
             self.finish()
 

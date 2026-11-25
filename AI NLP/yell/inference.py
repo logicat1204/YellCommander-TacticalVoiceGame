@@ -121,11 +121,31 @@ class SpeechObservation:
     min_logprob: float | None = None
 
 
+class RetrySpeech:
+    """Carga Small al primer reintento. El servicio serializa el acceso al reconocedor."""
+    def __init__(self, path):
+        self.path = path
+        self.engine = None
+        self.retry_after = 0.
+
+    def recognize(self, wav):
+        if time.monotonic() < self.retry_after:
+            raise RuntimeError("Whisper Small temporalmente sin recursos")
+        try:
+            if self.engine is None:
+                self.engine = SpeechToText(self.path)
+            return self.engine.recognize(wav)
+        except (RuntimeError, OSError, MemoryError):
+            self.engine = None
+            self.retry_after = time.monotonic() + 30.
+            raise
+
+
 class SpeechToText:
-    def __init__(self, model_path):
+    def __init__(self, model_path, device="cpu"):
         from faster_whisper import WhisperModel
 
-        self.model = WhisperModel(str(model_path), device="cpu", compute_type="int8", cpu_threads=3,
+        self.model = WhisperModel(str(model_path), device=device, compute_type="int8_float16" if device == "cuda" else "int8", cpu_threads=3,
                                   local_files_only=True)
 
     def transcribe(self, wav):

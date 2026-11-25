@@ -22,7 +22,7 @@ public class WarCommanderDemo : ModuleRules
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {
-			"AudioCaptureCore", "HTTP", "Json", "NavigationSystem", "SlateCore"
+			"AudioCaptureCore", "HTTP", "Json", "NavigationSystem", "RenderCore", "SlateCore"
 		});
 
 		PublicIncludePaths.AddRange(new string[] {

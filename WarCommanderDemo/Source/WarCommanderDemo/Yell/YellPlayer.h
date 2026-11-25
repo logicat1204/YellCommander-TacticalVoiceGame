@@ -16,6 +16,7 @@ class UAudioComponent;
 class UCameraComponent;
 class USoundBase;
 class USoundWaveProcedural;
+class UTexture2D;
 class AYellSoldier;
 
 UCLASS()
@@ -114,6 +115,7 @@ private:
 		double QueuedAt = 0;
 		float Duration = 0;
 		bool bSpatial = false;
+		bool bRadioSpatial = false;
 		TWeakObjectPtr<AYellSoldier> Speaker;
 		TWeakObjectPtr<USoundBase> Cue;
 		TArray<uint8> PCM;
@@ -129,6 +131,7 @@ private:
 	UPROPERTY() TObjectPtr<USoundBase> AcknowledgeCue;
 	UPROPERTY() TObjectPtr<USoundBase> ClarifyCue;
 	UPROPERTY() TObjectPtr<USoundBase> MoraleCue;
+	UPROPERTY() TObjectPtr<USoundBase> RadioSendCue;
 };
 
 UCLASS()
@@ -138,4 +141,7 @@ class AYellHUD : public AHUD
 
 public:
 	virtual void DrawHUD() override;
+
+private:
+	UPROPERTY() TMap<FName, TObjectPtr<UTexture2D>> HUDTextures;
 };

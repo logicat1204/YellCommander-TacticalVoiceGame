@@ -1,6 +1,7 @@
 #include "YellBattle.h"
 
 #if WITH_DEV_AUTOMATION_TESTS
+#include "Components/SkeletalMeshComponent.h"
 #include "Dom/JsonObject.h"
 #include "Engine/Engine.h"
 #include "Misc/AutomationTest.h"
@@ -209,7 +210,7 @@ bool FYellBattleScenario::Update()
 	Test->TestTrue(TEXT("Activa motivación de radio"), bAccepted && Battle->NextMorale() > 0);
 	Battle->Dispatch(Morale, { FGuid::NewGuid(), EYellChannel::Radio, FVector::ZeroVector, Now }, bAccepted);
 	Test->TestFalse(TEXT("Aplica cooldown de moral"), bAccepted);
-	const FVector Terminal(-3040, -700, 100);
+	const FVector Terminal = Battle->TerminalPosition(0);
 	Test->TestTrue(TEXT("Rechaza segundo médico"), Battle->TryReinforce(0, true, &Terminal).Contains(TEXT("médico activo")));
 	Test->TestTrue(TEXT("Acepta refuerzos en terminal"), Battle->TryReinforce(0, false, &Terminal).Contains(TEXT("en camino")));
 	Test->TestTrue(TEXT("Rechaza solicitudes de refuerzo simultáneas"), Battle->TryReinforce(0, false, &Terminal).Contains(TEXT("en curso")));
@@ -268,8 +269,10 @@ bool FYellMotionScenario::Update()
 			break;
 		}
 	}
-	if (Lead && Lead->GetActorLocation().X > -2040)
+	if (Lead && Lead->GetActorLocation().X > Battle->Position(EYellZone::Home, 0).X + 950.)
 	{
+		if (FParse::Param(FCommandLine::Get(), TEXT("YellCapture")))
+			FScreenshotRequest::RequestScreenshot(true);
 		if (bUseService)
 		{
 			AYellPlayer* Player = Cast<AYellPlayer>(Battle->GetWorld()->GetFirstPlayerController());
@@ -334,6 +337,74 @@ bool FYellMotionScenario::Update()
 		return true;
 	}
 	return false;
+}
+
+DEFINE_LATENT_AUTOMATION_COMMAND_THREE_PARAMETER(FYellRivalDefenseScenario, FAutomationTestBase*, Test,
+	TWeakObjectPtr<AYellBattle>, Game, double, HitTime);
+
+DEFINE_LATENT_AUTOMATION_COMMAND_FOUR_PARAMETER(FYellFallScenario, FAutomationTestBase*, Test,
+	TWeakObjectPtr<AYellBattle>, Game, TWeakObjectPtr<AYellSoldier>, Casualty, double, FellAt);
+
+bool FYellFallScenario::Update()
+{
+	AYellBattle* Battle = Game.Get();
+	if (!Battle) return true;
+	const double Now = Battle->GetWorld()->GetTimeSeconds();
+	if (FellAt == 0.)
+	{
+		const auto* Match = Battle->Units().FindByPredicate([](const auto& U)
+		{
+			return U.IsValid() && U->CallSign == TEXT("Bravo-4") && U->CanAct();
+		});
+		if (!Test->TestTrue(TEXT("Existe un soldado para comprobar la caída"), Match != nullptr))
+			return true;
+		Casualty = Match->Get();
+		Casualty->SetActorLocation(Battle->SpawnPosition(0) + FVector(455, 30, 0));
+		Casualty->Hurt(500.f, Now);
+		FellAt = Now;
+		return false;
+	}
+	if (Now < FellAt + 4.7) return false;
+	if (auto* Unit = Casualty.Get())
+	{
+		Test->TestEqual(TEXT("El soldado queda incapacitado"), int32(Unit->State), int32(EYellSoldierState::Downed));
+		TArray<FName> Bones;
+		Unit->GetMesh()->GetBoneNames(Bones);
+		const FName* Pelvis = Bones.FindByPredicate([](FName Bone)
+		{
+			return Bone.ToString().EndsWith(TEXT("Hips")) || Bone == TEXT("pelvis");
+		});
+		const bool bLow = Pelvis && Unit->GetMesh()->GetSocketLocation(*Pelvis).Z < Unit->GetActorLocation().Z - 26.;
+		const bool bFallbackProne = FMath::Abs(Unit->GetMesh()->GetRelativeRotation().Roll) > 65.f;
+		Test->TestTrue(TEXT("La baja queda tumbada sobre el suelo"), bLow || bFallbackProne);
+	}
+	else
+		Test->AddError(TEXT("La baja desapareció antes de completar la caída."));
+	if (FParse::Param(FCommandLine::Get(), TEXT("YellCapture")))
+		FScreenshotRequest::RequestScreenshot(true);
+	return true;
+}
+
+bool FYellRivalDefenseScenario::Update()
+{
+	AYellBattle* Battle = Game.Get();
+	if (!Battle) return true;
+	const double Now = FPlatformTime::Seconds();
+	if (HitTime == 0.)
+	{
+		Battle->DamageCore(1, 14);
+		HitTime = Now;
+	}
+	const bool bDefender = Battle->Units().ContainsByPredicate([](const auto& U)
+	{
+		return U.IsValid() && U->Team == 1 && !U->bMedic && U->CanAct() &&
+			U->CurrentOrder.Zone == EYellZone::Home && U->CurrentOrder.Action == EYellAction::Defend;
+	});
+	if (!bDefender && Now - HitTime < 5.) return false;
+	Test->TestTrue(TEXT("El primer daño al núcleo provoca una orden de defensa"), bDefender);
+	Test->TestTrue(TEXT("El comandante rival solicita refuerzos cuando tiene espacio"), Battle->NextReinforcement(1) > 0.f);
+	Test->TestTrue(TEXT("El minimapa tiene polígonos transitables reales"), Battle->WalkableTriangles().Num() > 3);
+	return true;
 }
 
 DEFINE_LATENT_AUTOMATION_COMMAND_FOUR_PARAMETER(FYellVictoryScenario, FAutomationTestBase*, Test,
@@ -432,6 +503,8 @@ bool FYellLiveTest::RunTest(const FString& Parameters)
 	const bool bService = FParse::Param(FCommandLine::Get(), TEXT("YellTestService"));
 	ADD_LATENT_AUTOMATION_COMMAND(FYellBattleScenario(this, Battle, Now));
 	ADD_LATENT_AUTOMATION_COMMAND(FYellMotionScenario(this, Battle, Now, bService));
+	ADD_LATENT_AUTOMATION_COMMAND(FYellFallScenario(this, Battle, nullptr, 0.));
+	ADD_LATENT_AUTOMATION_COMMAND(FYellRivalDefenseScenario(this, Battle, 0.));
 	ADD_LATENT_AUTOMATION_COMMAND(FYellVictoryScenario(this, Battle, Now, bService));
 	return true;
 }

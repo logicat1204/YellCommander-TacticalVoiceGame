@@ -2,6 +2,8 @@
 
 ## Decisiones y conversaciones de soldados
 
+El perfil habitual consulta el clasificador tras la primera lectura de Whisper. Registra por qué hizo falta una segunda transcripción y pide aclaración cuando las lecturas discrepan sobre una orden dudosa. Para comparar órdenes de sujeto y lugar, posturas, Whisper en CUDA y Gemma 4, abre la [variante experimental](Variantes/SujetoLugar/README.md).
+
 ### Peticiones simultáneas y medición
 
 Puedes enviar hasta cuatro transmisiones sin esperar a que termine la primera. El contador del HUD separa las solicitudes activas de las respuestas de audio pendientes. Los audios se reproducen uno a uno en el orden en que llegan las respuestas. Una confirmación nueva nunca sustituye al audio que está sonando. **F4** silencia la voz. Mientras mantienes **V**, los audios que todavía esperan en cola se inician después de soltar la tecla.

@@ -11,11 +11,11 @@ from dataclasses import asdict
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
-from .contract import PLACES, ROOT, UNITS, command, matches, tokens
-from .inference import SPEECH_FEEDBACK, LocalLLM, SpeechToText, infer
+from .contract import ROOT, UNITS, command, matches, tokens
+from .inference import SPEECH_FEEDBACK, LocalLLM, RetrySpeech, SpeechToText, infer
 from .metrics import semantic
 from .live_commands import direct_order, negated_order, repair_spoken_order
-from .decision import WEIGHTS, DecisionModel, decide, resolve, wire
+from .decision import WEIGHTS, DecisionModel, decide, features, resolve, wire
 
 MAX_BODY = 3_200_000
 MAX_PENDING = 4
@@ -67,26 +67,102 @@ def check_live_agreement(proposal, reference):
     )
 
 
-def prefer_retry(first, second, aliases):
+def unclear_base(text):
+    return re.search(r"\bla base (?:de|del)\b(?! (?:el )?enemigo\b)", " ".join(tokens(text))) is not None
+
+
+def prefer_retry(first, second, aliases, here=None):
     if second.status != "voz":
         return False
     qualifiers = {"no", "nunca", "jamas", "tampoco", "ni", "si", "cuando", "excepto", "pero", "despues", "luego"}
     lost = set(tokens(first.text)) - set(tokens(second.text))
     if lost & qualifiers or ("?" in first.text and "?" not in second.text):
         return False
-    for catalog in (aliases, PLACES):
-        named = {name for _, _, name in matches(first.text, catalog)}
-        if named and named != {name for _, _, name in matches(second.text, catalog)}:
+    _, first_units, first_places = features(first.text, aliases, here)
+    _, second_units, second_places = features(second.text, aliases, here)
+    if first_units and first_units != second_units:
+        return False
+    if first_places and first_places != second_places:
+        if not (unclear_base(first.text) and features(first.text, aliases)[2] == ["base_aliada"]
+                and second_places == ["base_enemiga"]):
             return False
     return True
+
+
+def classify_current(model, text, aliases, roster, here, spoken):
+    direct = direct_order(text, aliases)
+    if direct:
+        ranks = [(direct["action"], 1.)]
+        result = resolve(text, ranks, aliases, roster, here)
+        if result["tipo"] == "accion":
+            return result, ranks, "gramatica"
+    result, ranks = decide(model, text, aliases, roster, here, spoken)
+    return result, ranks, "clasificador" if model else "vista_previa"
+
+
+def retry_reason(first, parsed, aliases, here):
+    if first.status != "voz":
+        return "transcripcion_incierta" if first.status == "transcripcion_incierta" else ""
+    phrase, units, places = features(first.text, aliases, here)
+    result, ranks, route = parsed
+    if negated_order(first.text, aliases):
+        return ""
+    if unclear_base(first.text):
+        return "destino_incierto"
+    if first.min_logprob is not None and first.min_logprob < -.8:
+        return "calidad_acustica"
+    if result["tipo"] == "accion":
+        if route == "gramatica" or ranks[0][1] >= .85:
+            return ""
+        return "orden_poco_segura"
+    if "?" in first.text or "¿" in first.text or re.search(
+        r"\b(como estas|que tal|como te va|que ves|cuanta vida|gracias|hola|buenos dias)\b", phrase
+    ):
+        return ""
+    if re.search(r"\b(no|nunca|jamas|si|cuando|luego|despues|pero|ni)\b", phrase):
+        return ""
+    if units or places or ranks[0][0] != "charla" or ranks[0][1] < .8:
+        return "orden_posiblemente_incompleta"
+    return ""
+
+
+def clarify_speech(info, result, ranks, text):
+    if not info:
+        return ""
+    if info["retry_reason"] == "destino_incierto" and unclear_base(text):
+        return "¿Te refieres a nuestra base o a la base rival?"
+    if (info["retried"] and not info["used_retry"] and result["tipo"] == "accion"
+            and info["retry_reason"] in ("calidad_acustica", "orden_poco_segura")):
+        return "No pude confirmar la orden. Repite el destinatario y el lugar."
+    if result["tipo"] != "charla" or info["retry_reason"] != "orden_posiblemente_incompleta":
+        return ""
+    if "?" in text or "¿" in text:
+        return ""
+    if ranks[0][0] != "charla" or re.search(
+            r"\b(avanc\w*|atac\w*|ataqu\w*|defend\w*|defiend\w*|vayan|cubran|movete)\b", " ".join(tokens(text))):
+        return "Repite la orden indicando a quién y a qué lugar."
+    return ""
+
+
+def timed(lock, timing, wait_key, run_key, func, *args):
+    waiting = time.perf_counter()
+    with lock:
+        start = time.perf_counter()
+        timing[wait_key] += 1000 * (start - waiting)
+        try:
+            return func(*args)
+        finally:
+            timing[run_key] += 1000 * (time.perf_counter() - start)
 
 
 class Service(ThreadingHTTPServer):
     daemon_threads = True
 
-    def __init__(self, port, models, speech, threshold, speech_retry=None, verifier=None):
+    def __init__(self, port, models, speech, threshold, speech_retry=None, verifier=None,
+                 classifier=classify_current, adaptive=True, profile="actual"):
         self.models, self.speech, self.threshold = models, speech, threshold
         self.speech_retry = speech_retry
+        self.classifier, self.adaptive, self.profile = classifier, adaptive, profile
         self.verifier = verifier or models.get("C")
         self.inference_slot = threading.BoundedSemaphore(MAX_PENDING)
         self.speech_lock = threading.Lock()
@@ -134,7 +210,7 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         if self.path == "/health":
-            self.respond(200, {"models": list(self.server.models), "stt_configured": self.server.speech is not None,
+            self.respond(200, {"models": list(self.server.models), "profile": self.server.profile, "stt_configured": self.server.speech is not None,
                                "stt_retry": self.server.speech_retry is not None,
                                "verifier_c": self.server.verifier is not None, "max_pending": MAX_PENDING})
         else:
@@ -187,58 +263,62 @@ class Handler(BaseHTTPRequestHandler):
                 return
             try:
                 started = time.perf_counter()
-                extra = {}
-                timing = {"stt_wait_ms": 0., "stt_primary_ms": 0., "stt_retry_ms": 0., "decision_wait_ms": 0.}
+                extra = {"profile": self.server.profile}
+                timing = {"stt_wait_ms": 0., "stt_primary_ms": 0., "stt_retry_ms": 0., "decision_wait_ms": 0., "nlp_ms": 0.}
                 observation = None
                 speech_info = None
+                parsed = None
+                active = {k:v for k,v in aliases.items() if k in body["squads"] or k in roster}
+                def classify(phrase):
+                    return timed(self.server.decision_lock, timing, "decision_wait_ms", "nlp_ms",
+                                 self.server.classifier, self.server.models["D"], phrase, active,
+                                 roster, body.get("here"), wav is not None)
                 if wav:
-                    waiting = time.perf_counter()
-                    with self.server.speech_lock:
-                        primary = time.perf_counter()
-                        timing["stt_wait_ms"] = 1000 * (primary - waiting)
-                        first = observation = self.server.speech.recognize(wav)
-                        timing["stt_primary_ms"] = 1000 * (time.perf_counter() - primary)
-                        retried = (self.server.speech_retry is not None
-                                   and first.status in ("voz", "transcripcion_incierta")
-                                   and not direct_order(first.text, aliases) and not negated_order(first.text, aliases))
-                        if retried:
-                            retry_start = time.perf_counter()
-                            second = self.server.speech_retry.recognize(wav)
-                            timing["stt_retry_ms"] = 1000 * (time.perf_counter() - retry_start)
-                            if prefer_retry(first, second, aliases):
-                                observation = second
+                    first = observation = timed(self.server.speech_lock, timing, "stt_wait_ms", "stt_primary_ms",
+                                                self.server.speech.recognize, wav)
+                    if body["model"] == "D" and self.server.adaptive:
+                        parsed = classify(first.text) if first.status == "voz" else None
+                        why = retry_reason(first, parsed, active, body.get("here"))
+                    else:
+                        why = ("politica_anterior" if first.status in ("voz", "transcripcion_incierta")
+                               and not direct_order(first.text, aliases) and not negated_order(first.text, aliases) else "")
+                    retried = bool(why and self.server.speech_retry)
+                    second = None
+                    retry_error = None
+                    if retried:
+                        try:
+                            second = timed(self.server.speech_lock, timing, "stt_wait_ms", "stt_retry_ms",
+                                           self.server.speech_retry.recognize, wav)
+                        except (RuntimeError, OSError, MemoryError) as exc:
+                            retry_error = str(exc)[:200]
+                        if second is not None and prefer_retry(first, second, aliases, body.get("here")):
+                            observation = second
+                            if second.text != first.text:
+                                parsed = None
                     speech_info = asdict(observation)
                     text = speech_info.pop("text")
-                    speech_info.update(retried=retried, first_transcript=first.text, used_retry=observation is not first)
+                    speech_info.update(retried=retried, first_transcript=first.text, retry_reason=why,
+                                       primary_device=getattr(self.server.speech, "device", "cpu"),
+                                       retry_device=getattr(self.server.speech_retry, "device", "cpu") if retried else None,
+                                       retry_error=retry_error, retry_transcript=second.text if second else None,
+                                       used_retry=observation is not first)
                 stt_ms = timing["stt_primary_ms"] + timing["stt_retry_ms"]
                 if observation and observation.status != "voz":
                     raw, guarded = command(), command()
                     reason, route, verified_by, nlp_ms = SPEECH_FEEDBACK[observation.status], "sin_voz", None, 0.0
                 elif body["model"] == "D":
-                    active = {k:v for k,v in aliases.items() if k in body["squads"] or k in roster}
-                    model = self.server.models["D"]
-                    waiting = time.perf_counter()
-                    with self.server.decision_lock:
-                        parsing = time.perf_counter()
-                        # A short, explicit order can be resolved against the live roster directly.
-                        direct = direct_order(text, active)
-                        route = "clasificador" if model else "vista_previa"
-                        result = None
-                        if direct is not None:
-                            ranks = [(direct["action"], 1.0)]
-                            result = resolve(text, ranks, active, roster, body.get("here"))
-                            if result["tipo"] == "accion":
-                                route = "gramatica"
-                            else:
-                                result = None
-                        if result is None:
-                            result, ranks = decide(model,text,active,roster,body.get("here"),observation is not None)
-                    timing["decision_wait_ms"] = 1000 * (parsing - waiting)
-                    nlp_ms = round(1000*(time.perf_counter()-parsing),3)
+                    result, ranks, route = parsed or classify(text)
+                    nlp_ms = round(timing["nlp_ms"], 3)
                     raw = guarded = wire(result)
                     reason, verified_by = "", None
                     extra.update(decision=result,alternativas=ranks[:3])
-                    if result["tipo"] == "charla":
+                    clarification = clarify_speech(speech_info, result, ranks, text)
+                    if clarification:
+                        raw = guarded = command()
+                        route = "aclaracion"
+                        reason = clarification
+                        extra.pop("decision")
+                    elif result["tipo"] == "charla":
                         extra["dialogue"] = self.server.dialogue.reply(text,result,roster,body.get("radio",True))
                 else:
                     waiting = time.perf_counter()
@@ -295,7 +375,7 @@ def main():
         from .dialogue import Dialogue
         dialogue = Dialogue(args.dialogue_config)
     speech = SpeechToText(args.whisper) if args.whisper else None
-    retry = SpeechToText(args.whisper_retry) if speech and args.whisper_retry else None
+    retry = RetrySpeech(args.whisper_retry) if speech and args.whisper_retry else None
     verifier = models.get("C")
     weights = ROOT / "models" / "transfer-c"
     if "B" in models and verifier is None and (weights / "transfer.safetensors").is_file():

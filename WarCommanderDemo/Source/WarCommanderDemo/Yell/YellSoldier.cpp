@@ -1,9 +1,12 @@
 #include "YellBattle.h"
 
 #include "AIController.h"
+#include "Animation/AnimSequence.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
-#include "DrawDebugHelpers.h"
+#include "Engine/SkeletalMesh.h"
+#include "Engine/StaticMesh.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Navigation/PathFollowingComponent.h"
@@ -19,6 +22,7 @@ namespace
 
 AYellSoldier::AYellSoldier()
 {
+	PrimaryActorTick.bCanEverTick = true;
 	GetCapsuleComponent()->InitCapsuleSize(35, 85);
 	AIControllerClass = AAIController::StaticClass();
 	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
@@ -47,6 +51,11 @@ AYellSoldier::AYellSoldier()
 		TEXT("/Engine/BasicShapes/Sphere.Sphere"));
 	Visor = MakePart(TEXT("Visor"), FVector(23, 0, 40), FVector(.18, .51, .15),
 		TEXT("/Engine/BasicShapes/Cube.Cube"));
+	Rifle = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Rifle"));
+	Rifle->SetupAttachment(GetCapsuleComponent());
+	Rifle->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	Rifle->SetCanEverAffectNavigation(false);
+	Rifle->SetVisibility(false);
 }
 
 void AYellSoldier::Initialize(const uint8 InTeam, const FName InSquad, const int32 Index, const bool bInMedic)
@@ -69,11 +78,147 @@ void AYellSoldier::Initialize(const uint8 InTeam, const FName InSquad, const int
 	};
 	const TArray<FString>* Group = Names.Find(Squad);
 	GivenName = Group && Group->IsValidIndex(Index) ? (*Group)[Index] : CallSign.ToString();
+	if (Team == 0 && FParse::Param(FCommandLine::Get(), TEXT("YellSujetoLugar")))
+	{
+		static const TCHAR* Stories[] = { TEXT("Antes reparaba radios con mi padre."), TEXT("Crecí junto a un río."),
+			TEXT("Toco la guitarra en mis días libres."), TEXT("Mi hermano y yo teníamos una panadería.") };
+		Background = Stories[FMath::RandHelper(UE_ARRAY_COUNT(Stories))];
+	}
 	bMedic = bInMedic;
+	LoadUniform();
 	NextAction = GetWorld()->GetTimeSeconds() + Index * 0.19;
 	CurrentOrder.Squad = Squad;
 	Destination = GetActorLocation();
 	UpdateVisuals();
+	if (AimClip)
+	{
+		ActiveClip = AimClip;
+		GetMesh()->PlayAnimation(AimClip, true);
+	}
+}
+
+void AYellSoldier::LoadUniform()
+{
+	const FString UniformName = bMedic ? TEXT("Medico") : Team == 0 ? TEXT("Aliado") : TEXT("Enemigo");
+	const FString Folder = TEXT("/Game/Yell/Gameplay/Characters/") + UniformName + TEXT("/");
+	auto Asset = [&Folder](const FString& Name) { return Folder + Name + TEXT(".") + Name; };
+	const FString MeshPath = Asset(TEXT("SK_") + UniformName);
+	USkeletalMesh* Uniform = LoadObject<USkeletalMesh>(nullptr, *MeshPath);
+	if (!Uniform)
+		return;
+	GetMesh()->SetSkeletalMeshAsset(Uniform);
+	const FBoxSphereBounds Bounds = Uniform->GetBounds();
+	const double Scale = 173.0 / FMath::Max(1.0, Bounds.BoxExtent.Z * 2.);
+	GetMesh()->SetRelativeScale3D(FVector(Scale));
+	GetMesh()->SetRelativeLocation(FVector(0, 0, -85. - (Bounds.Origin.Z - Bounds.BoxExtent.Z)*Scale));
+	StandingMeshOffset = GetMesh()->GetRelativeLocation();
+	GetMesh()->SetRelativeRotation(FRotator(0, -90, 0));
+	const FString Palette = bMedic ? TEXT("Medico") : Team == 1 ? TEXT("Enemigo")
+		: Squad == TEXT("Bravo") ? TEXT("Bravo") : TEXT("Alpha");
+	const FString Material = TEXT("MI_Soldado_") + Palette;
+	const FString MaterialPath = TEXT("/Game/Yell/Art/Materials/Instances/Teams/") + Material + TEXT(".") + Material;
+	if (UMaterialInterface* Skin = LoadObject<UMaterialInterface>(nullptr, *MaterialPath))
+	{
+		for (int32 Slot = 0; Slot < GetMesh()->GetNumMaterials(); ++Slot)
+			GetMesh()->SetMaterial(Slot, Skin);
+		if (bMedic && Team == 1)
+			GetMesh()->CreateDynamicMaterialInstance(0, Skin)->SetVectorParameterValue(TEXT("Tint"), FLinearColor(1.f,.59f,.51f));
+	}
+	WalkClip = LoadObject<UAnimSequence>(nullptr, *Asset(TEXT("A_Caminar")));
+	AimClip = LoadObject<UAnimSequence>(nullptr, *Asset(bMedic ? TEXT("A_Alerta") : TEXT("A_Postura")));
+	CareClip = bMedic ? LoadObject<UAnimSequence>(nullptr, *Asset(TEXT("A_Postura"))) : nullptr;
+	FallClip = LoadObject<UAnimSequence>(nullptr, *Asset(TEXT("A_Caer")));
+	if (FallClip) FallClip->bForceRootLock = false;
+	TArray<FName> Bones;
+	GetMesh()->GetBoneNames(Bones);
+	for (const FName Bone : Bones)
+	{
+		const FString Label = Bone.ToString();
+		if (Label.EndsWith(TEXT("RightHand"))) RightHand = Bone;
+		if (Label.EndsWith(TEXT("LeftHand"))) LeftHand = Bone;
+		if (Label.EndsWith(TEXT("Hips")) || Label.Equals(TEXT("pelvis"), ESearchCase::IgnoreCase)) Hips = Bone;
+	}
+	if (!bMedic && !RightHand.IsNone())
+	{
+		auto* Weapon = LoadObject<UStaticMesh>(nullptr,
+			TEXT("/Game/Yell/Art/Models/Static/SM_Rifle_Asalto.SM_Rifle_Asalto"));
+		if (Weapon)
+		{
+			Rifle->SetStaticMesh(Weapon);
+			const FBoxSphereBounds WeaponBounds = Weapon->GetBounds();
+			const bool bLongY = WeaponBounds.BoxExtent.Y > WeaponBounds.BoxExtent.X;
+			const double Offset = bLongY ? WeaponBounds.Origin.Y : WeaponBounds.Origin.X;
+			BarrelAxis = (bLongY ? FVector::RightVector : FVector::ForwardVector) * (Offset < 0. ? -1. : 1.);
+			const double HalfLength = bLongY ? WeaponBounds.BoxExtent.Y : WeaponBounds.BoxExtent.X;
+			BarrelTip = BarrelAxis * (HalfLength + FMath::Abs(Offset)) + FVector(0,0,6);
+			Rifle->SetRelativeScale3D(FVector(88. / FMath::Max(1., 2. * HalfLength)));
+			if (auto* Metal = LoadObject<UMaterialInterface>(nullptr,
+				TEXT("/Game/Yell/Art/Materials/Instances/Teams/MI_Armas.MI_Armas")))
+				Rifle->SetMaterial(0, Metal);
+		}
+	}
+	Torso->SetVisibility(false);
+	Helmet->SetVisibility(false);
+	Visor->SetVisibility(false);
+}
+
+void AYellSoldier::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+	if (!GetMesh()->GetSkeletalMeshAsset())
+		return;
+	const bool bWalking = GetVelocity().SizeSquared2D() > FMath::Square(30.0);
+	UAnimSequence* Clip = !CanAct() ? FallClip.Get() : bWalking ? WalkClip.Get()
+		: State == EYellSoldierState::Healing && CareClip ? CareClip.Get() : AimClip.Get();
+	if (Clip && Clip != ActiveClip)
+	{
+		ActiveClip = Clip;
+		GetMesh()->PlayAnimation(Clip, CanAct());
+	}
+	PoseRifle(bWalking);
+	const double Now = GetWorld()->GetTimeSeconds();
+	if (!CanAct() && (!FallClip || Now - FallStartedAt >= FallClip->GetPlayLength()) &&
+		(Hips.IsNone() || GetMesh()->GetSocketLocation(Hips).Z > GetActorLocation().Z - 27.))
+	{
+		GetMesh()->SetRelativeRotation(FRotator(0,-90,90));
+		GetMesh()->SetRelativeLocation(FVector(0,0,-72));
+	}
+	if (CanAct() && bWalking && Now >= NextFootstep && GetCharacterMovement()->IsMovingOnGround())
+	{
+		NextFootstep = Now + .34;
+		const FName Step = FName(*FString::Printf(TEXT("Paso%d"), FMath::RandRange(1,3)));
+		if (auto* Battle = GetWorld()->GetAuthGameMode<AYellBattle>())
+			Battle->PlayEffect(Step, GetActorLocation(), .34f);
+	}
+	if (CanAct() && !bWalking && !bMedic && VisibleOpponent.IsValid())
+	{
+		const FRotator Look(0, (VisibleOpponent->GetActorLocation() - GetActorLocation()).Rotation().Yaw, 0);
+		SetActorRotation(FMath::RInterpTo(GetActorRotation(), Look, DeltaSeconds, 8.f));
+	}
+}
+
+void AYellSoldier::PoseRifle(const bool bWalking)
+{
+	if (!Rifle->GetStaticMesh()) return;
+	Rifle->SetVisibility(CanAct());
+	if (!CanAct()) return;
+	const FVector Grip = GetMesh()->GetSocketLocation(RightHand);
+	FVector Aim = GetActorForwardVector();
+	if (bWalking)
+		Aim = (Aim - FVector(0,0,.7)).GetSafeNormal();
+	else if (!LeftHand.IsNone())
+	{
+		const FVector ToSupport = (GetMesh()->GetSocketLocation(LeftHand) - Grip).GetSafeNormal();
+		if (!ToSupport.IsNearlyZero()) Aim = ToSupport;
+	}
+	const FQuat Orientation = FRotationMatrix::MakeFromXZ(Aim, FVector::UpVector).ToQuat()
+		* FQuat::FindBetweenNormals(BarrelAxis, FVector::ForwardVector);
+	Rifle->SetWorldLocationAndRotation(Grip + Orientation.RotateVector(FVector(0,0,5)), Orientation);
+}
+
+FVector AYellSoldier::Muzzle() const
+{
+	return Rifle->IsVisible() ? Rifle->GetComponentTransform().TransformPosition(BarrelTip) : Eye();
 }
 
 bool AYellSoldier::CanAct() const
@@ -88,6 +233,8 @@ FVector AYellSoldier::Eye() const
 
 void AYellSoldier::UpdateVisuals()
 {
+	if (GetMesh()->GetSkeletalMeshAsset())
+		return;
 	const FLinearColor Tint = !CanAct() ? FLinearColor(.3f, .25f, .12f) : bMedic ? Healer : Team == 0 ? Ally : Opponent;
 	UMaterialInterface* Base = LoadObject<UMaterialInterface>(nullptr,
 		TEXT("/Game/LevelPrototyping/Materials/M_FlatCol.M_FlatCol"));
@@ -154,11 +301,16 @@ void AYellSoldier::Hurt(const float Damage, const double Time)
 	{
 		return;
 	}
+	LastHit = Time;
 	Health = FMath::Max(Health - Damage * (Time < BoostUntil ? 0.86f : 1.0f), 0.0f);
 	if (Health <= 0)
 	{
 		Stop();
 		State = EYellSoldierState::Downed;
+		FallStartedAt = Time;
+		GetMesh()->VisibilityBasedAnimTickOption = EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
+		if (auto* Battle = GetWorld()->GetAuthGameMode<AYellBattle>())
+			Battle->PlayEffect(TEXT("Caida"), GetActorLocation(), .7f);
 		VisibleOpponent.Reset();
 		DownUntil = Time + 22.0;
 		GetCharacterMovement()->MaxWalkSpeed = 0;
@@ -175,13 +327,17 @@ void AYellSoldier::Treat(const double Time)
 {
 	if (State == EYellSoldierState::Downed && Time < DownUntil)
 	{
+		DownedBy.Reset();
 		State = EYellSoldierState::FollowingOrder;
+		GetMesh()->SetRelativeRotation(FRotator(0,-90,0));
+		GetMesh()->SetRelativeLocation(StandingMeshOffset);
+		GetMesh()->VisibilityBasedAnimTickOption = EVisibilityBasedAnimTickOption::AlwaysTickPose;
 		Health = 44;
 		GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Pawn, ECR_Block);
 		Torso->SetRelativeRotation(FRotator::ZeroRotator);
 		Torso->SetRelativeLocation(FVector(0, 0, -22));
 		Helmet->SetRelativeLocation(FVector(0, 0, 43));
-		Visor->SetVisibility(true);
+		Visor->SetVisibility(!GetMesh()->GetSkeletalMeshAsset());
 		UpdateVisuals();
 	}
 	else if (CanAct())
@@ -194,10 +350,11 @@ void AYellSoldier::Step(AYellBattle& Battle, const double Time)
 {
 	if (State == EYellSoldierState::Downed && Time >= DownUntil)
 	{
+		if (DownedBy.IsValid()) ++DownedBy->Eliminations;
+		DownedBy.Reset();
 		State = EYellSoldierState::Dead;
 		SetActorEnableCollision(false);
-		SetActorHiddenInGame(true);
-		SetLifeSpan(1.5f);
+		SetLifeSpan(4.f);
 	}
 	if (!CanAct())
 	{
@@ -221,7 +378,6 @@ void AYellSoldier::Step(AYellBattle& Battle, const double Time)
 				Stop();
 				Patient->Treat(Time);
 				NextAction = Time + 1.35;
-				DrawDebugLine(GetWorld(), Eye(), Patient->GetActorLocation(), FColor::Green, false, .35f, 0, 3);
 			}
 			return;
 		}

@@ -256,7 +256,8 @@ try:
                                unreal.TextureGroup.TEXTUREGROUP_UI,
                                unreal.TextureMipGenSettings.TMGS_NO_MIPMAPS)
 
-    # ---- VFX sprites ---------------------------------------------------    vfx = os.path.join(ROOT, "Assets", "VFX", "Textures")
+    # ---- VFX sprites ---------------------------------------------------
+    vfx = os.path.join(ROOT, "Assets", "VFX", "Textures")
     for entry in sorted(os.listdir(vfx)):
         if entry.lower().endswith(".png"):
             import_texture(os.path.join(vfx, entry), ART + "/Textures/VFX",

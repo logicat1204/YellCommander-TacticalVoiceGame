@@ -1,0 +1,5 @@
+Name,Textura,ZonaTag,Ubicacion_uu,Tam_px
+BaseAliada,T_MM_Estructura_BaseAliada,Zona.Trinchera,"(X=3400,Y=12600)",50
+FlancoIzquierdo,T_MM_Estructura_FlancoIzq,Zona.FlancoIzquierdo,"(X=10000,Y=6200)",46
+FlancoDerecho,T_MM_Estructura_FlancoDer,Zona.FlancoDerecho,"(X=10000,Y=19200)",46
+BaseEnemiga,T_MM_Estructura_BaseEnemiga,Zona.BunkerEste,"(X=21400,Y=12600)",50
