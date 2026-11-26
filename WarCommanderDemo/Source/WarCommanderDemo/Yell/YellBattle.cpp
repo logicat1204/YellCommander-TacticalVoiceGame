@@ -7,7 +7,6 @@
 
 #include "Algo/Count.h"
 #include "Engine/StaticMeshActor.h"
-#include "NavigationSystem.h"
 #include "TimerManager.h"
 #include "YellPlayer.h"
 
@@ -46,12 +45,26 @@ AYellBattle::AYellBattle()
 	EffectAttenuation->Attenuation.FalloffDistance = 2450.f;
 }
 
+void AYellBattle::InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage)
+{
+	Super::InitGame(MapName, Options, ErrorMessage);
+	bMenuScene = UGameplayStatics::HasOption(Options, TEXT("YellMenu"));
+	Difficulty = FYellRivalPolicy::Parse(UGameplayStatics::ParseOption(Options, TEXT("YellDifficulty")));
+	RivalPolicy = FYellRivalPolicy::For(Difficulty);
+}
+
 void AYellBattle::BeginPlay()
 {
 	Super::BeginPlay();
 	if (auto* Nav = FNavigationSystem::GetCurrent<UNavigationSystemV1>(GetWorld()))
 		Nav->OnNavigationGenerationFinishedDelegate.AddUniqueDynamic(this, &AYellBattle::CacheWalkableTerrain);
 	BuildArena();
+	if (bMenuScene)
+	{
+		BuildMenuScene();
+		GetWorldTimerManager().SetTimer(BattleTimer, this, &AYellBattle::UpdateMenuScene, .24f, true);
+		return;
+	}
 	SpawnSquad(0, TEXT("Alfa"), false, 4);
 	SpawnSquad(0, TEXT("Bravo"), false, 4);
 	SpawnSquad(0, TEXT("Médico"), true, 2);
@@ -61,10 +74,13 @@ void AYellBattle::BeginPlay()
 	Personality = FMath::RandRange(0, 2);
 	SpawnSquad(1, TEXT("Parche"), true, 2);
 	NextRivalDecision = GetWorld()->GetTimeSeconds() + 6.0;
+	MedicalClockStart = GetWorld()->GetTimeSeconds();
+	NextIntelReport = GetWorld()->GetTimeSeconds() + RivalPolicy.IntelInterval;
 	OrderListener = OnOrder.AddUObject(this, &AYellBattle::ApplyOrder);
 	bArenaReady = true;
 	GetWorldTimerManager().SetTimer(BattleTimer, this, &AYellBattle::UpdateBattle, 0.24f, true);
-	UE_LOG(LogYellBattle, Display, TEXT("Valle Alfa listo. %d pelotones y %d unidades."), Squads.Num(), AllUnits.Num());
+	UE_LOG(LogYellBattle, Display, TEXT("Valle Alfa listo. Dificultad %s, informe rival cada %.2fs."),
+		FYellRivalPolicy::Name(Difficulty), RivalPolicy.IntelInterval);
 }
 
 void AYellBattle::EndPlay(const EEndPlayReason::Type Reason)
@@ -93,7 +109,7 @@ void AYellBattle::PlayEffect(const FName Name, const FVector& Location, const fl
 
 void AYellBattle::RestartPlayer(AController* NewPlayer)
 {
-	if (NewPlayer && !NewPlayer->GetPawn())
+	if (!bMenuScene && NewPlayer && !NewPlayer->GetPawn())
 	{
 		RestartPlayerAtTransform(NewPlayer, FTransform(FRotator::ZeroRotator, SpawnPosition(0)));
 	}
@@ -302,6 +318,15 @@ void AYellBattle::ApplyOrder(const FYellOrder& Order, const TArray<AYellSoldier*
 		const FVector Goal = Order.Zone == EYellZone::None ? Soldier->GetActorLocation()
 			: Position(Order.Zone, Soldier->Team) + FormationOffset(Index, Soldier->Team);
 		Soldier->Accept(Order, Goal, Goal + FVector(Soldier->Team == 0 ? 470 : -470, 180, 0));
+		if (Soldier->Team == 1 && Order.Action == EYellAction::Attack && Order.Zone == EYellZone::Rival)
+		{
+			if (const auto* Lane = AttackLanes.Find(Order.Squad); Lane && *Lane != EYellZone::Center)
+			{
+				const FVector Approach = RivalApproach(*Lane);
+				if (Soldier->GetActorLocation().X > Approach.X + 140.)
+					Soldier->SetMarchWaypoint(Approach + FVector(0, FormationOffset(Index, 1).Y, 0));
+			}
+		}
 	}
 }
 
@@ -329,7 +354,9 @@ FString AYellBattle::TryReinforce(const uint8 Team, const bool bMedical, const F
 	case FYellReinforcements::EResult::Full: return TEXT("Ya hay cinco pelotones activos.");
 	case FYellReinforcements::EResult::MedicAlreadyActive: return TEXT("Ya existe un pelotón médico activo.");
 	case FYellReinforcements::EResult::Busy: return TEXT("La terminal ya tiene una solicitud en curso o en espera.");
-	default: return TEXT("Refuerzos en camino. Ojalá traigan café.");
+	default:
+		UpdateTerminalAppearance(Team);
+		return TEXT("Refuerzos en camino. Ojalá traigan café.");
 	}
 }
 
@@ -351,6 +378,8 @@ void AYellBattle::DamageCore(const uint8 Team, const float Damage)
 	if (BaseHealth[Team] == 0)
 	{
 		WinningTeam = 1 - Team;
+		UpdateTerminalAppearance(0);
+		UpdateTerminalAppearance(1);
 		if (Cores[Team].IsValid())
 		{
 			Cores[Team]->SetActorHiddenInGame(true);
@@ -402,16 +431,24 @@ AYellSoldier* AYellBattle::FindOpponent(AYellSoldier& Soldier) const
 	return Result;
 }
 
+FYellMedicalStatus AYellBattle::MedicalStatus(uint8 Team) const
+{
+	return MedicalSupplies[Team].Status(GetWorld()->GetTimeSeconds() - MedicalClockStart);
+}
+
 AYellSoldier* AYellBattle::FindPatient(const AYellSoldier& Medic) const
 {
 	AYellSoldier* Best = nullptr;
 	double BestScore = -1e9;
+	const double Now = GetWorld()->GetTimeSeconds();
+	const auto Supplies = MedicalSupplies[Medic.Team].Status(Now - MedicalClockStart);
 	for (const auto& Unit : AllUnits)
 	{
 		if (!Unit.IsValid() || Unit.Get() == &Medic || Unit->Team != Medic.Team || !Unit->IsAlive()
 			|| (!Medic.CurrentOrder.Target.IsNone() && Medic.CurrentOrder.Target != Unit->Squad)
 			|| (!Medic.CurrentOrder.TargetSoldier.IsNone() && Medic.CurrentOrder.TargetSoldier != Unit->CallSign)
-			|| Unit->Health >= 97 || (Medic.CurrentOrder.Action == EYellAction::Revive && Unit->CanAct()))
+			|| (Unit->CanAct() ? (Unit->Health >= 97 || Supplies.Healing <= 0.f || Medic.CurrentOrder.Action == EYellAction::Revive)
+				: (!Unit->CanBeRevived(Now) || Supplies.Revives == 0)))
 		{
 			continue;
 		}
@@ -431,6 +468,22 @@ AYellSoldier* AYellBattle::FindPatient(const AYellSoldier& Medic) const
 		}
 	}
 	return Best;
+}
+
+void AYellBattle::TreatPatient(const AYellSoldier& Medic, AYellSoldier& Patient, double Now)
+{
+	if (!Medic.bMedic || !Medic.CanAct() || Medic.Team != Patient.Team || &Medic == &Patient
+		|| WinningTeam != INDEX_NONE) return;
+	auto& Supplies = MedicalSupplies[Medic.Team];
+	const double Elapsed = Now - MedicalClockStart;
+	if (Patient.CanBeRevived(Now))
+	{
+		if (Supplies.SpendRevive(Elapsed)) Patient.Revive();
+	}
+	else if (Patient.CanAct() && Medic.CurrentOrder.Action != EYellAction::Revive)
+	{
+		Patient.Health += Supplies.SpendHealing(Elapsed, FMath::Min(18.f, 100.f - Patient.Health));
+	}
 }
 
 bool AYellBattle::FindCover(const AYellSoldier& Soldier, const AActor& Threat, FVector& Goal) const
@@ -513,7 +566,7 @@ FString AYellBattle::RivalPersonality() const
 void AYellBattle::ReportContact(const FContact& Contact)
 {
 	const FName Key = Contact.Squad.IsNone() ? FName(*YellOrder::ZoneText(Contact.Lane)) : Contact.Squad;
-	Intelligence.Add(Key, Contact);
+	Observations.Add(Key, Contact);
 }
 
 void AYellBattle::UpdateBattle()
@@ -560,6 +613,8 @@ void AYellBattle::UpdateBattle()
 		}
 	}
 	RequestRivalReinforcements(Now);
+	UpdateTerminalAppearance(0);
+	UpdateTerminalAppearance(1);
 	for (const auto& WeakUnit : AllUnits)
 	{
 		if (WinningTeam != INDEX_NONE)
@@ -582,31 +637,15 @@ void AYellBattle::UpdateBattle()
 			else
 			{
 				const FContact Contact = { Opponent->CallSign, LaneOf(Opponent->GetActorLocation()), Now, 0.95f, Opponent->bMedic ? 0.f : Opponent->Health * 20.f, static_cast<float>(FMath::Clamp(1. - FVector::Dist2D(Opponent->GetActorLocation(), CorePosition(1)) / FVector::Dist2D(CorePosition(0), CorePosition(1)), 0., 1.)) };
-				if (Unit->CurrentOrder.Action == EYellAction::Scout)
-				{
-					if (!PendingReports.Contains(Unit))
-					{
-						PendingReports.Add(Unit, { Contact, Now + 3.0 });
-					}
-				}
-				else
-				{
-					ReportContact(Contact);
-				}
+				ReportContact(Contact);
 			}
 		}
 	}
-	for (auto It = PendingReports.CreateIterator(); It; ++It)
+	if (Now >= NextIntelReport)
 	{
-		if (!It.Key().IsValid() || !It.Key()->CanAct())
-		{
-			It.RemoveCurrent();
-		}
-		else if (Now >= It.Value().SendAt)
-		{
-			ReportContact(It.Value().Contact);
-			It.RemoveCurrent();
-		}
+		for (const auto& Entry : Observations) Intelligence.Add(Entry.Key, Entry.Value);
+		Observations.Reset();
+		NextIntelReport = Now + RivalPolicy.IntelInterval;
 	}
 	if (Now >= NextRivalDecision && WinningTeam == INDEX_NONE)
 	{
@@ -698,7 +737,7 @@ void AYellBattle::RunRival(const double Now)
 			break;
 		}
 	};
-	bool bRaidAssigned = false;
+	int32 AttackingSquads = 0;
 	for (const auto& S : Squads)
 	{
 		if (S.Team != 1 || S.bMedic || !S.Ready()) continue;
@@ -709,11 +748,15 @@ void AYellBattle::RunRival(const double Now)
 				return M.IsValid() && M->CanAct() &&
 					FVector::DistSquared2D(M->GetActorLocation(), Position(EYellZone::Home, 1)) < FMath::Square(560.);
 			});
-			Send(S, bAtPerimeter || &S == Interceptor ? EYellAction::Defend : EYellAction::Retreat, EYellZone::Home);
+			AttackLanes.Remove(S.Id);
+			const auto Move = RivalPolicy.Decide(true, bAtPerimeter || &S == Interceptor,
+				false, false, false, false, 0.f, false, false);
+			Send(S, Move == EYellRivalMove::Guard ? EYellAction::Defend : EYellAction::Retreat, EYellZone::Home);
 			continue;
 		}
 		if (Threat >= .6f && &S == Interceptor)
 		{
+			AttackLanes.Remove(S.Id);
 			Send(S, EYellAction::Defend, EYellZone::Home);
 			continue;
 		}
@@ -723,13 +766,15 @@ void AYellBattle::RunRival(const double Now)
 		{
 			const auto& L = Lanes[I];
 			const float Ratio = (L.Own+10)/(L.Seen+10);
-			float Score = L.Seen < 1 ? 65 : Ratio < .65 ? 8 : Ratio <= 1.35 ? 95 : 45;
-			Score *= FMath::FRandRange(.85f,1.15f);
-			Score -= L.Assigned * 60;
+			// A contested lane with a plausible advantage can justify a second squad.
+			float Score = L.Seen < 1 ? 65 : Ratio < .65 ? 25 : Ratio <= 1.6 ? 100 : 75;
+			Score -= L.Assigned * (L.SeenCount > L.OwnCount ? 24.f : 42.f);
 			for (const auto& M : S.Members)
 				if (M.IsValid() && M->CanAct()) { if (Index(M->CurrentOrder.Zone)==I) Score += 24; break; }
 			if (Score > Top) { Top = Score; Best = I; }
 		}
+		const auto* CommittedLane = AttackLanes.Find(S.Id);
+		if (CommittedLane) Best = Index(*CommittedLane);
 		auto& L = Lanes[Best];
 		++L.Assigned;
 		const auto Zone = EYellZone(int32(EYellZone::Left)+Best);
@@ -749,21 +794,38 @@ void AYellBattle::RunRival(const double Now)
 		const auto& Nearby = Lanes[Index(LaneOf(SquadPosition))];
 		const bool bOvermatched = Nearby.SeenCount >= 2 && Nearby.SeenCount > Nearby.OwnCount &&
 			Nearby.Seen > Nearby.Own * 1.1f && bTakingFire;
-		if (bOvermatched || (bTakingFire && Healthy < 2))
-		{
-			Send(S, EYellAction::Retreat, EYellZone::Home);
-			continue;
-		}
 		const auto& Center = Lanes[1];
 		const bool bRouteContested = Best != 1 && Center.SeenCount >= S.Ready() &&
 			Center.Seen > Center.Own * 1.15f;
-		const bool bNumbers = L.OwnCount > L.SeenCount && L.SeenCount > 0 && L.Own >= L.Seen * 1.35f;
-		const bool bClearOpportunity = L.SeenCount == 0 && L.Seen < L.Own * .6f && !bTakingFire && Healthy >= 3;
-		const bool Push = !bRaidAssigned && Threat < .55f && Fighters >= 2 && Healthy >= 2 &&
-			Formation >= 2 && !bRouteContested && (bNumbers || bClearOpportunity);
-		bRaidAssigned |= Push;
-		Send(S, Push ? EYellAction::Attack : EYellAction::Defend, Push ? EYellZone::Rival : Zone);
-		if (!Push) L.Support += S.Ready();
+		const bool bHasCover = Threat < .55f && AttackingSquads < FMath::Min(2, Fighters - 1);
+		const bool bStaged = Healthy >= 2 && (Formation >= 2 || (CommittedLane && SquadPosition.X < -950.));
+		const int32 OwnCount = CommittedLane ? Nearby.OwnCount : L.OwnCount;
+		const int32 SeenCount = CommittedLane ? FMath::Max(L.SeenCount, Nearby.SeenCount) : L.SeenCount;
+		const float Strength = CommittedLane ? Nearby.Own : L.Own;
+		const float Opposition = CommittedLane ? FMath::Max(L.Seen, Nearby.Seen) : L.Seen;
+		const int32 ClearFormation = RivalPolicy.Aggression >= .8f ? 2 : 3;
+		const bool bNumbers = OwnCount > SeenCount && SeenCount > 0;
+		const bool bClearOpportunity = SeenCount == 0 && Opposition < Strength * .6f && !bTakingFire
+			&& Healthy >= ClearFormation && OwnCount >= ClearFormation;
+		const float StrengthRatio = (Strength + 1.f) / FMath::Max(1.f, Opposition);
+		const auto Move = RivalPolicy.Decide(false, false, bOvermatched || (bTakingFire && Healthy < 2),
+			bStaged, bHasCover, bRouteContested, StrengthRatio, bNumbers, bClearOpportunity);
+		if (Move == EYellRivalMove::Assault)
+		{
+			++AttackingSquads;
+			AttackLanes.Add(S.Id, Zone);
+			Send(S, EYellAction::Attack, EYellZone::Rival);
+		}
+		else
+		{
+			AttackLanes.Remove(S.Id);
+			if (Move == EYellRivalMove::Withdraw) Send(S, EYellAction::Retreat, EYellZone::Home);
+			else
+			{
+				Send(S, EYellAction::Defend, Zone);
+				L.Support += S.Ready();
+			}
+		}
 	}
 	for (const auto& S : Squads)
 	{

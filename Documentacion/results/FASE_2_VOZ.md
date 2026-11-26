@@ -32,6 +32,6 @@ La compilación Win64 `Development Editor` terminó correctamente. Pasaron 18 pr
 
 ## Reproducción
 
-Desde la raíz, abre el juego con `pwsh -File .\Scripts\Start-YellCommander.ps1 -Transfer`. F2 permite elegir C. Selecciona radio con R, mantén V mientras dices «Alfa, avancen por el centro» y suelta al terminar. F3 muestra la transcripción, la interpretación, el resultado y los tiempos. Para repetir la comparación sintética, ejecuta `..\.venv\Scripts\python.exe -m yell.phase2_voice` desde `AI NLP` con `espeakng-loader==0.2.4`, los checkpoints A y C y los modelos `whisper-tiny` y `whisper-base` en `AI NLP/models`.
+La prueba original se llevó a cabo con DistilBERT (C). Para repetir la comparación sintética, ejecuta `..\.venv\Scripts\python.exe -m yell.phase2_voice` desde `AI NLP` con `espeakng-loader==0.2.4`, los checkpoints A y C y los modelos `whisper-tiny` y `whisper-base` en `AI NLP/models`. Para probar el flujo actual de voz en el juego, usa el [lanzador de SujetoLugar](../../README.md#jugar-en-windows) y consulta los tiempos con F3.
 
 Para repetir la automatización Unreal, usa Valle Alfa en modo juego con `-ExecCmds="Automation RunTests YellCommander"` y `-TestExit="Automation Test Queue Empty"`. Con el servicio local iniciado, agrega `-YellTestService` y `-YellTestWave="ruta a alfa.wav"`. Usa `-YellTestModelC` para radio con C o `-YellTestNearby` para la prueba fuera de alcance con A. `-YellProbeMicrophone` habilita el sondeo físico durante la automatización.

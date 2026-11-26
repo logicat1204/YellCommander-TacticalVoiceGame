@@ -1,4 +1,3 @@
-import argparse
 import base64
 import binascii
 import io
@@ -9,13 +8,12 @@ import time
 import wave
 from dataclasses import asdict
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from pathlib import Path
 
-from .contract import ROOT, UNITS, command, matches, tokens
-from .inference import SPEECH_FEEDBACK, LocalLLM, RetrySpeech, SpeechToText, infer
+from .contract import UNITS, command, matches, tokens
+from .inference import SPEECH_FEEDBACK, infer
 from .metrics import semantic
 from .live_commands import direct_order, negated_order, repair_spoken_order
-from .decision import WEIGHTS, DecisionModel, decide, features, resolve, wire
+from .decision import decide, features, resolve, wire
 
 MAX_BODY = 3_200_000
 MAX_PENDING = 4
@@ -344,56 +342,5 @@ class Handler(BaseHTTPRequestHandler):
             self.respond(503, {"request_id": request_id, "error": str(exc)})
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--port", type=int, default=18765)
-    parser.add_argument("--llama-port", type=int, default=8081)
-    trained = ROOT / "models" / "scratch-fase1.pt"
-    parser.add_argument("--checkpoint", type=Path, default=trained if trained.is_file() else ROOT / "models" / "scratch.pt")
-    parser.add_argument("--whisper", type=Path)
-    parser.add_argument("--whisper-retry", type=Path)
-    parser.add_argument("--transfer", type=Path)
-    parser.add_argument("--no-llm", action="store_true")
-    parser.add_argument("--decisiones", action="store_true")
-    parser.add_argument("--dialogue-config",type=Path,default=Path(__file__).with_name("dialogue.json"))
-    parser.add_argument("--threshold", type=float, default=0.70)
-    args = parser.parse_args()
-    if not 0 <= args.threshold <= 1:
-        parser.error("El umbral debe estar entre 0 y 1")
-    models = {} if args.no_llm else {"B": LocalLLM(args.llama_port)}
-    if args.checkpoint.is_file() and not args.decisiones:
-        from .scratch import ScratchModel
-
-        models["A"] = ScratchModel(args.checkpoint)
-        print(f"Pesos activos de A: {args.checkpoint.name}", flush=True)
-    if args.transfer:
-        from .transfer import TransferModel
-
-        models["C"] = TransferModel(args.transfer)
-    dialogue = None
-    if args.decisiones:
-        from .dialogue import Dialogue
-        dialogue = Dialogue(args.dialogue_config)
-    speech = SpeechToText(args.whisper) if args.whisper else None
-    retry = RetrySpeech(args.whisper_retry) if speech and args.whisper_retry else None
-    verifier = models.get("C")
-    weights = ROOT / "models" / "transfer-c"
-    if "B" in models and verifier is None and (weights / "transfer.safetensors").is_file():
-        try:
-            from .transfer import TransferModel
-        except ImportError:
-            print("Verificación de B disponible con A. Faltan dependencias opcionales de C.", flush=True)
-        else:
-            verifier = TransferModel(weights)
-    with Service(args.port, models, speech, args.threshold, retry, verifier) as server:
-        if args.decisiones:
-            models.clear()
-            models["D"] = DecisionModel() if (WEIGHTS/"actual.txt").is_file() else None
-            server.dialogue = dialogue
-            print("Clasificador entrenado" if models["D"] else "Vista previa hasta entrenar el clasificador",flush=True)
-        print(f"Yell Commander en http://127.0.0.1:{args.port}. Modelos configurados: {', '.join(models)}", flush=True)
-        server.serve_forever()
-
-
 if __name__ == "__main__":
-    main()
+    raise SystemExit("El servicio oficial es SujetoLugar. Usa Jugar.cmd -SoloServicio desde la raíz del proyecto.")

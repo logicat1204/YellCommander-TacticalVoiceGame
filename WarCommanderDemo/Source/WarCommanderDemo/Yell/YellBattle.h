@@ -5,7 +5,9 @@
 #include "GameFramework/GameModeBase.h"
 #include "NavMesh/NavMeshBoundsVolume.h"
 #include "YellOrder.h"
+#include "YellMedicalSupplies.h"
 #include "YellReinforcements.h"
+#include "YellRivalStrategy.h"
 #include "YellBattle.generated.h"
 
 class AStaticMeshActor;
@@ -44,7 +46,8 @@ public:
 	void Accept(const FYellOrder& Order, const FVector& Goal, const FVector& Alternate);
 	void Step(class AYellBattle& Battle, double Time);
 	void Hurt(float Damage, double Time);
-	void Treat(double Time);
+	void EquipMenuRadio();
+	void SetMarchWaypoint(const FVector& Point) { MarchWaypoint = Point; }
 	bool CanAct() const;
 	bool IsAlive() const { return State != EYellSoldierState::Dead; }
 	FVector Eye() const;
@@ -67,6 +70,9 @@ public:
 	AYellSoldier* LastSeenOpponent() const { return VisibleOpponent.Get(); }
 
 private:
+	friend class AYellBattle;
+	bool CanBeRevived(double Time) const;
+	void Revive();
 	void Move(const FVector& Goal, double Time, float Acceptance = 65.0f);
 	void Stop();
 	void UpdateVisuals();
@@ -77,6 +83,7 @@ private:
 	UPROPERTY() TObjectPtr<UStaticMeshComponent> Helmet;
 	UPROPERTY() TObjectPtr<UStaticMeshComponent> Visor;
 	UPROPERTY() TObjectPtr<UStaticMeshComponent> Rifle;
+	UPROPERTY() TObjectPtr<UStaticMeshComponent> MenuRadio;
 	UPROPERTY() TObjectPtr<UAnimSequence> WalkClip;
 	UPROPERTY() TObjectPtr<UAnimSequence> AimClip;
 	UPROPERTY() TObjectPtr<UAnimSequence> CareClip;
@@ -91,6 +98,7 @@ private:
 	TWeakObjectPtr<AYellSoldier> VisibleOpponent;
 	FVector Secondary = FVector::ZeroVector;
 	FVector LastMoveGoal = FVector::ZeroVector;
+	TOptional<FVector> MarchWaypoint;
 	double NextMove = 0.0;
 	double NextAction = 0.0;
 	double DownUntil = 0.0;
@@ -121,6 +129,7 @@ class AYellBattle : public AGameModeBase
 
 public:
 	AYellBattle();
+	virtual void InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage) override;
 	virtual void BeginPlay() override;
 	virtual void RestartPlayer(AController* NewPlayer) override;
 	virtual void EndPlay(const EEndPlayReason::Type Reason) override;
@@ -134,10 +143,12 @@ public:
 	FVector CorePosition(uint8 Team) const;
 	FVector TerminalPosition(uint8 Team) const;
 	static FVector2D ArenaExtent();
+	const TArray<FBox2D>& ArenaRoads() const { return Roads; }
 	const TArray<FVector>& WalkableTriangles() const { return NavTriangles; }
 	void PlayEffect(FName Name, const FVector& Location, float Volume = 1.f);
 	float CoreHealth(uint8 Team) const { return BaseHealth[Team]; }
 	float NextReinforcement(uint8 Team) const;
+	FYellMedicalStatus MedicalStatus(uint8 Team) const;
 	float NextMorale() const;
 	int32 Winner() const { return WinningTeam; }
 	void DamageCore(uint8 Team, float Damage);
@@ -145,6 +156,7 @@ public:
 	bool Visible(const AYellSoldier& Observer, const AActor& Target, const FVector& Point, bool bCone = true) const;
 	AYellSoldier* FindOpponent(AYellSoldier& Soldier) const;
 	AYellSoldier* FindPatient(const AYellSoldier& Medic) const;
+	void TreatPatient(const AYellSoldier& Medic, AYellSoldier& Patient, double Now);
 	bool FindCover(const AYellSoldier& Soldier, const AActor& Threat, FVector& Goal) const;
 	const TArray<FYellSquad>& Roster() const { return Squads; }
 	const TArray<TWeakObjectPtr<AYellSoldier>>& Units() const { return AllUnits; }
@@ -152,6 +164,9 @@ public:
 	bool IsTerminalNearby(uint8 Team, const FVector& Location) const;
 	float VoiceRadius() const { return NearbyRadius; }
 	FString RivalPersonality() const;
+	bool IsMenuScene() const { return bMenuScene; }
+	EYellDifficulty GetDifficulty() const { return Difficulty; }
+	AActor* GetMenuCamera() const { return MenuCamera.Get(); }
 
 	FYellTacticalEvent OnOrder;
 
@@ -166,13 +181,12 @@ private:
 		float Proximity = 0.f;
 	};
 
-	struct FScoutReport
-	{
-		FContact Contact;
-		double SendAt = 0.0;
-	};
-
 	void BuildArena();
+	void BuildCampProps(uint8 Team);
+	void UpdateTerminalAppearance(uint8 Team);
+	FVector RivalApproach(EYellZone Lane) const;
+	void BuildMenuScene();
+	void UpdateMenuScene();
 	void UpdateCoreAppearance(uint8 Team);
 	void UpdateBattle();
 	void RunRival(double Now);
@@ -190,17 +204,30 @@ private:
 	TArray<TWeakObjectPtr<AYellSoldier>> AllUnits;
 	TArray<FVector> CoverPositions;
 	TArray<FVector> NavTriangles;
+	TArray<FBox2D> Roads;
 	UPROPERTY() TMap<FName, TObjectPtr<USoundBase>> Effects;
 	UPROPERTY() TObjectPtr<USoundAttenuation> EffectAttenuation;
 	TMap<FGuid, double> SeenRequests;
 	TMap<FName, FContact> Intelligence;
-	TMap<TWeakObjectPtr<AYellSoldier>, FScoutReport> PendingReports;
+	TMap<FName, FContact> Observations;
+	TMap<FName, EYellZone> AttackLanes;
+	TWeakObjectPtr<AActor> MenuCamera;
+	TWeakObjectPtr<AYellSoldier> MenuOperator;
+	EYellDifficulty Difficulty = EYellDifficulty::Normal;
+	FYellRivalPolicy RivalPolicy = FYellRivalPolicy::For(EYellDifficulty::Normal);
+	double NextIntelReport = 0.;
+	double NextMenuRadio = 5.;
+	bool bMenuScene = false;
 	TMap<TWeakObjectPtr<AYellSoldier>, double> PlayerIntel;
 	FTimerHandle BattleTimer;
 	FDelegateHandle OrderListener;
 	TWeakObjectPtr<AStaticMeshActor> Cores[2];
 	TWeakObjectPtr<AStaticMeshActor> Bunkers[2][3];
+	TWeakObjectPtr<UMaterialInstanceDynamic> TerminalDisplays[2];
+	uint8 TerminalState[2] = {255, 255};
 	FYellReinforcements Reinforcements[2];
+	FYellMedicalSupplies MedicalSupplies[2];
+	double MedicalClockStart = 0.;
 	float BaseHealth[2] = {500.0f, 500.0f};
 	double MoraleReady = 0.0;
 	double NextRivalDecision = 0.0;

@@ -14,9 +14,7 @@
 #include "Interfaces/IHttpResponse.h"
 #include "Kismet/GameplayStatics.h"
 #include "Misc/Base64.h"
-#include "Misc/CommandLine.h"
 #include "Misc/FileHelper.h"
-#include "Misc/Parse.h"
 #include "Misc/Paths.h"
 #include "Serialization/JsonSerializer.h"
 #include "Sound/SoundBase.h"
@@ -35,6 +33,13 @@
 
 DEFINE_LOG_CATEGORY_STATIC(LogYellVoice, Log, All);
 
+namespace
+{
+	// The v1 service contract identifies SujetoLugar as model D.
+	constexpr TCHAR SujetoLugarModel[] = TEXT("D");
+	constexpr TCHAR SujetoLugarEndpoint[] = TEXT("http://127.0.0.1:18766/v1/interpret");
+}
+
 AYellCommander::AYellCommander()
 {
 	GetCapsuleComponent()->InitCapsuleSize(34.0f, 88.0f);
@@ -42,7 +47,15 @@ AYellCommander::AYellCommander()
 	View->SetupAttachment(GetCapsuleComponent());
 	View->SetRelativeLocation(FVector(0, 0, 68));
 	View->bUsePawnControlRotation = true;
-	View->SetFieldOfView(94);
+	View->SetFieldOfView(StandardFOV);
+	View->SetEnableFirstPersonFieldOfView(true);
+	View->SetFirstPersonFieldOfView(StandardFOV);
+	View->SetEnableFirstPersonScale(true);
+	View->SetFirstPersonScale(.43f);
+	RadioModel = CreateDefaultSubobject<USceneComponent>(TEXT("RadioViewModel"));
+	RadioModel->SetupAttachment(View);
+	BinocularModel = CreateDefaultSubobject<USceneComponent>(TEXT("BinocularViewModel"));
+	BinocularModel->SetupAttachment(View);
 	GetCharacterMovement()->MaxWalkSpeed = 640;
 	GetCharacterMovement()->JumpZVelocity = 440;
 }
@@ -56,6 +69,7 @@ void AYellCommander::Hurt(const float Damage)
 	HitPoints = FMath::Max(0.0f, HitPoints - Damage);
 	if (HitPoints <= 0)
 	{
+		ResetEquipment();
 		GetCharacterMovement()->DisableMovement();
 		GetWorldTimerManager().SetTimer(RespawnTimer, this, &AYellCommander::Recover, 4.0f);
 	}
@@ -98,27 +112,8 @@ void AYellPlayer::BeginPlay()
 	Super::BeginPlay();
 	if (IsLocalController())
 	{
-		SetInputMode(FInputModeGameOnly());
-		FString Configured;
-		if (FParse::Value(FCommandLine::Get(), TEXT("YellModels="), Configured))
-		{
-			TArray<FString> Names;
-			Configured.ParseIntoArray(Names, TEXT(","));
-			AvailableModels.Reset();
-			for (const FString& Name : Names)
-			{
-				if (Name == TEXT("A") || Name == TEXT("B") || Name == TEXT("C") || Name == TEXT("D"))
-				{
-					AvailableModels.AddUnique(Name);
-				}
-			}
-			if (AvailableModels.IsEmpty())
-			{
-				AvailableModels.Add(TEXT("A"));
-			}
-			AvailableModels.Sort();
-			Model = AvailableModels.Contains(TEXT("A")) ? TEXT("A") : AvailableModels[0];
-		}
+		SetInputMode(FInputModeGameOnly().SetConsumeCaptureMouseDown(false));
+		LoadMenuPreferences();
 	}
 }
 
@@ -134,19 +129,43 @@ void AYellPlayer::SetupInputComponent()
 	InputComponent->BindKey(EKeys::SpaceBar, IE_Pressed, this, &AYellPlayer::Jump);
 	InputComponent->BindKey(EKeys::V, IE_Pressed, this, &AYellPlayer::StartRecording);
 	InputComponent->BindKey(EKeys::V, IE_Released, this, &AYellPlayer::StopRecording);
+	InputComponent->BindKey(EKeys::RightMouseButton, IE_Pressed, this, &AYellPlayer::RaiseBinoculars);
+	InputComponent->BindKey(EKeys::RightMouseButton, IE_Released, this, &AYellPlayer::LowerBinoculars);
 	InputComponent->BindKey(EKeys::T, IE_Pressed, this, &AYellPlayer::OpenConsole);
 	InputComponent->BindKey(EKeys::R, IE_Pressed, this, &AYellPlayer::ToggleRadio);
-	InputComponent->BindKey(EKeys::F2, IE_Pressed, this, &AYellPlayer::ToggleModel);
 	InputComponent->BindKey(EKeys::F3, IE_Pressed, this, &AYellPlayer::ToggleDetails);
 	InputComponent->BindKey(EKeys::F4, IE_Pressed, this, &AYellPlayer::ToggleSpeech);
 	InputComponent->BindKey(EKeys::E, IE_Pressed, this, &AYellPlayer::Reinforce);
 	InputComponent->BindKey(EKeys::F, IE_Pressed, this, &AYellPlayer::ReinforceMedic);
-	InputComponent->BindKey(EKeys::F5, IE_Pressed, this, &AYellPlayer::RestartBattle);
+	InputComponent->BindKey(EKeys::F5, IE_Pressed, this, &AYellPlayer::ReturnAfterBattle);
+	InputComponent->BindKey(EKeys::Escape, IE_Pressed, this, &AYellPlayer::EscapeMenu).bExecuteWhenPaused = true;
 }
 
 void AYellPlayer::PlayerTick(const float DeltaTime)
 {
 	Super::PlayerTick(DeltaTime);
+	const AYellBattle* Battle = GetWorld()->GetAuthGameMode<AYellBattle>();
+	if (IsLocalController() && Battle && Battle->IsMenuScene())
+	{
+		if (auto* Camera = Battle->GetMenuCamera(); Camera && GetViewTarget() != Camera)
+		{
+			SetViewTarget(Camera);
+		}
+		if (!HasMenu() && !bMenuTransition)
+		{
+			ShowMenu(EMenuPage::Main);
+		}
+		return;
+	}
+	if (HasMenu() || bMenuTransition) return;
+	if (Battle && Battle->Winner() != INDEX_NONE && IsLocalController())
+	{
+		if (bRecording) FinishRecording(EYellVoiceResult::Interrupted);
+		CloseConsole();
+		ResetEquipmentInput();
+		ShowMenu(EMenuPage::Result);
+		return;
+	}
 	UpdateAudio();
 	if (bRecording)
 	{
@@ -178,18 +197,28 @@ void AYellPlayer::PlayerTick(const float DeltaTime)
 			NextMicUpdate = Now + 0.10;
 		}
 	}
-	if (!Console && CanTransmit())
+	auto* Commander = GetPawn<AYellCommander>();
+	const bool bCanPlay = !Console && CanTransmit();
+	if (bCanPlay)
 	{
+		const EYellEquipment Requested = bRadio && bTalkHeld ? EYellEquipment::Radio
+			: bBinocularsHeld ? EYellEquipment::Binoculars : EYellEquipment::None;
+		Commander->UpdateEquipment(GetViewTarget() == Commander ? Requested : EYellEquipment::None, DeltaTime);
 		const FRotationMatrix Axes(FRotator(0, GetControlRotation().Yaw, 0));
 		const float Forward = static_cast<float>(IsInputKeyDown(EKeys::W)) - static_cast<float>(IsInputKeyDown(EKeys::S));
 		const float Right = static_cast<float>(IsInputKeyDown(EKeys::D)) - static_cast<float>(IsInputKeyDown(EKeys::A));
 		GetPawn()->AddMovementInput(Axes.GetScaledAxis(EAxis::X), Forward);
 		GetPawn()->AddMovementInput(Axes.GetScaledAxis(EAxis::Y), Right);
 	}
+	else if (Commander)
+	{
+		ResetEquipmentInput();
+	}
 }
 
 void AYellPlayer::FlushPressedKeys()
 {
+	ResetEquipmentInput();
 	if (bRecording)
 	{
 		FinishRecording(EYellVoiceResult::FocusLost);
@@ -199,6 +228,9 @@ void AYellPlayer::FlushPressedKeys()
 
 void AYellPlayer::EndPlay(const EEndPlayReason::Type Reason)
 {
+	ResetEquipmentInput();
+	CloseMenu();
+	PausedResponses.Reset();
 	CloseConsole();
 	if (Capture)
 	{
@@ -227,11 +259,35 @@ bool AYellPlayer::CanTransmit() const
 {
 	const AYellCommander* Commander = GetPawn<AYellCommander>();
 	const AYellBattle* Battle = GetWorld()->GetAuthGameMode<AYellBattle>();
-	return Commander && Commander->Health() > 0 && Battle && Battle->Winner() == INDEX_NONE;
+	return Commander && Commander->Health() > 0 && Battle && !Battle->IsMenuScene()
+		&& !bMenuTransition && Battle->Winner() == INDEX_NONE;
 }
 
-void AYellPlayer::LookX(const float Value) { if (!Console) AddYawInput(Value * 0.42f); }
-void AYellPlayer::LookY(const float Value) { if (!Console) AddPitchInput(-Value * 0.42f); }
+float AYellPlayer::LookScale() const
+{
+	const auto* Commander = GetPawn<AYellCommander>();
+	return Sensitivity * (Commander ? FMath::Lerp(1.f, .34f, Commander->OpticBlend()) : 1.f);
+}
+
+void AYellPlayer::LookX(const float Value) { if (!Console && !HasMenu()) AddYawInput(Value * LookScale()); }
+void AYellPlayer::LookY(const float Value) { if (!Console && !HasMenu()) AddPitchInput(-Value * LookScale()); }
+
+void AYellPlayer::RaiseBinoculars()
+{
+	if (!HasMenu() && !Console && CanTransmit()) bBinocularsHeld = true;
+}
+
+void AYellPlayer::LowerBinoculars()
+{
+	bBinocularsHeld = false;
+}
+
+void AYellPlayer::ResetEquipmentInput()
+{
+	bTalkHeld = false;
+	bBinocularsHeld = false;
+	if (auto* Commander = GetPawn<AYellCommander>()) Commander->ResetEquipment();
+}
 void AYellPlayer::Jump() { if (CanTransmit()) GetPawn<AYellCommander>()->Jump(); }
 void AYellPlayer::ToggleDetails() { bDetails = !bDetails; }
 void AYellPlayer::ToggleSpeech()
@@ -245,23 +301,11 @@ void AYellPlayer::ToggleSpeech()
 }
 void AYellPlayer::ToggleRadio()
 {
-	if (!bRecording)
+	if (!bRecording && !bTalkHeld)
 	{
 		bRadio = !bRadio;
 	}
 }
-void AYellPlayer::ToggleModel()
-{
-	if (!bRecording)
-	{
-		Model = AvailableModels[(AvailableModels.IndexOfByKey(Model) + 1) % AvailableModels.Num()];
-		const TCHAR* Label = Model == TEXT("A") ? TEXT("Modelo A · BiGRU")
-			: Model == TEXT("B") ? TEXT("Modelo B · Qwen local")
-			: Model == TEXT("D") ? TEXT("Modelo D · Decisiones") : TEXT("Modelo C · DistilBERT");
-		Feedback(Label, false);
-	}
-}
-
 void AYellPlayer::Reinforce() { AskReinforcement(false); }
 void AYellPlayer::ReinforceMedic() { AskReinforcement(true); }
 
@@ -274,12 +318,12 @@ void AYellPlayer::AskReinforcement(const bool bMedical)
 	}
 }
 
-void AYellPlayer::RestartBattle()
+void AYellPlayer::ReturnAfterBattle()
 {
 	const AYellBattle* Battle = GetWorld()->GetAuthGameMode<AYellBattle>();
 	if (Battle && Battle->Winner() != INDEX_NONE)
 	{
-		UGameplayStatics::OpenLevel(this, FName(*UGameplayStatics::GetCurrentLevelName(this, true)));
+		ReturnToMenu();
 	}
 }
 
@@ -329,7 +373,7 @@ void AYellPlayer::CloseConsole()
 		Console.Reset();
 		ConsoleInput.Reset();
 		bShowMouseCursor = false;
-		SetInputMode(FInputModeGameOnly());
+		SetInputMode(FInputModeGameOnly().SetConsumeCaptureMouseDown(false));
 	}
 }
 
@@ -400,10 +444,12 @@ void AYellPlayer::SubmitTestWave(TArray<uint8> Wave)
 
 void AYellPlayer::StartRecording()
 {
-	if (bRecording || Console || !CanTransmit() || !CanQueueRequest())
+	if (bRecording || bTalkHeld || Console || HasMenu() || !CanTransmit())
 	{
 		return;
 	}
+	bTalkHeld = true;
+	if (!CanQueueRequest()) return;
 	VoiceContext = MakeContext();
 	CaptureStarted = FPlatformTime::Seconds();
 	MicLevel = 0;
@@ -425,6 +471,7 @@ void AYellPlayer::StartRecording()
 
 void AYellPlayer::StopRecording()
 {
+	bTalkHeld = false;
 	FinishRecording(!HasVoiceFocus() ? EYellVoiceResult::FocusLost
 		: !CanTransmit() ? EYellVoiceResult::Interrupted : EYellVoiceResult::Ready);
 }
@@ -504,7 +551,7 @@ void AYellPlayer::Send(const FString& Message, TArray<uint8> Wave, const FYellRe
 	TSharedRef<FJsonObject> Body = MakeShared<FJsonObject>();
 	const FString Id = Context.Id.ToString(EGuidFormats::DigitsWithHyphens);
 	Body->SetStringField(TEXT("request_id"), Id);
-	Body->SetStringField(TEXT("model"), Model);
+	Body->SetStringField(TEXT("model"), SujetoLugarModel);
 	TArray<TSharedPtr<FJsonValue>> Names;
 	for (const FString& Name : Battle->AlliedNames())
 	{
@@ -517,41 +564,35 @@ void AYellPlayer::Send(const FString& Message, TArray<uint8> Wave, const FYellRe
 		Soldiers.Add(MakeShared<FJsonValueString>(Name));
 	}
 	Body->SetArrayField(TEXT("soldiers"), MoveTemp(Soldiers));
-	if (Model == TEXT("D"))
+	const bool bUsingRadio = Context.Channel == EYellChannel::Radio;
+	Body->SetBoolField(TEXT("radio"), bUsingRadio);
+	auto Roster = MakeShared<FJsonObject>();
+	for (const auto& Member : Battle->Units())
 	{
-		const bool bUsingRadio = Context.Channel == EYellChannel::Radio;
-		Body->SetBoolField(TEXT("radio"), bUsingRadio);
-		auto Roster = MakeShared<FJsonObject>();
-		for (const auto& Member : Battle->Units())
+		if (!Member.IsValid() || Member->Team != 0 || !Member->IsAlive()) continue;
+		auto Entry = MakeShared<FJsonObject>();
+		const double Distance = FVector::Dist(Context.Origin, Member->GetActorLocation());
+		Entry->SetStringField(TEXT("nombre"), Member->GivenName);
+		Entry->SetStringField(TEXT("peloton"), Member->Squad.ToString());
+		Entry->SetNumberField(TEXT("distancia"), Distance);
+		Entry->SetBoolField(TEXT("disponible"), Member->CanAct() && (bUsingRadio || Distance <= Battle->VoiceRadius()));
+		Entry->SetStringField(TEXT("estado"), Member->CanAct() ? TEXT("en servicio") : TEXT("incapacitado"));
+		Entry->SetStringField(TEXT("historia"), Member->Background);
+		Entry->SetNumberField(TEXT("salud"), FMath::RoundToInt(Member->Health));
+		Entry->SetNumberField(TEXT("bajas"), Member->Eliminations);
+		const auto* Seen = Member->LastSeenOpponent();
+		Entry->SetBoolField(TEXT("ve_rival"), Seen && Seen->CanAct());
+		Roster->SetObjectField(Member->CallSign.ToString(), Entry);
+	}
+	Body->SetObjectField(TEXT("roster"), Roster);
+	double Closest = TNumericLimits<double>::Max();
+	for (const EYellZone Zone : {EYellZone::Home, EYellZone::Rival, EYellZone::Left, EYellZone::Center, EYellZone::Right})
+	{
+		const double Distance = FVector::DistSquared2D(Context.Origin, Battle->Position(Zone, 0));
+		if (Distance < Closest)
 		{
-			if (!Member.IsValid() || Member->Team != 0 || !Member->IsAlive()) continue;
-			auto Entry = MakeShared<FJsonObject>();
-			const double Distance = FVector::Dist(Context.Origin,Member->GetActorLocation());
-			Entry->SetStringField(TEXT("nombre"),Member->GivenName);
-			Entry->SetStringField(TEXT("peloton"),Member->Squad.ToString());
-			Entry->SetNumberField(TEXT("distancia"),Distance);
-			Entry->SetBoolField(TEXT("disponible"),Member->CanAct() && (bUsingRadio || Distance <= Battle->VoiceRadius()));
-			Entry->SetStringField(TEXT("estado"),Member->CanAct() ? TEXT("en servicio") : TEXT("incapacitado"));
-			if (!Member->Background.IsEmpty())
-			{
-				Entry->SetStringField(TEXT("historia"), Member->Background);
-				Entry->SetNumberField(TEXT("salud"), FMath::RoundToInt(Member->Health));
-				Entry->SetNumberField(TEXT("bajas"), Member->Eliminations);
-				const auto* Seen = Member->LastSeenOpponent();
-				Entry->SetBoolField(TEXT("ve_rival"), Seen && Seen->CanAct());
-			}
-			Roster->SetObjectField(Member->CallSign.ToString(),Entry);
-		}
-		Body->SetObjectField(TEXT("roster"),Roster);
-		double Closest = TNumericLimits<double>::Max();
-		for (const EYellZone Zone : {EYellZone::Home,EYellZone::Rival,EYellZone::Left,EYellZone::Center,EYellZone::Right})
-		{
-			const double Distance = FVector::DistSquared2D(Context.Origin,Battle->Position(Zone,0));
-			if (Distance < Closest)
-			{
-				Closest = Distance;
-				Body->SetStringField(TEXT("here"),YellOrder::ZoneText(Zone).Replace(TEXT(" "),TEXT("_")));
-			}
+			Closest = Distance;
+			Body->SetStringField(TEXT("here"), YellOrder::ZoneText(Zone).Replace(TEXT(" "), TEXT("_")));
 		}
 	}
 	Body->SetStringField(Wave.IsEmpty() ? TEXT("text") : TEXT("wav"), Wave.IsEmpty() ? Message : FBase64::Encode(Wave));
@@ -559,13 +600,12 @@ void AYellPlayer::Send(const FString& Message, TArray<uint8> Wave, const FYellRe
 	FJsonSerializer::Serialize(Body, TJsonWriterFactory<>::Create(&Content));
 	const FHttpRequestRef Request = FHttpModule::Get().CreateRequest();
 	Requests.Add(Context.Id, Request);
-	const bool bSlots = FParse::Param(FCommandLine::Get(), TEXT("YellSujetoLugar"));
-	Request->SetURL(bSlots ? TEXT("http://127.0.0.1:18766/v1/interpret") : TEXT("http://127.0.0.1:18765/v1/interpret"));
+	Request->SetURL(SujetoLugarEndpoint);
 	Request->SetVerb(TEXT("POST"));
 	Request->SetHeader(TEXT("Content-Type"), TEXT("application/json; charset=utf-8"));
 	Request->SetContentAsString(Content);
 	Request->SetTimeout(44.0f);
-	Request->OnProcessRequestComplete().BindUObject(this, &AYellPlayer::OnResponse, Context, Model, FPlatformTime::Seconds());
+	Request->OnProcessRequestComplete().BindUObject(this, &AYellPlayer::OnResponse, Context, FPlatformTime::Seconds());
 	if (!Request->ProcessRequest() && Requests.Remove(Context.Id))
 	{
 		Feedback(TEXT("No se pudo iniciar la conexión al servicio local."), false);
@@ -573,10 +613,18 @@ void AYellPlayer::Send(const FString& Message, TArray<uint8> Wave, const FYellRe
 }
 
 void AYellPlayer::OnResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, const bool bSucceeded,
-	const FYellRequestContext Context, const FString RequestedModel, const double SentAt)
+	const FYellRequestContext Context, const double SentAt)
 {
 	if (Requests.FindRef(Context.Id) != Request)
 	{
+		return;
+	}
+	if (HasMenu() && MenuPage == EMenuPage::Pause && !bMenuTransition)
+	{
+		PausedResponses.Emplace([this, Request, Response, bSucceeded, Context, SentAt]
+		{
+			OnResponse(Request, Response, bSucceeded, Context, SentAt);
+		});
 		return;
 	}
 	Requests.Remove(Context.Id);
@@ -585,7 +633,7 @@ void AYellPlayer::OnResponse(FHttpRequestPtr Request, FHttpResponsePtr Response,
 	{
 		FJsonObject Failure;
 		Failure.SetStringField(TEXT("request_id"), Context.Id.ToString(EGuidFormats::DigitsWithHyphens));
-		Failure.SetStringField(TEXT("model"), RequestedModel);
+		Failure.SetStringField(TEXT("model"), SujetoLugarModel);
 		Failure.SetStringField(TEXT("error_code"), Code);
 		LogResult(Failure, Context, false, RealMs);
 	};
@@ -607,7 +655,7 @@ void AYellPlayer::OnResponse(FHttpRequestPtr Request, FHttpResponsePtr Response,
 		return;
 	}
 	if (!Envelope->TryGetStringField(TEXT("request_id"), ReportedId) || !FGuid::Parse(ReportedId, ParsedId)
-		|| ParsedId != Context.Id || !Envelope->TryGetStringField(TEXT("model"), ReportedModel) || ReportedModel != RequestedModel
+		|| ParsedId != Context.Id || !Envelope->TryGetStringField(TEXT("model"), ReportedModel) || ReportedModel != SujetoLugarModel
 		|| !CanTransmit())
 	{
 		Feedback(TEXT("La respuesta llegó fuera de contexto."), false);
@@ -677,8 +725,8 @@ void AYellPlayer::OnResponse(FHttpRequestPtr Request, FHttpResponsePtr Response,
 					Reply.RequestId = Context.Id;
 					Reply.InputAt = Context.ReleasedAt > 0 ? Context.ReleasedAt : SentAt;
 					Reply.Speaker = Source;
-					Reply.bRadioSpatial = !bLocal && FParse::Param(FCommandLine::Get(), TEXT("YellSujetoLugar"));
-					Reply.bSpatial = bLocal || Reply.bRadioSpatial;
+					Reply.bRadioSpatial = !bLocal;
+					Reply.bSpatial = true;
 					Reply.Duration = PCM.Num() / 48000.f;
 					Reply.PCM = MoveTemp(PCM);
 					(*Talk)->SetBoolField(TEXT("audio_queued"), true);

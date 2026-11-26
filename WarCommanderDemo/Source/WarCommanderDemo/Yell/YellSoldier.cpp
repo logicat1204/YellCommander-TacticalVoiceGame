@@ -78,7 +78,7 @@ void AYellSoldier::Initialize(const uint8 InTeam, const FName InSquad, const int
 	};
 	const TArray<FString>* Group = Names.Find(Squad);
 	GivenName = Group && Group->IsValidIndex(Index) ? (*Group)[Index] : CallSign.ToString();
-	if (Team == 0 && FParse::Param(FCommandLine::Get(), TEXT("YellSujetoLugar")))
+	if (Team == 0)
 	{
 		static const TCHAR* Stories[] = { TEXT("Antes reparaba radios con mi padre."), TEXT("Crecí junto a un río."),
 			TEXT("Toco la guitarra en mis días libres."), TEXT("Mi hermano y yo teníamos una panadería.") };
@@ -176,6 +176,9 @@ void AYellSoldier::Tick(float DeltaSeconds)
 		GetMesh()->PlayAnimation(Clip, CanAct());
 	}
 	PoseRifle(bWalking);
+	if (MenuRadio && !RightHand.IsNone())
+		MenuRadio->SetWorldLocationAndRotation(GetMesh()->GetSocketLocation(RightHand) + FVector(0, 0, 5),
+			GetActorRotation().Quaternion());
 	const double Now = GetWorld()->GetTimeSeconds();
 	if (!CanAct() && (!FallClip || Now - FallStartedAt >= FallClip->GetPlayLength()) &&
 		(Hips.IsNone() || GetMesh()->GetSocketLocation(Hips).Z > GetActorLocation().Z - 27.))
@@ -200,8 +203,8 @@ void AYellSoldier::Tick(float DeltaSeconds)
 void AYellSoldier::PoseRifle(const bool bWalking)
 {
 	if (!Rifle->GetStaticMesh()) return;
-	Rifle->SetVisibility(CanAct());
-	if (!CanAct()) return;
+	Rifle->SetVisibility(CanAct() && !MenuRadio);
+	if (!Rifle->IsVisible()) return;
 	const FVector Grip = GetMesh()->GetSocketLocation(RightHand);
 	FVector Aim = GetActorForwardVector();
 	if (bWalking)
@@ -214,6 +217,27 @@ void AYellSoldier::PoseRifle(const bool bWalking)
 	const FQuat Orientation = FRotationMatrix::MakeFromXZ(Aim, FVector::UpVector).ToQuat()
 		* FQuat::FindBetweenNormals(BarrelAxis, FVector::ForwardVector);
 	Rifle->SetWorldLocationAndRotation(Grip + Orientation.RotateVector(FVector(0,0,5)), Orientation);
+}
+
+void AYellSoldier::EquipMenuRadio()
+{
+	auto MakePart = [this](USceneComponent* Parent, const TCHAR* MeshPath, const FVector& Offset, const FVector& Scale)
+	{
+		auto* Part = NewObject<UStaticMeshComponent>(this);
+		Part->SetupAttachment(Parent);
+		Part->SetStaticMesh(LoadObject<UStaticMesh>(nullptr, MeshPath));
+		Part->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		Part->SetCanEverAffectNavigation(false);
+		Part->SetRelativeLocation(Offset);
+		Part->SetRelativeScale3D(Scale);
+		Part->RegisterComponent();
+		if (auto* Metal = LoadObject<UMaterialInterface>(nullptr,
+			TEXT("/Game/Yell/Art/Materials/Instances/Tileable/MI_Metal.MI_Metal")))
+			Part->SetMaterial(0, Metal);
+		return Part;
+	};
+	MenuRadio = MakePart(GetRootComponent(), TEXT("/Engine/BasicShapes/Cube.Cube"), FVector(12, 4, 44), FVector(.08, .055, .15));
+	MakePart(MenuRadio, TEXT("/Engine/BasicShapes/Cylinder.Cylinder"), FVector(-28, 0, 82), FVector(.19, .25, .75));
 }
 
 FVector AYellSoldier::Muzzle() const
@@ -256,6 +280,7 @@ void AYellSoldier::Accept(const FYellOrder& Order, const FVector& Goal, const FV
 {
 	CurrentOrder = Order;
 	Destination = Goal;
+	MarchWaypoint.Reset();
 	Secondary = Alternate;
 	bAlternate = false;
 	CoverUntil = 0.0;
@@ -323,27 +348,25 @@ void AYellSoldier::Hurt(const float Damage, const double Time)
 	}
 }
 
-void AYellSoldier::Treat(const double Time)
+bool AYellSoldier::CanBeRevived(const double Time) const
 {
-	if (State == EYellSoldierState::Downed && Time < DownUntil)
-	{
-		DownedBy.Reset();
-		State = EYellSoldierState::FollowingOrder;
-		GetMesh()->SetRelativeRotation(FRotator(0,-90,0));
-		GetMesh()->SetRelativeLocation(StandingMeshOffset);
-		GetMesh()->VisibilityBasedAnimTickOption = EVisibilityBasedAnimTickOption::AlwaysTickPose;
-		Health = 44;
-		GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Pawn, ECR_Block);
-		Torso->SetRelativeRotation(FRotator::ZeroRotator);
-		Torso->SetRelativeLocation(FVector(0, 0, -22));
-		Helmet->SetRelativeLocation(FVector(0, 0, 43));
-		Visor->SetVisibility(!GetMesh()->GetSkeletalMeshAsset());
-		UpdateVisuals();
-	}
-	else if (CanAct())
-	{
-		Health = FMath::Min(100.0f, Health + 18.0f);
-	}
+	return State == EYellSoldierState::Downed && Time < DownUntil;
+}
+
+void AYellSoldier::Revive()
+{
+	DownedBy.Reset();
+	State = EYellSoldierState::FollowingOrder;
+	GetMesh()->SetRelativeRotation(FRotator(0,-90,0));
+	GetMesh()->SetRelativeLocation(StandingMeshOffset);
+	GetMesh()->VisibilityBasedAnimTickOption = EVisibilityBasedAnimTickOption::AlwaysTickPose;
+	Health = 44;
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Pawn, ECR_Block);
+	Torso->SetRelativeRotation(FRotator::ZeroRotator);
+	Torso->SetRelativeLocation(FVector(0, 0, -22));
+	Helmet->SetRelativeLocation(FVector(0, 0, 43));
+	Visor->SetVisibility(!GetMesh()->GetSkeletalMeshAsset());
+	UpdateVisuals();
 }
 
 void AYellSoldier::Step(AYellBattle& Battle, const double Time)
@@ -376,11 +399,12 @@ void AYellSoldier::Step(AYellBattle& Battle, const double Time)
 			else if (Time >= NextAction)
 			{
 				Stop();
-				Patient->Treat(Time);
+				Battle.TreatPatient(*this, *Patient, Time);
 				NextAction = Time + 1.35;
 			}
 			return;
 		}
+		if (State == EYellSoldierState::Healing) Stop();
 	}
 	if (Enemy && Health < 48 && Time >= CoverUntil + 2.0
 		&& Action != EYellAction::Hold && Action != EYellAction::Cancel
@@ -420,6 +444,17 @@ void AYellSoldier::Step(AYellBattle& Battle, const double Time)
 		return;
 	}
 	FVector Goal = bAlternate ? Secondary : Destination;
+	if (MarchWaypoint.IsSet())
+	{
+		if (FVector::DistSquared2D(MarchWaypoint.GetValue(), GetActorLocation()) < FMath::Square(170.))
+			MarchWaypoint.Reset();
+		else
+		{
+			State = EYellSoldierState::Moving;
+			Move(MarchWaypoint.GetValue(), Time, 100.);
+			return;
+		}
+	}
 	if (FVector::DistSquared2D(Goal, GetActorLocation()) <= FMath::Square(105.0))
 	{
 		if (Action != EYellAction::Patrol)

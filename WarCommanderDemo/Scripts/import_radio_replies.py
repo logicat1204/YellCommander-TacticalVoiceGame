@@ -8,7 +8,11 @@ import unreal
 
 source = Path(os.environ["YELL_REPLY_SOURCE"])
 tasks = []
-for cue in ("RadioCopiado", "RadioAclarar", "RadioMoral"):
+known_cues = ("RadioCopiado", "RadioAclarar", "RadioMoral", "RadioPatrulla")
+selected = os.getenv("YELL_REPLY_CUES")
+for cue in selected.split(",") if selected else known_cues:
+    if cue not in known_cues:
+        raise ValueError(f"Unknown radio cue: {cue}")
     task = unreal.AssetImportTask()
     task.filename = str(source / f"{cue}.wav")
     task.destination_path = "/Game/Yell/Audio"

@@ -14,10 +14,13 @@ class SWidget;
 class SEditableTextBox;
 class UAudioComponent;
 class UCameraComponent;
+class USceneComponent;
 class USoundBase;
 class USoundWaveProcedural;
 class UTexture2D;
 class AYellSoldier;
+enum class EYellDifficulty : uint8;
+enum class EYellEquipment : uint8 { None, Radio, Binoculars };
 
 UCLASS()
 class AYellCommander : public ACharacter
@@ -28,12 +31,26 @@ public:
 	AYellCommander();
 	void Hurt(float Damage);
 	float Health() const { return HitPoints; }
+	void UpdateEquipment(EYellEquipment Requested, float DeltaTime);
+	void ResetEquipment();
+	float OpticBlend() const { return Optics; }
 
 private:
+#if WITH_DEV_AUTOMATION_TESTS
+	friend class FYellEquipmentFlow;
+#endif
+	virtual void BeginPlay() override;
+	void BuildEquipmentModels();
 	void Recover();
 	UPROPERTY() TObjectPtr<UCameraComponent> View;
+	UPROPERTY() TObjectPtr<USceneComponent> RadioModel;
+	UPROPERTY() TObjectPtr<USceneComponent> BinocularModel;
 	FTimerHandle RespawnTimer;
 	float HitPoints = 100.0f;
+	float EquipmentLift = 0.f;
+	float Optics = 0.f;
+	EYellEquipment ActiveEquipment = EYellEquipment::None;
+	static constexpr float StandardFOV = 94.f;
 };
 
 UCLASS()
@@ -56,7 +73,6 @@ public:
 	FString VoiceDiagnostics;
 	float MicLevel = 0;
 	TArray<FString> Recent;
-	FString Model = TEXT("A");
 	bool bRadio = true;
 	bool bDetails = false;
 	bool bRecording = false;
@@ -66,43 +82,65 @@ public:
 	int32 PendingRequests() const { return Requests.Num(); }
 	int32 PendingAudio() const { return AudioQueue.Num() + (PlayingReply.IsSet() ? 1 : 0); }
 	void SubmitText(const FString& Message);
+	bool HasMenu() const { return MenuView.IsValid(); }
 #if WITH_DEV_AUTOMATION_TESTS
 	void SubmitTestWave(TArray<uint8> Wave);
 #endif
 
 private:
+#if WITH_DEV_AUTOMATION_TESTS
+	friend class FYellMenuFlow;
+	friend class FYellEquipmentFlow;
+#endif
+	enum class EMenuPage : uint8 { Main, Difficulty, Settings, Controls, Graphics, Audio, Pause, Result };
+	void ShowMenu(EMenuPage Page);
+	void CloseMenu();
+	void BackFromMenu();
+	void EscapeMenu();
+	void StartMatch(EYellDifficulty Difficulty);
+	void ReturnToMenu();
+	void LoadMenuPreferences();
+	EMenuPage MenuPage = EMenuPage::Main;
+	TSharedPtr<SWidget> MenuView;
+	float Sensitivity = .42f;
+	bool bMenuTransition = false;
+	TArray<TFunction<void()>> PausedResponses;
 	void LookX(float Value);
 	void LookY(float Value);
 	void Jump();
 	void ToggleRadio();
-	void ToggleModel();
 	void ToggleDetails();
 	void ToggleSpeech();
 	void Reinforce();
 	void ReinforceMedic();
 	void AskReinforcement(bool bMedical);
-	void RestartBattle();
+	void ReturnAfterBattle();
 	void OpenConsole();
 	void CloseConsole();
 	void Commit(const FText& Text, ETextCommit::Type CommitType);
 	void StartRecording();
 	void StopRecording();
 	void FinishRecording(EYellVoiceResult Cancellation);
+	void RaiseBinoculars();
+	void LowerBinoculars();
+	void ResetEquipmentInput();
+	float LookScale() const;
 	bool HasVoiceFocus() const;
 	void RecordVoiceResult(const FYellVoiceStats& Stats, EYellVoiceResult Result, const FString& Device, double HeldMs);
 	void Send(const FString& Message, TArray<uint8> Wave, const FYellRequestContext& Context);
 	void OnResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bSucceeded, FYellRequestContext Context,
-		FString RequestedModel, double SentAt);
+		double SentAt);
 	void Feedback(const FString& Message, bool bSpeak, const FYellRequestContext* Context = nullptr, double SentAt = 0);
 	void LogResult(const FJsonObject& Envelope, const FYellRequestContext& Context, bool bAccepted, double RealMs);
 	FYellRequestContext MakeContext() const;
 	bool CanTransmit() const;
 
 	TUniquePtr<FYellVoiceDevice> Capture;
+	bool bTalkHeld = false;
+	bool bBinocularsHeld = false;
 	double CaptureStarted = 0;
 	double NextMicUpdate = 0;
 	FYellRequestContext VoiceContext;
-	TArray<FString> AvailableModels = { TEXT("A"), TEXT("B") };
 	TMap<FGuid, FHttpRequestPtr> Requests;
 	TSharedPtr<SWidget> Console;
 	TSharedPtr<SEditableTextBox> ConsoleInput;
@@ -143,5 +181,6 @@ public:
 	virtual void DrawHUD() override;
 
 private:
+	void DrawBinocularView(float Opacity);
 	UPROPERTY() TMap<FName, TObjectPtr<UTexture2D>> HUDTextures;
 };

@@ -101,6 +101,9 @@ $session = $null
 $stopRequest = $null
 try {
     if (!$SoloServicio -and $PuertoServicio -ne 18766) { throw 'La partida usa el puerto 18766.' }
+    if (!(Test-Path -LiteralPath $python -PathType Leaf)) {
+        throw 'Falta el entorno .venv-decision. Sigue la sección de instalación del README principal.'
+    }
     $session = [IO.File]::Open($sessionPath, 'OpenOrCreate', 'ReadWrite', 'Read')
     $token = [Guid]::NewGuid().ToString('N')
     $stopRequest = Join-Path $runtime "detener-$token"
@@ -176,13 +179,15 @@ try {
     Assert-SessionRunning
     $service = Start-Process $python -WorkingDirectory $PSScriptRoot -ArgumentList $options -WindowStyle Hidden -PassThru -RedirectStandardError (Join-Path $logs 'servicio.err') -RedirectStandardOutput (Join-Path $logs 'servicio.out')
     $health = Wait-Ready $service "http://127.0.0.1:$PuertoServicio/health"
-    if ($health.profile -notlike 'sujeto_lugar*') { throw 'El servicio activo pertenece a otro perfil.' }
+    if ($health.profile -notin @('sujeto_lugar', 'sujeto_lugar_postura') -or 'D' -notin @($health.models)) {
+        throw 'El servicio activo no corresponde a SujetoLugar.'
+    }
     Assert-SessionRunning
     Write-Host "Para detener los servicios desde otra consola: Jugar.cmd -Detener -PuertoServicio $PuertoServicio"
     $watched = $service
     if (!$SoloServicio) {
         $project = Join-Path $root 'WarCommanderDemo/WarCommanderDemo.uproject'
-        $game = Start-Process $UnrealEditor -ArgumentList @(('"'+$project+'"'), '/Game/Yell/ValleAlfa', '-game', '-windowed', '-YellModels=D', '-YellSujetoLugar') -PassThru
+        $game = Start-Process $UnrealEditor -ArgumentList @(('"'+$project+'"'), '/Game/Yell/ValleAlfa?YellMenu=1', '-game', '-windowed') -PassThru
         $watched = $game
     }
     while (!$watched.WaitForExit(250)) { Assert-SessionRunning }

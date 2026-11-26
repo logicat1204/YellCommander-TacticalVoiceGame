@@ -1,0 +1,7 @@
+Asset,Grupo,Triangulos,Vertices,Ancho_m(X),Largo_m(Y),Alto_m(Z)
+SM_Terminal_Refuerzos,Props,1362,822,1.0,0.62,1.53
+SM_Cajas_Municion_Pila,Props,1204,728,1.24,0.87,0.71
+SM_Barril_Combustible,Props,480,256,0.59,0.6,0.9
+SM_Mastil_Radio,Props,568,326,4.24,3.67,6.29
+SM_Tienda_Militar,Props,228,146,5.86,4.26,2.21
+SM_Alambrada_4m,Props,1320,862,4.12,0.12,1.16

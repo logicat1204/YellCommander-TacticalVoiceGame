@@ -25,6 +25,7 @@ REPLIES = {
     "RadioCopiado": "¡Copiado, mi General!",
     "RadioAclarar": "Repita la orden, mi General.",
     "RadioMoral": "¡Por usted y por el almuerzo, mi General!",
+    "RadioPatrulla": "Bravo, sigan la ruta y mantengan el contacto por radio.",
 }
 
 
